@@ -1,0 +1,183 @@
+<html>
+  <head>
+    <title>Assignment 1</title>
+  </head>
+  <body>
+    <h1>Lab 1</h1>
+
+    <form action="https://www.wikipedia.org/">
+      <h2>Text fields</h2>
+
+      <label for="first-name"> First Name: </label>
+      <input
+        name="first-name"
+        id="first-name"
+        title="Please enter your first name"
+        placeholder="John"
+      />
+      <br />
+      Salary:
+      <input min="100000" value="123000" name="salary" type="number" />
+      <br />
+      Color:<br />
+      <input id="color-yellow" type="radio" name="color" />
+      <label for="color-yellow">Yellow</label> <br />
+      <input type="radio" name="color" /> Blue<br />
+      <label><input type="radio" name="color" /> Red</label>
+      <br />
+      Married:<br />
+      <input type="radio" name="married" /> Yes<br />
+      <input type="radio" name="married" /> No<br />
+      Movie Genres: <br />
+      <input type="checkbox" name="genre" /> Action<br />
+      <input type="checkbox" name="genre" /> Comedy<br />
+      <input type="checkbox" name="genre" /> Drama<br />
+      <input type="checkbox" name="genre" /> Horror<br />
+      Colors: <br />
+      <select name="color">
+        <option value="red">Red</option>
+        <option value="blue">Blue</option>
+        <option value="yellow" selected>Yellow</option></select
+      ><br />
+      Genres: <br />
+      <select name="genre" multiple>
+        <option value="action">Action</option>
+        <option value="comedy">Comedy</option>
+        <option value="drama">Drama</option>
+        <option value="horror">Horror</option></select
+      ><br />
+      Date of Birth:
+      <input
+        max="2023-01-23"
+        min="2023-01-07"
+        value="2023-01-10"
+        name="dob"
+        type="date"
+      />
+      <br />
+      <label
+        >Password:
+        <input name="psw" type="password" />
+      </label>
+      <h2>Textarea</h2>
+      <textarea name="bio" cols="30" rows="10">
+        
+        
+        
+        
+        The actual text that I want to edit</textarea
+      >
+      <h2>Buttons</h2>
+      <button type="submit">Submit</button>
+      <button type="button">Click me</button>
+      <button type="reset">Reset</button>
+    </form>
+
+    <h2>Anchors</h2>
+    Click here
+    <a href="https://www.wikipedia.org/">Wikipedia</a>
+    to go to Wikipedia.
+    <h2>Headings</h2>
+    Text documents are often broken up into several sections and subsections.
+    Each section is usually prefaced with a short title or heading that attempts
+    to summarize the topic of the section it precedes. For instance this
+    paragraph is preceded by the heading Heading Tags. The font of the section
+    headings are usually larger and bolder than their subsection headings. This
+    document uses headings to introduce topics such as HTML Documents, HTML
+    Tags, Heading Tags, etc. HTML heading tags can be used to format plain text
+    so that it renders in a browser as large headings. There are 6 heading tags:
+    h1, h2, h3, h4, h5, and h6. Tag h1 is the largest heading and h6 is the
+    smallest heading.
+    <h2>Paragraphs</h2>
+
+    <p>
+      This is the first paragraph. The paragraph tag is used to format vertical
+      gaps between long pieces of text like this one.
+    </p>
+    <p>
+      This is the second paragraph. Even though we added a deliberate gap
+      between the paragraph above and this paragraph, by default browsers render
+      them as one contiguous piece of text as shown here on the right.
+    </p>
+    <p>
+      This is the third paragraph. Wrap each paragraph with the paragraph tag to
+      tell browsers to render the gaps.
+    </p>
+    <h2>List Tags</h2>
+    <h3>Ordered List Tag</h3>
+    <h2>List Tags</h2>
+    <h3>Ordered List Tag</h3>
+    How to make pancakes:
+    <ol>
+      <li>Mix dry ingredients.</li>
+      <li>Add wet ingredients.</li>
+      <li>Stir to combine.</li>
+      <li>
+        Heat a skillet or griddle.
+
+        <ol>
+          <li>Mix dry ingredients.</li>
+          <li>Add wet ingredients.</li>
+          <li>Stir to combine.</li>
+          <li>Heat a skillet or griddle.</li>
+          <li>Pour batter onto the skillet.</li>
+          <li>Cook until bubbly on top.</li>
+          <li>Flip and cook the other side.</li>
+          <li>Serve and enjoy!</li>
+        </ol>
+      </li>
+      <li>Pour batter onto the skillet.</li>
+      <li>Cook until bubbly on top.</li>
+      <li>Flip and cook the other side.</li>
+      <li>Serve and enjoy!</li>
+    </ol>
+
+    <h3>Unordered List Tag</h3>
+    My favorite books (in no particular order)
+    <ul>
+      <li>Dune</li>
+      <li>Lord of the Rings</li>
+      <li>Ender's Game</li>
+      <li>Red Mars</li>
+      <li>The Forever War</li>
+    </ul>
+    <h2>Table Tag</h2>
+
+    <table border="1" width="100%">
+      <thead>
+        <tr>
+          <th>Quiz</th>
+          <th>Topic</th>
+          <th>Date</th>
+          <th>Grade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Q1</td>
+          <td>HTML</td>
+          <td>2/3/21</td>
+          <td>85</td>
+        </tr>
+        <tr>
+          <td>Q2</td>
+          <td>CSS</td>
+          <td>2/10/21</td>
+          <td>90</td>
+        </tr>
+        <tr>
+          <td>Q3</td>
+          <td>JavaScript</td>
+          <td>2/17/21</td>
+          <td>95</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">Average</td>
+          <td>90</td>
+        </tr>
+      </tfoot>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,152 @@
+<html>
+
+<head></head>
+
+<body>
+  <td valign="top">
+    <table>
+      <tbody>
+        <tr>
+          <select>
+            <option>SpeedGrader</option>
+            <option>Edit</option>
+            <option>Duplicate</option>
+            <option>Delete</option>
+            <option>Move To...</option>
+            <option>Send To...</option>
+            <option>Copy To...</option>
+            <option>Share to Commons</option>
+          </select>
+        </tr>
+        <hr>
+        <tr>
+          <h3><label for="assignment-name">Assignment Name</label></h3>
+          <input type="text" id="assignment-name" name="assignment-name" value="A1 - ENV + HTML"
+            placeholder="Assignment name">
+        </tr>
+        <br>
+        <br>
+        <tr>
+          <textarea id="assignment-description" name="assignment-description" rows="5" cols="30"
+            aria-label="Assignment Description" placeholder="Enter the assignment description.">This is the assignment description
+                  </textarea>
+          <br>
+        </tr>
+        <br>
+        <tr>
+          <label for="points">Points</label>
+          <br>
+          <input type="text" id="points" name="points" value="100" placeholder="points">
+          <br>
+          <br>
+        </tr>
+        <tr>
+          <label for="assignment-groups">Assignment Group</label>
+          <br>
+          <select id="assignment-groups" name="assignment-groups">
+            <option value="assignments">ASSIGNMENTS</option>
+            <option value="quizzes">QUIZZES</option>
+            <option value="exams">EXAMS</option>
+            <option value="projects">PROJECTS</option>
+          </select>
+          <br>
+          <br>
+        </tr>
+        <tr>
+          <label for="display-grade">Display Grade as</label>
+          <br>
+          <select id="display-grade" name="display-grade">
+            <option value="percentage">Percentage</option>
+            <option value="gpa">Grade Point Average (GPA)</option>
+          </select>
+          <br>
+          <br>
+        </tr>
+        <tr>
+          <label for="submission-type">Submission Type</label>
+          <br>
+          <select id="submission-type" name="submission-type">
+            <option value="online">Online</option>
+          </select>
+          <br>
+        </tr>
+        <tr>
+        <tr>
+          <td>
+            <label for="online-entry-options">Online Entry Options</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label><input type="checkbox" name="online-entry-options" value="text-entry"> Text Entry</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label><input type="checkbox" name="online-entry-options" value="website-url"> Website URL</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label><input type="checkbox" name="online-entry-options" value="media-recordings"> Media
+              Recordings</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label><input type="checkbox" name="online-entry-options" value="student-annotation"> Student
+              Annotation</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label><input type="checkbox" name="online-entry-options" value="file-uploads"> File Uploads</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <br>
+            Assign
+            <br>
+            <label for="assign-to">Assign to</label>
+            <br>
+            <input type="text" id="assign-to" name="assign-to" value="Everyone">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <br>
+            <label for="date-due">Due</label>
+            <br>
+            <input type="date" id="date-due" name="date-due" value="2021-01-01">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <br>
+            <label for="date-available-from">Available From</label>
+            <br>
+            <input type="date" id="date-available-from" name="date-available-from" value="2021-01-01">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <br>
+            <label for="date-until">Until</label>
+            <br>
+            <input type="date" id="date-until" name="date-until" value="2021-01-01">
+          </td>
+        </tr>
+  </td>
+  </tr>
+  </tbody>
+  </table>
+  <a href="/Kanbas/Courses/Assignments/screen.html">
+    <button>Cancel</button>
+  </a>
+  <a href="/Kanbas/Courses/Assignments/screen.html">
+    <button>Save</button>
+  </a>
+</body>
+
+</html>
