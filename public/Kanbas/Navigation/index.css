@@ -4,24 +4,28 @@
   padding: 0px;  margin: 0px;
   width: 80px;
   padding-top: 20px;
-
-  
+  height: 100% !important;
 }
 
+.wd-kanbas-navigation ul {
+  padding-left: 0px;
+}
 
 .wd-kanbas-navigation li {
   padding: 10px;     margin-bottom: 10px;
   font-size: 0.8em;  text-align: center;
+  height: 100% !important;
 }
 .wd-kanbas-navigation li.wd-active {
   background-color: white;
+  color:#d41b2c;
 }
 .wd-kanbas-navigation li.wd-active a{
 color: #d41b2c; 
 }
 
 .wd-kanbas-navigation li.wd-account a i{
-  color: white; 
+  color: gray; 
 }
 
 

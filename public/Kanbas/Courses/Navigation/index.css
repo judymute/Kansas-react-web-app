@@ -5,6 +5,8 @@
   width: 125px;
   margin: 0px;
   margin-left: 20px;
+  /* min-height: 100vh; */
+  height: 100%;
 
 }
 .wd-navigation li {
@@ -21,6 +23,7 @@
   color: black;
 }
 .wd-navigation a {
-color: red;
+  color: red;
+  font-size: 16px;
   text-decoration: none;
 }
