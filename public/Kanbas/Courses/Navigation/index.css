@@ -5,10 +5,12 @@
   width: 125px;
   margin: 0px;
   margin-left: 20px;
-  /* min-height: 100vh; */
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 10%;
 
 }
+
 .wd-navigation li {
   padding-left: 10px;
   margin-bottom: 10px;
@@ -23,7 +25,7 @@
   color: black;
 }
 .wd-navigation a {
-  color: red;
+  color: #b52828;
   font-size: 16px;
   text-decoration: none;
 }

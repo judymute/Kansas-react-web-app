@@ -20,6 +20,8 @@ import TemplateLiterals from "./string/TemplateLiterals";
 import House from "./json/House";
 import Spreading from "./json/Spreading";
 import Destructing from "./json/Destructing";
+import FunctionDestructing from "./json/FunctionDestructing";
+
 
 function JavaScript() { 
   console.log('Hello World!');
@@ -49,11 +51,12 @@ function JavaScript() {
       <FilterFunction/> 
       <br/>
 
-      <h2>JavaScript Object Notation(JSON)</h2>
+      <h2>JavaScript Object Notation(JSON):</h2>
       <JsonStringify/> 
       <House/>
       <Spreading/>
       <Destructing/> <br/>
+      <FunctionDestructing/>
 
       <h2>String:</h2>
       <TemplateLiterals/>

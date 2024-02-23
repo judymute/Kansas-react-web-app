@@ -8,7 +8,7 @@
 }
 
 .list-group-heading {
-  background-color: lightgray;
+  background-color: #f5f5f5;
   font-weight: 700;
   /* padding-left: 15px; */
   
@@ -20,7 +20,11 @@
 
 .list-group {
   padding: 20px;
-  
+  /* background-color: bisque; */
+}
+
+.link {
+  color: #b52828;
 }
 
 .button-container {
@@ -29,12 +33,16 @@
   width: 100px;
   
 }
+.publish-or-unpublish-button {
+  padding:0;
+  row-gap: 0;
+}
 
 .vertical-button-container .button-link {
   display: block;
   margin-bottom: 10px;
   text-decoration: none;
-  background-color: lightgray;
+  background-color: #f5f5f5;
   color: #000;
   text-align: left;
   padding: 0.5rem 1rem; 
@@ -56,7 +64,7 @@
 
 .horizontal-button-container {
   display: flex;
-  justify-content: start; /* Align buttons to the start of the container */
+  /* justify-content: start;  */
   gap: 0px; /* Adjust the space between buttons */
 }
 
@@ -64,7 +72,7 @@
   padding: 0.5rem 1rem; 
   font-size: 14;;
   border: 1px solid #ccc;
-  background-color: lightgray;
+  background-color: #f5f5f5;
   cursor: pointer; 
   border-radius: 5%;;
 }
@@ -72,7 +80,9 @@
 .module-button-container {
   display: flex;
   justify-content: end;
-  padding-right: 40px;
+  flex-direction: row;
+  padding-right: 30px;
+  /* background-color: aqua; */
 }
 
 .module-heading {
