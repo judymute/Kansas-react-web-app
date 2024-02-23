@@ -69,4 +69,15 @@ li {
   display: flex;
 }
 
+.right-side {
+  display: flex;
+  justify-content: flex-end;
+  text-align: end;
+  padding-right: 10px;
+}
+
+.d-block {
+  flex-grow: 1;
+  display:block !important
+}
 

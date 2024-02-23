@@ -89,7 +89,7 @@
           </div>
         </div>
         <div class="layout-column">
-          <div class="col wd-navigation">
+          <div class="col wd-navigation d-md-block d-sm-none">
             <div>
               <li class="wd-active">
                 <a href="/Kanbas/Courses/Home/screen.html"> Home</a>
@@ -142,7 +142,7 @@
             </div>
           </div>
           <div class="not-right-side">
-            <div class="row d-block">
+            <div class="row d-block center">
               <div class="module-button-container">
               <button class="btn module-button" type="button">Collapse All</button>
               <button class="btn module-button" type="button">View Progress</button>
@@ -366,53 +366,47 @@
             </div>     
             </div>
          
-            <div class="col d-lg-block d-md-none">
-              <div style="width: 250px">
-                <h5>Course Status</h5>
+            <div class="right-side col d-lg-block d-md-none d-sm-none d-xs-none">
+              <div>
                 <div class="row">
-                  <ul class="col-6 d-flex publish-or-unpublish-button">
+                  <h5 class="right-side">Course Status</h5>
+                  <ul class="right-side publish-or-unpublish-button">
                     <div class="horizontal-button-container">
                       <button class="publish-button">Unpublish</button>
-                    </div>  
-                  </ul>
-                  <ul class="col-6 d-flex publish-or-unpublish-button">
+                    </div> 
                     <div class="horizontal-button-container">
                       <button class="publish-button">Published</button>
                     </div> 
-                  </ul>  
-
+                  </ul>
+                  <ul class="right-side">
+                    <div class="vertical-button-container">
+                      <a href="#" class="button-link">Import Existing Content</a>
+                      <a href="#" class="button-link">Import From Commons</a>
+                      <a href="#" class="button-link">Choose Home Page</a>
+                      <a href="#" class="button-link">View Course Stream</a>
+                      <a href="#" class="button-link">New Announcement</a>
+                      <a href="#" class="button-link">New Analytics</a>
+                      <a href="#" class="button-link">View Course Notifications</a>
+                    </div>
+                   </ul>  
                 </div>
-                <ul class="col-6">
-                  <div class="vertical-button-container">
-                    <a href="#" class="button-link">Import Existing Content</a>
-                    <a href="#" class="button-link">Import From Commons</a>
-                    <a href="#" class="button-link">Choose Home Page</a>
-                    <a href="#" class="button-link">View Course Stream</a>
-                    <a href="#" class="button-link">New Announcement</a>
-                    <a href="#" class="button-link">New Analytics</a>
-                    <a href="#" class="button-link">View Course Notifications</a>
-                  </div>
-                  
-                </ul>
-                <h5>Coming Up</h5>
-                <table>
-                  <tbody>
-                    <tr>
-                      <a class="link" href="#">View Calendar</a>
-                    </tr>
-                  </tbody>
-                </table>
-                <ul>
-                  <li>
-                    <a class="link" href="#">Lecture CS4550.12631.202410 Sep 7 at 11:45am</a>
-                  </li>
-                  <li>
-                    <a class="link" href="#">Lecture CS4550.12631.202410 Sep 11 at 11:45am</a>
-                  </li>
-                  <li>
-                    <a class="link" href="#">CS5610 06 SP23 Lecture Sep 11 at 6pm</a>
-                  </li>
-                </ul>
+                <div class="row">
+                  <h5 class="right-side">Coming Up</h5>
+                  <a class="link right-side" href="#">View Calendar</a>
+                  <ul>
+                    <li>
+                      <a class="link" href="#">Lecture CS4550.12631.202410 Sep 7 at 11:45am</a>
+                    </li>
+                    <li>
+                      <a class="link " href="#">Lecture CS4550.12631.202410 Sep 11 at 11:45am</a>
+                    </li>
+                    <li>
+                      <a class="link " href="#">CS5610 06 SP23 Lecture Sep 11 at 6pm</a>
+                    </li>
+                  </ul>
+                </div>
+                
+               
               </div>
             </div>
           </div>
