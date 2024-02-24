@@ -43,6 +43,14 @@ li {
   min-height: 100vh !important; 
   flex-direction: row; 
   /* background-color: orange; */
+  max-width: none;
+}
+
+
+.center {
+  display: flex;
+  flex-grow: 1;
+  padding: 0;
 }
 
 .layout-column {
@@ -71,10 +79,18 @@ li {
 
 .right-side {
   display: flex;
-  justify-content: flex-end;
-  text-align: end;
+  justify-content: flex-start;
+  text-align: start;
   padding-right: 10px;
+  padding-left: 10px;;
+  flex-grow: 1;
 }
+
+/* .right-side#course-status-heading
+{
+  text-align: start;
+  padding-right: 10px;
+} */
 
 .d-block {
   flex-grow: 1;
