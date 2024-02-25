@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./index.css";
 import { modules } from "../../Database";
-import { FaEllipsisV, FaCheckCircle, FaPlus, FaPlusCircle } from "react-icons/fa"; 
+import { FaEllipsisV, FaCheckCircle, FaPlus, FaPlusCircle, FaCaretRight, FaCaretDown } from "react-icons/fa";
 import { useParams } from "react-router";
 
 function ModuleList() {
@@ -9,11 +9,11 @@ function ModuleList() {
   console.log(courseId);
   console.log(modules);
   const modulesList = modules.filter((module) => module.course === courseId);
-  console.log("Retrieved courseId:", courseId); 
+  console.log("Retrieved courseId:", courseId);
   const [selectedModule, setSelectedModule] = useState(modulesList[0]);
 
   return (
-    <>
+    
       <div className="row d-block center">
         <div className="module-button-container">
           {/* Converted buttons and select dropdown */}
@@ -31,26 +31,27 @@ function ModuleList() {
           <ul className="list-group wd-modules">
             {modulesList.map((module, index) => (
               <li key={index}
-                className="list-group-item"
+                className="list-group-item-outer"
                 onClick={() => setSelectedModule(module)}>
-                <div className="module-header">
-                  <FaEllipsisV className="me-2" />
+                <div className="module-header" >
+                  <FaCaretRight className="me-2 expand-icon" />
                   {module.name}
-                  <span className="float-end">
-                    <FaCheckCircle className="text-success" />
-                    <FaPlusCircle className="ms-2" />
-                    <FaEllipsisV className="ms-2" />
+                  <span
+                    className="module-icons float-end">
+                    <FaCheckCircle className="icon text-success" />
+                    <FaPlusCircle className="icon ms-2" />
+                    <FaEllipsisV className="icon ms-2 ellipsis-icon" />
                   </span>
                 </div>
                 {selectedModule._id === module._id && (
                   <ul className="list-group">
                     {module.lessons?.map((lesson, index) => (
-                      <li className="list-group-item" key={index}>
-                        <FaEllipsisV className="me-2" />
+                      <li className="list-group-item-inner" key={index}>
+                        <FaEllipsisV className="me-2 ellipsis-icon" />
                         {lesson.name}
                         <span className="float-end">
                           <FaCheckCircle className="text-success" />
-                          <FaEllipsisV className="ms-2" />
+                          <FaEllipsisV className="ms-2 ellipsis-icon" />
                         </span>
                       </li>
                     ))}
@@ -61,7 +62,7 @@ function ModuleList() {
           </ul>
         </div>
       </div>
-    </>
+
   );
 }
 

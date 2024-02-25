@@ -35,7 +35,7 @@ const KanbasNavigation = () => {
   ];
 
   return (
-    <div className='wd-kanbas-navigation'>
+    <div className='wd-kanbas-navigation d-none d-md-block'>
       <div className='logo-container'>
         <a href='http://northeastern.edu'>
           <img src={logo} alt='Northeastern University Logo' className='northeastern-logo' />

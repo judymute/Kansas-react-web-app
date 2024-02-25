@@ -12,7 +12,7 @@ function Dashboard() {
       <div className="row">
         <div className="row row-cols-1 row-cols-md-5 g-4">
           {courses.map((course) => (
-            <div key={course._id} className="col" style={{ width: 300, height: 270 }}>
+            <div key={course._id} className="col" style={{ width: 300, height: 270, marginBottom: 27}}>
               <div className="card">
                 <img src={`/images/${course.image}`} className="card-img-top"
                      style={{ height: 150 }}/>

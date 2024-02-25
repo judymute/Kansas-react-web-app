@@ -1,10 +1,17 @@
+import { Link } from "react-router-dom";
 import ModuleList from "../Modules/List";
+import Status from "./Status";
+import "./index.css";
+
 function Home() {
   return (
     <div>
-      {/* <h2>Home</h2> */}
-      <ModuleList />
-      <h2>Status</h2>
-</div>
-); }
+      <div className="not-right-side d-flex">
+        <ModuleList />
+        <Status />
+
+      </div>
+    </div>
+  );
+}
 export default Home;

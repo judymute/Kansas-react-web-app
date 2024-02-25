@@ -6,6 +6,7 @@ import Modules from "./Modules";
 import Home from "./Home";
 import Assignments from "./Assignments";
 import "./index.css"
+import { FaAngleRight } from "react-icons/fa";
 
 function Courses() {
   const { courseId } = useParams();
@@ -13,14 +14,17 @@ function Courses() {
   const url = window.location.href;
   const term = url.split("/");
   const courseName = term[term.length - 2];
+  const currentLocation = term[term.length - 1];
   return (
     <div>
       <div className="course-name-container">
-        <h3 className="course-name"><HiMiniBars3 /> {courseName}</h3>
+        <h3 className="course-name"><HiMiniBars3 className="breadcrumb-icon"/> {courseName} <FaAngleRight className="angle-icon"/> 
+        <span className="current-nav-location">{currentLocation}</span> </h3>
       </div>
 
-      <CourseNavigation />
-      <div>
+      
+      <div className="d-flex">
+        <CourseNavigation />
         <div
           className="overflow-y-scroll"
           style={{ left: "320px", top: "50px" }} >
