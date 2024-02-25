@@ -1,18 +1,18 @@
 body {
   font-family: system-ui !important;
 }
-.wd-modules {
+.assignemnt-wd-modules {
   border-radius: 0%;
   border: none;
   margin: 0px;
   padding: 0px;
   width: 200px;
 }
-.wd-modules {
+.assignment-wd-modules {
   margin: 5px;
 }
 
-.wd-modules > li {
+.assignemnt-wd-modules > li {
   border: 1px solid #c7cdd1;
   
   margin-bottom: 20px;
@@ -61,7 +61,7 @@ li.list-group-item-inner {
 
 }
 
-li.list-group.wd-modules {
+li.assignment-list-group.assignment-wd-modules {
   border: none;
 
 }
@@ -77,18 +77,19 @@ li.list-group.wd-modules {
   color: rgb(45, 59, 69);
 }
 
-.list-group-item {
+.assignment-list-group-item {
 
   border-bottom: 1px solid #c7cdd1;
   border-right: none;
   border-left: none; 
   list-style-type: none;
+  padding-left: none;
 }
 
-ul.list-group {
+ul.assignment-list-group {
   border-radius: 0%;
 }
-ul.list-group.wd-modules {
+ul.assignment-list-group.wd-modules {
   margin: 0;
 }
 

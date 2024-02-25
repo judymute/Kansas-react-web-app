@@ -22,8 +22,8 @@ function Assignments() {
         <button className="btn add-module-button" type="button">+ Assignment</button>
       </div>
       <div className="d-flex" style={{ flexGrow: 1 }}>
-        <ul className="list-group wd-modules" style={{ flexGrow: 1 }}>
-          <li className="list-group-item" style={{ padding: "0"}}>
+        <ul className="assignment-list-group wd-modules" style={{ flexGrow: 1 }}>
+          <li className="assignment-list-group-item" style={{ padding: "0"}}>
             <div className="module-header list-group-item-outer">
               <FaCaretRight className="me-2 expand-icon" /> ASSIGNMENTS
               <span className="float-end">
@@ -32,7 +32,7 @@ function Assignments() {
                 <FaEllipsisV className="ms-2 ellipsis-icon" />
               </span>
             </div>
-            <ul className="list-group">
+            <ul className="assignment-list-group">
               {assignmentList.map((assignment) => (
                 <li key={assignment._id} className="list-group-item-inner">
                   <FaEllipsisV className="icon me-2 ellipsis-icon" />
