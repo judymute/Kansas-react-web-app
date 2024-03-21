@@ -121,3 +121,18 @@ select.btn.module-button {
   /* Styling for the icons */
   margin-left: 8px; /* Adds spacing between icons, adjust as needed */
 }
+
+
+.list-group-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-group-item input,
+.list-group-item textarea {
+  margin-bottom: 8px; /* Adjust the margin as needed */
+}
+
+.list-group-item button {
+  margin-left: 8px; /* Adjust the margin as needed */
+}
