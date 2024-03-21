@@ -75,7 +75,7 @@ function Dashboard(
       </div>
 
 
-      <h2>Published Courses (9)</h2> <hr />
+      <h2>Published Courses ({publishedCoursesCount})</h2> <hr />
 
 
 
