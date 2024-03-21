@@ -1,0 +1,132 @@
+body {
+  font-family: system-ui !important;
+}
+.assignemnt-wd-modules {
+  border-radius: 0%;
+  border: none;
+  margin: 0px;
+  padding: 0px;
+  width: 200px;
+}
+.assignment-wd-modules {
+  margin: 5px;
+}
+
+.assignemnt-wd-modules > li {
+  border: 1px solid #c7cdd1;
+  
+  margin-bottom: 20px;
+  
+}
+
+h3.course-name {
+  margin-bottom: 10px;
+  padding-bottom: 20px;
+}
+
+.module-button {
+  background-color: #f8f9fa;
+  border: 1px solid #c7cdd1; 
+  border-radius: 3px;
+  margin-left: 10px;
+}
+
+.module-header {
+  /* display: flex; */
+  padding: 12px 6px;
+  font-size: large;
+  background-color: #f5f5f5;
+  /* flex-wrap: wrap; */
+  border-bottom: 1px solid #c7cdd1;
+  color: #3d454c;
+  font-weight: bold;
+  text-shadow: 1px 1px 0 rgba(255,255,255,.5);
+
+}
+
+
+li.list-group-item-outer {
+  border-top: 1px solid c7cdd1;
+  border-left: 1px solid c7cdd1;
+  border-right: 1px solid c7cdd1;
+  border-bottom: none;
+
+}
+
+li.list-group-item-inner {
+  border-bottom: 1px solid #c7cdd1;
+  border-right: none;
+  border-left: none;
+  list-style-type: none;
+
+}
+
+li.assignment-list-group.assignment-wd-modules {
+  border: none;
+
+}
+
+.expand-icon {
+  color: rgb(45, 59, 69);
+  position: relative;
+  bottom: 2px; /* Adjust this value as needed */
+}
+
+
+.ellipsis-icon {
+  color: rgb(45, 59, 69);
+}
+
+.assignment-list-group-item {
+
+  border-bottom: 1px solid #c7cdd1;
+  border-right: none;
+  border-left: none; 
+  list-style-type: none;
+  padding-left: none;
+}
+
+ul.assignment-list-group {
+  border-radius: 0%;
+}
+ul.assignment-list-group.wd-modules {
+  margin: 0;
+}
+
+
+.module-button-container {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 10px;
+  margin: 20px;
+}
+
+div.overflow-y-scroll {
+  display:  flex;
+  flex-grow: 1;
+}
+
+select.btn.module-button {
+  margin-right: 10px;
+}
+
+.add-module-button {
+  background-color: #D41B2C;
+  color:#f8f9fa;
+  border-radius: 3px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.module-icons {
+  /* Container for icons */
+  display: flex;
+  align-items: center; 
+  position: relative;
+  top: 5px;
+}
+
+.icon {
+  /* Styling for the icons */
+  margin-left: 8px; /* Adds spacing between icons, adjust as needed */
+}

@@ -1,0 +1,102 @@
+.list-group-sub-item {
+  padding-left: 40px;
+}
+
+.list-group-head-item {
+  padding-left: 10px;
+  font-weight: 700;
+}
+
+.list-group-heading {
+  background-color: #f5f5f5;
+  font-weight: 700;
+  /* padding-left: 15px; */
+  
+}
+
+.list-group-week-item {
+  padding-left: 10px;
+}
+
+.list-group {
+  padding: 20px;
+  /* background-color: bisque; */
+}
+
+.link {
+  color: #b52828;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end; 
+  width: 100px;
+  
+}
+.publish-or-unpublish-button {
+  padding: 12px;
+  row-gap: 0;
+}
+
+.vertical-button-container .button-link {
+  display: block;
+  margin-bottom: 10px;
+  text-decoration: none;
+  background-color: #f5f5f5;
+  color: #000;
+  text-align: left;
+  padding: 0.5rem 1rem; 
+  border: 1px solid #ccc;
+  width: 200px; /* Set a fixed width */
+  box-sizing: border-box; 
+  border-radius: 5%;
+  font-size: 14;
+}
+
+/* Optional: add hover effect */
+.vertical-button-container .button-link:hover {
+  background-color: #f8f9fa;
+}
+
+.vertical-button-container .button-link {
+  cursor: pointer;
+}
+
+.horizontal-button-container {
+  display: flex;
+  /* justify-content: start;  */
+  gap: 0px; /* Adjust the space between buttons */
+}
+
+.publish-button {
+  padding: 0.5rem 1rem; 
+  font-size: 14;;
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  cursor: pointer; 
+  border-radius: 5%;;
+}
+
+.module-button-container {
+  display: flex;
+  justify-content: end;
+  flex-direction: row;
+  padding-right: 30px;
+  /* background-color: aqua; */
+}
+
+.module-heading {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #c7cdd1;
+  margin: 0 24px;
+  min-height: 4.5rem;
+  box-sizing: border-box;
+
+}
+
+
+.module-heading {
+  padding:0;
+  margin:0;
+}

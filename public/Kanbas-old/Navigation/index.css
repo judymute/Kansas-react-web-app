@@ -1,0 +1,46 @@
+.wd-kanbas-navigation {
+  background-color: black;
+  list-style: none;
+  padding: 0px; 
+  margin: 0px;
+  width: 80px;
+  padding-top: 5px;
+  flex: 0 0 auto; /* Don't grow, don't shrink, auto basis */
+  display: flex;
+  flex-direction: column; 
+  min-height: 100vh !important;
+}
+
+.wd-kanbas-navigation ul {
+  padding-left: 0px;
+  list-style: none;
+  padding: 0px;  margin: 0px;
+}
+
+.wd-kanbas-navigation li {
+  padding: 10px;     margin-bottom: 10px;
+  font-size: 0.8em;  text-align: center;
+}
+.wd-kanbas-navigation li.wd-active {
+  background-color: white;
+  color:#D41B2C;
+}
+.wd-kanbas-navigation li.wd-active a{
+color: #D41B2C; 
+}
+
+.wd-kanbas-navigation li.wd-account a i{
+  color: gray; 
+}
+
+
+.wd-kanbas-navigation a {
+  color: white;
+  text-decoration: none;
+}
+.wd-kanbas-navigation a i {
+  color: #D41B2C;
+  font-size: 2em;
+  margin-bottom: 5px;
+
+}

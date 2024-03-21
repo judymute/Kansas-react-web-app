@@ -1,0 +1,99 @@
+.module-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #c7cdd1;
+  margin: 0 24px;
+  min-height: 4.5rem;
+  margin-right: 12px;
+  /* background-color: yellow; */
+}
+
+.nav-bar {
+  width: 100%;
+  /* background-color: blue; */
+  /* padding-left: 80px; */
+}
+
+.layout-wrapper {
+  box-sizing: border-box;
+  /* min-height: 100vh; */
+  flex-grow: 1; /* Takes the remaining space */
+  display: flex;
+  flex-direction: column; /* If you want its children to be stacked vertically */
+  /* Rest of your styles */
+}
+
+li {
+  list-style-type: none;
+  padding: 5px;
+}
+
+.course-nav-toggle {
+  background-color: pink;
+  padding: 0;
+  width: 36px;
+  height: 30px;
+  border: none;
+}
+
+.container {
+  display: flex;
+  padding: 0;
+  margin: 0px;
+  min-height: 100vh !important; 
+  flex-direction: row; 
+  /* background-color: orange; */
+  max-width: none;
+}
+
+
+.center {
+  display: flex;
+  flex-grow: 1;
+  padding: 0;
+}
+
+.layout-column {
+  display: flex;
+  flex-direction: row;
+}
+
+.hamburger-icon {
+  color: #b52828;
+}
+
+.ellipsible {
+  color: #b52828;
+}
+
+.button-link {
+  color:#b52828;
+  background: none;
+  border-color: transparent;
+  cursor: pointer;
+}
+
+.not-right-side {
+  display: flex;
+}
+
+.right-side {
+  display: flex;
+  justify-content: flex-start;
+  text-align: start;
+  padding-right: 10px;
+  padding-left: 10px;;
+  flex-grow: 1;
+}
+
+/* .right-side#course-status-heading
+{
+  text-align: start;
+  padding-right: 10px;
+} */
+
+.d-block {
+  flex-grow: 1;
+  display:block !important
+}
+

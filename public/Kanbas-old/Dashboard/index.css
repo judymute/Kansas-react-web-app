@@ -1,0 +1,22 @@
+.card-img-top {
+  object-fit: cover;
+  width: 100%;      /* This ensures the image spans the full width of its parent */
+  height: 150px;    /* Set a fixed height */
+  overflow: hidden; /* This will hide the parts of the image that do not fit */
+}
+
+
+.card-title {
+  text-decoration: none; 
+  color: navy; 
+  font-weight: bold;
+}
+
+.card-link {
+  text-decoration: none; 
+}
+
+.card-link:hover .card-title,
+.card-link:hover .card-text {
+  text-decoration: underline; 
+}
