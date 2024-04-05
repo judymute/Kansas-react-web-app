@@ -14,7 +14,7 @@ function Labs() {
         <Routes>
           <Route path="/"
             element={<Navigate
-              to="a4" />} />
+              to="a5" />} />
           <Route path="a3"
             element={<Assignment3 />} />
           <Route path="a4"
