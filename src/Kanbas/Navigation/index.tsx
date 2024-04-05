@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaTachometerAlt, FaUser, FaBook, FaCalendarAlt, FaInbox, FaHistory, FaFilm, FaUsers, FaQuestionCircle, FaRegUserCircle, FaRegCalendarAlt } from 'react-icons/fa';
+import { FaTachometerAlt, FaBook, FaInbox, FaHistory, FaFilm, FaUsers, FaQuestionCircle, FaRegUserCircle, FaRegCalendarAlt } from 'react-icons/fa';
 import './index.css';
 import logo from './northeastern-logo.png';
 
@@ -47,7 +47,7 @@ const KanbasNavigation = () => {
             <Link to={`/Kanbas/${link.label}`}>
               {renderIcon(link.label, link.icon)}
               <br/>
-              <span style={{ fontSize: "12px",  fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto"}}>{link.label}</span> {/* Separate styling for text */}
+              <span style={{ fontSize: "12px",  fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto"}}>{link.label}</span> 
             </Link>
           </li>
         ))}

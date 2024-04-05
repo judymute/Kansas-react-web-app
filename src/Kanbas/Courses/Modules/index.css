@@ -1,6 +1,3 @@
-body {
-  font-family: system-ui !important;
-}
 .wd-modules {
   border-radius: 0%;
   border: none;
@@ -26,43 +23,52 @@ h3.course-name {
 .module-button {
   background-color: #f8f9fa;
   border: 1px solid #c7cdd1; 
-  border-radius: 3px;
+  /* border-radius: 3px; */
   margin-left: 10px;
 }
 
-.module-header {
+.module-header-container {
   /* display: flex; */
-  padding: 12px 6px;
-  font-size: large;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-right: 6px;
+  padding-left: 12px; 
   background-color: #f5f5f5;
+  font-size: 1rem;
   /* flex-wrap: wrap; */
   border-bottom: 1px solid #c7cdd1;
   color: #3d454c;
   font-weight: bold;
   text-shadow: 1px 1px 0 rgba(255,255,255,.5);
-
 }
 
 
 li.list-group-item-outer {
-  border-top: 1px solid c7cdd1;
-  border-left: 1px solid c7cdd1;
-  border-right: 1px solid c7cdd1;
-  border-bottom: none;
+  border-top: 1px solid #c7cdd1;
+  border-left: 1px solid #c7cdd1;
+  border-right: 1px solid #c7cdd1;
+  /* border: none;  */
 }
 
 .list-group-item-outer {
-  border-top: 1px solid c7cdd1;
-  border-left: 1px solid c7cdd1;
-  border-right: 1px solid c7cdd1;
+  border-top: 1px solid #c7cdd1;
+  border-left: 1px solid #c7cdd1;
+  border-right: 1px solid #c7cdd1;
   border-bottom: none;
+  /* border: none;  */
+  margin-bottom: 10px;
+  background-color: #ffffff;
+  /* border-radius: 8px; */
+  overflow: hidden;
 }
 
 li.list-group-item-inner {
   border-bottom: 1px solid #c7cdd1;
-  border-right: none;
-  border-left: none;
+  border: none;
+  /* border-right: none;
+  border-left: none; */
   padding: 12px 6px 12px 10px; /* Top, Right, Bottom, Left */
+  /* border-radius: 4px; */
 
 }
 
@@ -75,11 +81,6 @@ li.list-group.wd-modules {
   color: rgb(45, 59, 69);
   position: relative;
   bottom: 2px; /* Adjust this value as needed */
-}
-
-
-.ellipsis-icon {
-  color: rgb(45, 59, 69);
 }
 
 
@@ -103,18 +104,14 @@ select.btn.module-button {
   margin-right: 10px;
 }
 
-.add-module-button {
-  background-color: #D41B2C;
-  color:#f8f9fa;
-  border-radius: 3px;
-}
+
 
 .module-icons {
   /* Container for icons */
   display: flex;
   align-items: center; 
   position: relative;
-  top: 5px;
+  top: 15px;
 }
 
 .icon {
@@ -135,4 +132,97 @@ select.btn.module-button {
 
 .list-group-item button {
   margin-left: 8px; /* Adjust the margin as needed */
+}
+
+.stretched-icon {
+  transform: scaleY(1.2); /* Adjust the number to control the stretch */
+}
+
+/* Buttons */
+.btn-flat {
+  border-radius: 3px;
+  border: none;
+  padding: 8px 16px;
+  font-size: 1rem;
+  /* font-weight: bold; */
+  background-color: #f0f0f0;
+  /* color: #333; */
+  border: 1px solid #ccc;
+  font-family: system-ui;
+  color: #2d3b45;
+}
+
+/* Dropdown */
+.dropdown-flat {
+  border: 1px solid #ccc;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 8px 16px;
+  padding-right: 24px;
+  font-size: 1rem;
+  /* font-weight: bold; */
+  background-color: #f0f0f0;
+  color: #2d3b45;
+  border-radius: 3px;
+  /* border: none; */
+  /* background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>'); */
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+/* Module button */
+.btn-module-add {
+  background-color: #d41b2c;
+  color: #fff;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 3px;
+  border: none;
+}
+
+/* Spacing and alignment */
+.btn-group-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.btn-group-row > * {
+  margin-right: 8px;
+}
+
+.btn-group-row > *:last-child {
+  margin-right: 0;
+}
+
+.btn-flat#edit, 
+.btn-flat#delete {
+  border-color: f0f0f0;
+}
+
+
+.dropdown-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+
+.dropdown-icon {
+  position: absolute;
+  top: 0.5px;
+  right: 25px;
+  /* pointer-events: none; */
+}
+.ellipsis-icon{
+  padding: 0px;;
+  align-items: center;
+  color: rgb(45, 59, 69);
+  margin-right: 0px;
+}
+
+.btn-flat#ellipsis-icon {
+  padding: 2px 4px;
 }
