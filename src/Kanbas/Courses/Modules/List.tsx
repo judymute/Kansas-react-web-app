@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./index.css";
 import { FaCheckCircle, FaPlusCircle } from "react-icons/fa";
 import { RxTriangleDown, RxTriangleRight } from "react-icons/rx";
@@ -11,13 +11,36 @@ import {
   deleteModule,
   updateModule,
   setModule,
+  setModules,
 } from "./reducer";
+import * as client from "./client";
 import { KanbasState } from "../../store";
+import {Module} from "./reducer";
 
 function ModuleList() {
   const { courseId } = useParams();
+  const handleDeleteModule = (moduleId: string) => {
+    client.deleteModule(moduleId).then((status) => {
+      dispatch(deleteModule(moduleId));
+    });
+  };
+
+  const handleUpdateModule = async () => {
+    const status = await client.updateModule(module);
+    dispatch(updateModule(module));
+  };
+
+
+
+  useEffect(() => {
+    client.findModulesForCourse(courseId)
+      .then((modules) =>
+        dispatch(setModules(modules))
+    );
+  }, [courseId]);
+
   const moduleList = useSelector((state: KanbasState) => state.modulesReducer.modules);
-  const module = useSelector((state: KanbasState) => state.modulesReducer.module);
+  const module = useSelector((state: KanbasState) => state.modulesReducer.module) as Module;
   const modulesList = moduleList.filter((module) => module.course === courseId);
   const [isAddingModule, setIsAddingModule] = useState(false);
   const [expandedModules, setExpandedModules] = useState(new Set());
@@ -28,7 +51,13 @@ function ModuleList() {
   const handleExpandAll = () => {
     setExpandedModules(new Set(modulesList.map((module) => module._id))); // add all module IDs to the expandedModules Set
     setIsCollapsed(false); // set isCollapsed to false
-  }
+  };
+  const handleAddModule = () => {
+    client.createModule(courseId, module).then((module: Module) => {
+      dispatch(addModule(module));
+    });
+  };
+
   
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [selectedModule, setSelectedModule] = useState(modulesList[0]);
@@ -93,15 +122,13 @@ function ModuleList() {
                 </div>
                 <div>
                   <button
-                    onClick={() =>
-                      dispatch(addModule({ name: module.name, description: module.description, course: courseId }))
-                    }
+                    onClick={handleAddModule}
                     type="button"
                     className="btn btn-success"
                   >
                     Add
                   </button>
-                  <button onClick={() => dispatch(updateModule(module))} type="button" className="btn btn-primary">
+                  <button onClick={handleUpdateModule} type="button" className="btn btn-primary">
                     Update
                   </button>
                 </div>
@@ -126,7 +153,7 @@ function ModuleList() {
                   {module.name}
 
                   <button
-                    onClick={() => dispatch(deleteModule(module._id))} type="button" className="btn-flat me-2 ms-4" id="delete">
+                    onClick={() => handleDeleteModule(module._id)} type="button" className="btn-flat me-2 ms-4" id="delete">
                     Delete
                   </button>
 

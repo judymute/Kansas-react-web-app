@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { courses } from "../../Kanbas/Database";
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
 import { HiMiniBars3 } from "react-icons/hi2";
@@ -8,9 +10,31 @@ import Assignments from "./Assignments";
 import "./index.css"
 import { FaAngleRight } from "react-icons/fa";
 
-function Courses({courses} : {courses: any[]}) {
+const API_BASE = process.env.REACT_APP_API_BASE;
+function Courses() {
   const { courseId } = useParams();
-  const course = courses.find((course) => course._id === courseId);
+
+  const COURSES_API = `${API_BASE}/api/courses`;
+  const [course, setCourse] = useState<any>({ _id: "" });
+  const findCourseById = async (courseId?: string) => {
+    try {
+      const response = await axios.get(`${COURSES_API}/${courseId}`);
+      setCourse(response.data);
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 404) {
+        // Handle the 404 case here (e.g., set a default course or show an error message)
+        console.error(`Course with ID ${courseId} not found.`);
+      } else {
+        console.error("Failed to fetch course:", error);
+      }
+    }
+  };
+  
+  useEffect(() => {
+    findCourseById(courseId);
+  }, [courseId]);
+
+
   const url = window.location.href;
   const term = url.split("/");
   const courseName = term[term.length - 2];
