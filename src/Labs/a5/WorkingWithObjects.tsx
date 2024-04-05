@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap CSS is imported
+import 'bootstrap/dist/css/bootstrap.min.css'; 
 
+const API_BASE = process.env.REACT_APP_API_BASE;
 function WorkingWithObjects() {
   // create a state variable that holds
   // default values for the form below.
@@ -15,7 +16,7 @@ function WorkingWithObjects() {
     due: "2021-10-10", completed: false, score: 0,
   });
 
-  const ASSIGNMENT_URL = "http://localhost:4000/a5/assignment"
+  const ASSIGNMENT_URL = `${API_BASE}/a5/assignment`
 
   const fetchAssignment = async () => {
     const response = await axios.get(`${ASSIGNMENT_URL}`);
@@ -38,14 +39,14 @@ function WorkingWithObjects() {
 
   // Function to fetch module data from the server
   const fetchModule = async () => {
-    const response = await fetch('http://localhost:4000/a5/module');
+    const response = await fetch(`${API_BASE}/a5/module`);
     const data = await response.json();
     setModule(data);
   };
 
   // Function to update module's name on the server
   const updateModuleName = async (newName: string) => {
-    await fetch(`http://localhost:4000/a5/module/name/${newName}`);
+    await fetch(`${API_BASE}/a5/module/name/${newName}`);
     fetchModule(); // Refetch module to show updated name
   };
 
