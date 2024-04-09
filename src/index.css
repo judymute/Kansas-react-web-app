@@ -1,13 +1,92 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+/* lato-thin */
+@font-face
+{
+  font-family: "Lato", sans-serif;
+  src: url('../public/fonts/Lato-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+
+
+/* lato-light */
+@font-face {
+  font-family: "Lato", sans-serif;
+  src: url('../public/fonts/Lato-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* lato-regular */
+@font-face {
+  font-family: "Lato", sans-serif;
+  src: url('../public/fonts/Lato-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+/* lato-bold */
+@font-face {
+  font-family: "Lato", sans-serif;
+  src: url('../public/fonts/Lato-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  
+}
+
+/* lato-black */
+@font-face {
+  font-family: "Lato", sans-serif;
+  src: url('../public/fonts/Lato-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  
+}
+
+/* lato-thin-italic  */
+@font-face {
+  font-family: "Lato", sans-serif;
+  src: url('../public/fonts/Lato-ThinItalic.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  
+}
+
+/* lato-light-italic  */
+@font-face {
+  font-family: "Lato", sans-serif;
+  src: url('../public/fonts/Lato-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* lato-regular-italic */
+.lato-regular-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* lato-bold-italic */
+@font-face {
+  font-family: "Lato", sans-serif;
+  src: url('../public/fonts/Lato-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+
+/* lato-black-italic */
+@font-face {
+  font-family: "Lato", sans-serif;
+  src: url('../public/fonts/Lato-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
 }

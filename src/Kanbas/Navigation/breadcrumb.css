@@ -1,0 +1,33 @@
+.breadcrumb-container {
+  position: absolute;
+  right: auto; /* Adjust this value to position the breadcrumb as needed */
+  left: 85px;
+  top: 0px;
+  width: 365px;
+  background-color: white;
+  padding: 24px;
+  height: 100vh;
+  z-index: 1; /* Ensure the breadcrumb is on top */
+  box-shadow: 4px 0 6px -4px rgba(0, 0, 0, 0.4);
+  transition: left 0.6s ease-in-out;
+}
+
+.breadcrumb-container.slide-in {
+  left: 90;
+}
+
+.breadcrumb-container.slide-out {
+  left: -365px;
+}
+
+
+.course-header {
+  font-size: 22px;
+  font-weight: bold;
+  color: #2D3B45;
+}
+
+.all-courses-link {
+  color: #D41B2C! important;
+  text-decoration: underline! important;
+}

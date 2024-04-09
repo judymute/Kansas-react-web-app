@@ -1,73 +1,135 @@
+/* Styles for the Kanbas navigation */
 .wd-kanbas-navigation {
-  background-color: black;
-  list-style: none;
-  padding: 0px; 
-  margin: 0px;
-  width: 80px;
-  padding-top: 5px;
+  background-color: black; /* Set the background color to black */
+  list-style: none; /* Remove default list styles */
+  padding: 0px; /* Remove default padding */
+  margin: 0px; /* Remove default margin */
+  width: 85px; /* Set a fixed width */
+  padding-top: 5px; /* Add some top padding */
   flex: 0 0 auto; /* Don't grow, don't shrink, auto basis */
-  display: flex;
-  flex-direction: column; 
-  min-height: 100vh !important;
-
+  display: flex; /* Use flexbox layout */
+  flex-direction: column; /* Stack items vertically */
+  min-height: 100vh !important; /* Set the minimum height to the full viewport height */
 }
 
-svg {
-  color: #D41B2C;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
 
-}
-
-/* .link-flex-container {
-  align-items: center; 
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-
-} */
-
+/* Styles for the Northeastern University logo */
 .northeastern-logo {
-  width: 80px; 
-  height: 70px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 10px;
-  padding-bottom: 15px;
-  background-color: black;
-
+  width: 80px; /* Set the width */
+  height: 70px; /* Set the height */
+  padding-left: 15px; /* Add some left padding */
+  padding-right: 10px; /* Add some right padding */
+  padding-top: 10px; /* Add some top padding */
+  padding-bottom: 15px; /* Add some bottom padding */
+  margin-bottom: 6px;
+  background-color: black; /* Set the background color to black */
 }
 
+/* Styles for the unordered list in the navigation */
 .wd-kanbas-navigation ul {
-  padding-left: 0px;
-  list-style: none;
-  padding: 0px;  margin: 0px;
+  padding-left: 0px; /* Remove default left padding */
+  list-style: none; /* Remove default list styles */
+  padding: 0px; /* Remove default padding */
+  margin: 0px; /* Remove default margin */
 }
 
-
+/* Styles for list items in the navigation */
 .wd-kanbas-navigation li {
-  padding: 10px;     margin-bottom: 10px;
-  font-size: 0.8em;  text-align: center;
+  padding-bottom: 6px;
+  padding-top: 6px;
+  padding-left: 7px;
+  padding-right: 7px;
+  font-size: 0.8em; /* Set the font size to 0.8em */
+  text-align: center; /* Center the text */
+  cursor: pointer; /* Change cursor to pointer on hover */
 }
+
+/* Styles for the active list item in the navigation */
 .wd-kanbas-navigation li.wd-active {
-  background-color: white;
-  color:#D41B2C;
+  background-color: white; /* Set the background color to white */
+  color: #D41B2C; /* Set the text color to the brand color */
+  
+}
+/* Styles for double-clicked list item in the navigation */
+.wd-kanbas-navigation li.wd-double-clicked {
+  border: 2px solid white; /* Add white border when double-clicked */
+  color: #D41B2C;
 }
 
-.wd-kanbas-navigation li.wd-active a{
-color: #D41B2C; 
+/* Styles for the active tab label */
+.wd-kanbas-navigation li.wd-active .tab-label {
+  color: #D41B2C;
 }
 
-.wd-kanbas-navigation li.wd-account a i{
-  color: gray; 
-}
-
-
-.wd-kanbas-navigation a {
+/* Styles for the inactive tab label */
+.wd-kanbas-navigation li .tab-label {
   color: white;
-  text-decoration: none;
+  font-size: 14px;
 }
-.wd-kanbas-navigation a i {
-  color: #D41B2C !important; 
-  font-size: 2em;
-  margin-bottom: 5px;
+
+/* When Active: Styles for the text inside the navigation */
+.wd-kanbas-navigation li.wd-active a {
+  color: #D41B2C; /* Set the link color to the brand color */
+  
+}
+
+/* Styles for links in the navigation */
+.wd-kanbas-navigation a {
+  color: white; /* Set the link color to white */
+  text-decoration: none; /* Remove underline */
+}
+
+
+.wd-kanbas-navigation li.inbox-icon {
+  padding-bottom: 5px; 
 
 }
+
+/* Styles for double-clicked active list item in the navigation */
+.wd-kanbas-navigation li.wd-active.wd-double-clicked {
+  animation: double-click-border 1.5s;
+}
+
+@keyframes double-click-border {
+  0% {
+    border: 2px solid #D41B2C;
+  }
+  100% {
+    border: none;
+  }
+}
+
+.commons-icon,
+.dashboard-icon,
+.help-icon,
+.history-icon,
+.studio-icon,
+.courses-icon  {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 1px;
+  
+}
+
+.calendar-icon{
+  width: 33px;
+  height: 33px;
+}
+
+.inbox-icon {
+  width: 35px;
+  height: 35px;
+}
+
+
+
+
+/* Add this CSS to make the account icon bigger */
+.account-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 1px;
+}
+
+

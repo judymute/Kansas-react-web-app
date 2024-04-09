@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { courses } from "../../Kanbas/Database";
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
-import { HiMiniBars3 } from "react-icons/hi2";
+import { GrMenu } from "react-icons/gr";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import CourseNavigation from "./Navigation";
 import Modules from "./Modules";
 import Home from "./Home";
 import Assignments from "./Assignments";
 import "./index.css"
-import { FaAngleRight } from "react-icons/fa";
+
 
 const API_BASE = process.env.REACT_APP_API_BASE;
 function Courses() {
@@ -42,7 +43,7 @@ function Courses() {
   return (
     <div>
       <div className="course-name-container">
-        <h3 className="course-name"><HiMiniBars3 className="breadcrumb-icon"/> {courseName} <FaAngleRight className="angle-icon"/> 
+        <h3 className="course-name"><GrMenu className="breadcrumb-icon"/> {course.number}.{courseName} <MdOutlineKeyboardArrowRight className="angle-icon"/> 
         <span className="current-nav-location">{currentLocation}</span> </h3>
       </div>
 

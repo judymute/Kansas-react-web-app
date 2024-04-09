@@ -4,7 +4,7 @@
   padding: 0px;
   width: 125px;
   margin: 0px;
-  margin-left: 20px;
+  margin-left: 24px;
   display: flex;
   flex-direction: column;
   flex: 0 1 10%;
@@ -13,17 +13,19 @@
 }
 
 .wd-navigation li {
-  padding-left: 10px;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-left: 6px;
+  /* margin-bottom: 10px; */
+  /* margin-top: 10px; */
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 .wd-navigation li.wd-active {
-  border-left: 2px solid black;
+  border-left: 2px solid #2D3B45;
 }
 .wd-navigation li.wd-active a {
-  color: black;
+  color: #2D3B45;
+  font-weight: bold;
+  font-family: 'Lato';
 }
 .wd-navigation a {
   color: #b52828;
