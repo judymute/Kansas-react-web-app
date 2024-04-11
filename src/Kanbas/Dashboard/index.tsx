@@ -10,14 +10,17 @@ import CourseColor from "./course-color";
 
 
 function Dashboard({ courses, course, setCourse, addNewCourse,
-  deleteCourse, updateCourse, publishedCoursesCount }: {
+  deleteCourse, updateCourse, publishedCoursesCount, selectedColor,
+  setSelectedColor }: {
     courses: any[]; // Courses data array
     course: any; // Current course object
     setCourse: (course: any) => void; // Function to update the current course
     addNewCourse: () => void; // Function to add a new course
     deleteCourse: (course: any) => void; // Function to delete a course
-    updateCourse: () => void; // Function to update a course
+    updateCourse: (selectedColor: string) => Promise<void>; // Function to update a course
     publishedCoursesCount: number; // Count of published courses
+    selectedColor: string; // Selected color state
+    setSelectedColor: (color: string) => void; // Function to update selected color
   }) {
 
   const [showCircleIcon, setShowCircleIcon] = useState(false);
@@ -26,13 +29,18 @@ function Dashboard({ courses, course, setCourse, addNewCourse,
   const toggleColorPicker = () => {
     setShowColorPicker((prevState) => !prevState);
   };
+  const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
 
-  const handleEllipsisClick = () => {
+  const handleEllipsisClick = (courseId: string) => {
+    setSelectedCourseId(courseId);
+    setShowColorPicker(courseId === selectedCourseId ? !showColorPicker : true);
     setShowCircleIcon(true);
-    toggleColorPicker();
     setTimeout(() => {
       setShowCircleIcon(false);
-    }, 500);
+    }, 300);
+  };
+  const handleUpdateCourse = () => {
+    updateCourse(selectedColor);
   };
 
   useEffect(() => {
@@ -40,10 +48,11 @@ function Dashboard({ courses, course, setCourse, addNewCourse,
       const node = courseColorRef.current;
 
       if (
-        showColorPicker &&
+        selectedCourseId &&
         node &&
         !node.contains(event.target as Node)
       ) {
+        setSelectedCourseId(null);
         setShowColorPicker(false);
       }
     };
@@ -53,10 +62,10 @@ function Dashboard({ courses, course, setCourse, addNewCourse,
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [showColorPicker]);
+  }, [selectedCourseId]);
 
   return (
-    <div className="p-4">
+    <div className="p-4 dashboard-container">
 
 
       {/* Form for adding/updating a course */}
@@ -117,7 +126,7 @@ function Dashboard({ courses, course, setCourse, addNewCourse,
             Add
           </button>
           {/* Button to invoke updateCourse function */}
-          <button onClick={updateCourse} type="button" className="btn btn-primary">
+          <button onClick={handleUpdateCourse} type="button" className="btn btn-primary">
             Update
           </button>
         </div>
@@ -135,24 +144,36 @@ function Dashboard({ courses, course, setCourse, addNewCourse,
                 style={{ width: 262, height: 265.992, paddingLeft: 0, paddingRight: 0, marginRight: 35 }}>
 
                 <div className="card">
-                  {showColorPicker && (
+                  {selectedCourseId === course._id && (
                     <div className="color-picker-overlay">
-                      <CourseColor ref={courseColorRef} setShowColorPicker={setShowColorPicker} />
+                      <CourseColor
+                        ref={courseColorRef}
+                        setShowColorPicker={setShowColorPicker}
+                        selectedCourseId={selectedCourseId}
+                        setSelectedCourseId={setSelectedCourseId}
+                        course={course}
+                        selectedColor={selectedColor}
+                        setSelectedColor={setSelectedColor}
+                        updateCourse={updateCourse} 
+                      />
                     </div>
                   )}
                   {/* Link to the course details page */}
                   <Link to={`/Kanbas/Courses/${course._id}/Home`}>
-                    <img src={`/images/${course.image}`} className="card-img-top" style={{ height: 144 }} />
+                  <div className="card-img-container">
+          <div className="card-img-overlay" style={{ backgroundColor: course.color }}></div>
+          <img src={`/images/${course.image}`} className="card-img-top" />
+        </div>
                   </Link>
                   <div className="ellipsis-icon-card-container">
                     <GoCircle className={`circle-icon ${showCircleIcon ? 'show-circle-icon' : ''}`} />
-                    <IoEllipsisVertical className="ellipsis-icon-card" onClick={handleEllipsisClick} />
+                    <IoEllipsisVertical className="ellipsis-icon-card" onClick={() => handleEllipsisClick(course._id)} />
                   </div>
 
-                  <div className="card-body">
+                  <div className="card-body card-link">
                     {/* Link to the course details page */}
                     <Link className="card-title" to={`/Kanbas/Courses/${course._id}/Home`}
-                      style={{ textDecoration: "none", color: "navy", fontWeight: "bold" }}>
+                      style={{ textDecoration: "none", color: course.color, fontWeight: "bold" }}>
                       {course.number} {course.name}
 
                     </Link>

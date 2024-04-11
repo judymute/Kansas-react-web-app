@@ -13,7 +13,6 @@ import histoy from "./history-icon.png";
 import studio from "./studio-icon.png";
 import commons from "./commons-icon.png";
 import help from "./help-icon.png";
-import { ImCross } from "react-icons/im";
 
 const KanbasNavigation = () => {
   const { pathname } = useLocation();
@@ -76,7 +75,8 @@ const KanbasNavigation = () => {
   };
 
   return (
-    <div className='wd-kanbas-navigation d-none d-md-block'>
+    <div className='navigation-container'>
+          <div className='wd-kanbas-navigation d-none d-md-block'>
       <div className='logo-container'>
         <a href='http://northeastern.edu'>
           <img src={logo} alt='Northeastern University Logo' className='northeastern-logo' />
@@ -112,6 +112,9 @@ const KanbasNavigation = () => {
       </ul>
       {showBreadcrumb && <BreadcrumbComponent showBreadcrumb={showBreadcrumb} />}
     </div>
+
+    </div>
+
   );
 };
 

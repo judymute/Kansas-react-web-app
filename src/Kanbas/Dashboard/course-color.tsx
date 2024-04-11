@@ -1,10 +1,17 @@
 import { IoEllipsisVertical } from "react-icons/io5";
 import { GoCircle } from "react-icons/go";
-import "./index.css";
 import "./course-color.css";
 import React, { useState, forwardRef } from 'react';
+
+
 interface CourseColorProps {
   setShowColorPicker: (show: boolean) => void;
+  selectedCourseId: string | null;
+  setSelectedCourseId: (courseId: string | null) => void;
+  course?: any; 
+  selectedColor: string;
+  setSelectedColor: (color: string) => void;
+  updateCourse: (selectedColor: string) => void; // Add this line
 }
 const colors = [
   "#BD3C14", "#FF2717", "#E71F63", "#8F3E97", "#65499D",
@@ -15,6 +22,7 @@ const colors = [
 const CourseColor = forwardRef<HTMLDivElement, CourseColorProps>((props, ref) => {
   const [selectedColor, setSelectedColor] = useState("#008400");
   const [showCircleIcon, setShowCircleIcon] = useState(false);
+  const [courseName, setCourseName] = useState(props.course ? props.course.name : '');
 
   const handleEllipsisClick = () => {
     setShowCircleIcon(true);
@@ -25,6 +33,24 @@ const CourseColor = forwardRef<HTMLDivElement, CourseColorProps>((props, ref) =>
 
   const handleColorClick = (color: React.SetStateAction<string>) => {
     setSelectedColor(color);
+  };
+  
+  const handleColorInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputColor = e.target.value;
+    if (inputColor.startsWith('#') && inputColor.length === 7) {
+      setSelectedColor(inputColor);
+    }
+  };
+
+
+  const handleApplyClick = async () => {
+    try {
+      await props.updateCourse(selectedColor);
+      props.setShowColorPicker(false);
+      props.setSelectedCourseId(null);
+    } catch (error) {
+      console.error('Error updating course color:', error);
+    }
   };
 
   return (
@@ -38,9 +64,18 @@ const CourseColor = forwardRef<HTMLDivElement, CourseColorProps>((props, ref) =>
         </div>
       </div>
 
-      <div className="nickname">Nickname</div>
+      <div className="nickname">
+        Nickname
+      </div>
+      <div className="course-color-name-container">
+      <input
+        type="text"
+        placeholder={courseName}
+        onChange={(e) => setCourseName(e.target.value)}
+        className="course-color-name"
+      />
+      </div>
 
-      <div className="course-name">Course 4</div>
 
       <div className="color-palette">
         {colors.map((color) => (
@@ -53,13 +88,22 @@ const CourseColor = forwardRef<HTMLDivElement, CourseColorProps>((props, ref) =>
         ))}
       </div>
 
-      <div className="selected-color">
-        <span>#{selectedColor.substr(1)}</span>
+      <div className="selected-color-container">
+      <div className="selected-color-box" style={{ backgroundColor: selectedColor }}></div>
+        <input className="selected-color" value={selectedColor} onChange={(e) => setSelectedColor(e.target.value)}/>
       </div>
 
       <div className="buttons">
-      <button className="cancel-button"  onClick={() => props.setShowColorPicker(false)}>Cancel</button>
-        <button className="apply-button">Apply</button>
+        <button
+          className="cancel-button"
+          onClick={() => {
+            props.setShowColorPicker(false);
+            props.setSelectedCourseId(null);
+          }}
+        >
+          Cancel
+        </button>
+        <button className="apply-button" onClick={handleApplyClick}>Apply</button>
       </div>
     </div>
   );

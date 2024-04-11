@@ -1,3 +1,7 @@
+body {
+  font-family: "Lato";
+}
+
 .wd-modules {
   border-radius: 0%;
   border: none;
@@ -21,7 +25,7 @@ h3.course-name {
 }
 
 .module-button {
-  background-color: #f8f9fa;
+  background-color: #FAECEDFF;
   border: 1px solid #c7cdd1; 
   /* border-radius: 3px; */
   margin-left: 10px;
@@ -98,6 +102,8 @@ ul.list-group {
 div.overflow-y-scroll {
   display:  flex;
   flex-grow: 1;
+  padding: 0;
+  overflow-y: visible !important;
 }
 
 select.btn.module-button {
@@ -142,7 +148,7 @@ select.btn.module-button {
 .btn-flat {
   border-radius: 3px;
   border: none;
-  padding: 8px 16px;
+  padding: 8px 14px;
   font-size: 1rem;
   /* font-weight: bold; */
   background-color: #f0f0f0;
@@ -152,14 +158,21 @@ select.btn.module-button {
   color: #2d3b45;
 }
 
+.d-flex {
+  display: flex;
+  flex-grow: 1;
+}
 /* Dropdown */
 .dropdown-flat {
   border: 1px solid #ccc;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  padding: 8px 16px;
-  padding-right: 24px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 14px;
+  padding-right: 0;
+
   font-size: 1rem;
   /* font-weight: bold; */
   background-color: #f0f0f0;
@@ -169,28 +182,33 @@ select.btn.module-button {
   /* background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>'); */
   background-repeat: no-repeat;
   background-position: right 8px center;
+  width: 146.938px;
+  /* position: relative;  */
 }
 
 /* Module button */
 .btn-module-add {
   background-color: #d41b2c;
   color: #fff;
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: bold;
+  padding: 8px 14px;
+  font-size: 16px;
+  font-weight: normal;
   border-radius: 3px;
   border: none;
+  font-family: 'Lato' !important;
 }
 
 /* Spacing and alignment */
 .btn-group-row {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   margin-bottom: 16px;
+  margin-right: 5px;
+  padding: 0;
 }
 
 .btn-group-row > * {
-  margin-right: 8px;
+  margin-right: 4px;
 }
 
 .btn-group-row > *:last-child {
@@ -204,27 +222,49 @@ select.btn.module-button {
   border-color: f0f0f0;
 }
 
+.plus-icon {
+  margin-bottom: 2px;
+  margin-right: 2px;
+}
 
-.dropdown-container {
-  display: flex;
+
+/* .dropdown-container {
+  display: block;
   align-items: center;
   position: relative;
-}
+} */
 
 
 .dropdown-icon {
   position: absolute;
-  top: 0.5px;
-  right: 25px;
+  top: 40%;
+  right: 5px;
+  left: 100px;
+  transform: rotate(90deg);
+  width: 20px;
+  height: 13px;
+  padding: 0;
+  margin: 0;
   /* pointer-events: none; */
+}
+
+.modules-container {
+  padding-left: 0;
 }
 .ellipsis-icon{
   padding: 0px;;
   align-items: center;
   color: rgb(45, 59, 69);
   margin-right: 0px;
+  height: 22px;
 }
 
 .btn-flat#ellipsis-icon {
-  padding: 2px 4px;
+  padding: 3px 6px;
+
+}
+
+
+.module-list-container {
+  overflow-y: auto;
 }

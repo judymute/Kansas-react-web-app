@@ -16,6 +16,8 @@ import {
 import * as client from "./client";
 import { KanbasState } from "../../store";
 import {Module} from "./reducer";
+import BreadcrumbArrowLight from "../breadcrumb-arrow-light.svg";
+import { BsPlusLg } from "react-icons/bs";
 
 function ModuleList() {
   const { courseId } = useParams();
@@ -76,10 +78,10 @@ function ModuleList() {
 
   const dispatch = useDispatch();
   return (
-
-    <div className="row d-block center">
+    <div className="modules-container">
+      <div className="d-block center">
       <br />
-      <div className="col btn-group-row">
+      <div className="btn-group-row">
         {/* Converted buttons and select dropdown */}
         <button className="btn-flat" type="button" onClick={isCollapsed ? handleExpandAll : handleCollapseAll}>{isCollapsed ? "Expand All" : "Collapse All"}</button>
         <button className="btn-flat" type="button">View Progress</button>
@@ -90,9 +92,10 @@ function ModuleList() {
             <option>Publish Modules only</option>
             <option>UnPublish All Modules</option>
           </select>
-          <RxTriangleDown size={13} className="me-2 expand-icon stretched-icon dropdown-icon" />
         </div>
-        <button onClick={() => setIsAddingModule(prev => !prev)} className="btn-module-add " type="button">+ Module</button>
+
+        <button onClick={() => setIsAddingModule(prev => !prev)} className="btn-module-add " type="button"><BsPlusLg className="plus-icon
+        "/> Module</button>
         <button className="btn-flat" id="ellipsis-icon">
           <PiDotsThreeVerticalBold size={20} className="ellipsis-icon" type="button" />
         </button>
@@ -190,6 +193,9 @@ function ModuleList() {
         </ul>
       </div>
     </div>
+
+    </div>
+    
 
 
   );

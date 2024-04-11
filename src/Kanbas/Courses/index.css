@@ -23,11 +23,19 @@
 }
 
 .angle-icon {
-  color: #ccc;
-  font-weight: 50;
+  color: #b9b9b9;
+  font-weight: 10;
+  margin: 0 9px;
+  width: 10px; /* Adjust the width as needed */
+  height: 10px; /* Adjust the height as needed */
+  vertical-align: middle; /* Align the icon vertically with the text */
 }
 
 
 .current-nav-location {
   color: rgb(45, 59, 69);
+}
+
+.course-container {
+  margin-left: 90px;
 }

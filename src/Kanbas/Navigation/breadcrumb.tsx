@@ -10,6 +10,9 @@ interface BreadcrumbComponentProps {
 const BreadcrumbComponent = ({ showBreadcrumb }: BreadcrumbComponentProps) => {
   return (
     <div className={`breadcrumb-container ${showBreadcrumb ? 'slide-in' : 'slide-out'}`}>
+      <div className='exit-icon'>
+      <ImCross/>
+        </div>
       <h4 className='course-header'>Courses</h4>
       <hr />
       <Link to="/Kanbas/Courses" className="all-courses-link">All Courses</Link>

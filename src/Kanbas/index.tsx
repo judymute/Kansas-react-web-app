@@ -17,24 +17,24 @@ function Kanbas() {
 
   // API endpoint for courses
   const COURSES_API = `${API_BASE}/api/courses`;
+  const [selectedColor, setSelectedColor] = useState("#008400");
 
   // Function to update an existing course
-  const updateCourse = async () => {
+  const updateCourse = async (selectedColor: string) => {
     const response = await axios.put(
       `${COURSES_API}/${course._id}`,
-      course
+      { ...course, color: selectedColor }
     );
     // Update the courses state with the updated course
     setCourses(
       courses.map((c) => {
         if (c._id === course._id) {
-          return course;
+          return { ...course, color: selectedColor };
         }
         return c;
       })
     );
   };
-
   // Function to add a new course
   const addNewCourse = async () => {
     const response = await axios.post(COURSES_API, course);
@@ -96,16 +96,18 @@ function Kanbas() {
             <Route path="/" element={<Navigate to="Dashboard" />} />
             <Route path="Account" element={<h1>Account</h1>} />
             <Route path="Dashboard" element={
-              <Dashboard
-                courses={courses}
-                course={course}
-                setCourse={setCourse}
-                addNewCourse={addNewCourse}
-                deleteCourse={deleteCourse}
-                updateCourse={updateCourse}
-                publishedCoursesCount={publishedCoursesCount}
-              />
-            } />
+  <Dashboard
+    courses={courses}
+    course={course}
+    setCourse={setCourse}
+    addNewCourse={addNewCourse}
+    deleteCourse={deleteCourse}
+    updateCourse={(selectedColor: string) => updateCourse(selectedColor)}
+    publishedCoursesCount={publishedCoursesCount}
+    selectedColor={selectedColor}
+    setSelectedColor={setSelectedColor}
+  />
+} />
             <Route path="Courses/:courseId/*" element={<Courses />} />
           </Routes>
         </div>

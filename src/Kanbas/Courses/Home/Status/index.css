@@ -28,6 +28,7 @@
   padding-right: 10px;
   padding-left: 10px;;
   flex-grow: 1;
+  align-items: flex-end;
 }
 
 .link {

@@ -9,6 +9,7 @@ import Modules from "./Modules";
 import Home from "./Home";
 import Assignments from "./Assignments";
 import "./index.css"
+import breadcrumbArrowLight from "./breadcrumb-arrow-light.svg";
 
 
 const API_BASE = process.env.REACT_APP_API_BASE;
@@ -41,9 +42,11 @@ function Courses() {
   const courseName = term[term.length - 2];
   const currentLocation = term[term.length - 1];
   return (
-    <div>
+    <div className="course-container">
       <div className="course-name-container">
-        <h3 className="course-name"><GrMenu className="breadcrumb-icon"/> {course.number}.{courseName} <MdOutlineKeyboardArrowRight className="angle-icon"/> 
+        <h3 className="course-name"><GrMenu className="breadcrumb-icon"/> {course.number}.{courseName} 
+         <img src={breadcrumbArrowLight} alt="Arrow" className="angle-icon" />
+         {/* <MdOutlineKeyboardArrowRight className="angle-icon"/>  */}
         <span className="current-nav-location">{currentLocation}</span> </h3>
       </div>
 
