@@ -24,7 +24,8 @@ function Kanbas() {
   const updateCourse = async (selectedColor: string) => {
     const response = await axios.put(
       `${COURSES_API}/${course._id}`,
-      { ...course, color: selectedColor }
+      { ...course, color: selectedColor },
+      { withCredentials: true }
     );
     // Update the courses state with the updated course
     setCourses(
@@ -38,7 +39,7 @@ function Kanbas() {
   };
   // Function to add a new course
   const addNewCourse = async () => {
-    const response = await axios.post(COURSES_API, course);
+    const response = await axios.post(COURSES_API, course, { withCredentials: true });
     // Add the new course to the courses state
     setCourses([...courses, response.data]);
     // Update the published courses count
@@ -47,9 +48,7 @@ function Kanbas() {
 
   // Function to delete a course
   const deleteCourse = async (courseId: string) => {
-    const response = await axios.delete(
-      `${COURSES_API}/${courseId}`
-    );
+    const response = await axios.delete(`${COURSES_API}/${courseId}`, { withCredentials: true });
     // Remove the deleted course from the courses state
     setCourses(courses.filter( (c) => c._id !== courseId));
     // Update the published courses count
@@ -58,7 +57,7 @@ function Kanbas() {
 
   // Function to fetch all courses from the API
   const findAllCourses = async () => {
-    const response = await axios.get(COURSES_API);
+    const response = await axios.get(COURSES_API, { withCredentials: true });
     // Set the courses state with the fetched data
     setCourses(response.data);
   };
