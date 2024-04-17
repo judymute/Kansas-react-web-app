@@ -13,12 +13,14 @@ import histoy from "./history-icon.png";
 import studio from "./studio-icon.png";
 import commons from "./commons-icon.png";
 import help from "./help-icon.png";
+import * as client from '../../Users/client';
 
 const KanbasNavigation = () => {
   const { pathname } = useLocation();
   const [activeTab, setActiveTab] = useState('');
   const [showBreadcrumb, setShowBreadcrumb] = useState(false);
   const [doubleClicked, setDoubleClicked] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const links = [
     { label: 'Account', image: account, className: 'account-icon' },
@@ -58,6 +60,19 @@ const KanbasNavigation = () => {
     }
   }, [pathname]);
 
+  useEffect(() => {
+    const checkUserInSession = async () => {
+      try {
+        const user = await client.profile();
+        setIsLoggedIn(!!user);
+      } catch (error) {
+        setIsLoggedIn(false);
+      }
+    };
+
+    checkUserInSession();
+  }, []);
+
   const handleTabClick = (label: string) => {
     setActiveTab(label);
     if (label === 'Courses') {
@@ -76,45 +91,61 @@ const KanbasNavigation = () => {
 
   return (
     <div className='navigation-container'>
-          <div className='wd-kanbas-navigation d-none d-md-block'>
-      <div className='logo-container'>
-        <a href='http://northeastern.edu'>
-          <img src={logo} alt='Northeastern University Logo' className='northeastern-logo' />
-        </a>
-      </div>
-      <ul>
-        {links.map((link, index) => (
-          <li
-            key={index}
-            className={`${activeTab === link.label ? 'wd-active' : ''} ${
-              activeTab === link.label && doubleClicked ? 'wd-double-clicked' : ''
-            }`}
-            onClick={() => handleTabClick(link.label)}
-            onDoubleClick={handleDoubleClick}
-          >
-            {link.label === 'Courses' ? (
-              <div className="courses-tab">
-                <img src={link.image} alt={link.label} className={link.className} />
-                <br />
-                <span className="tab-label">{link.label}</span>
-              </div>
-            ) : (
-              <Link to={`/Kanbas/${link.label}`}>
-                <div>
+      <div className='wd-kanbas-navigation d-none d-md-block'>
+        <div className='logo-container'>
+          <a href='http://northeastern.edu'>
+            <img src={logo} alt='Northeastern University Logo' className='northeastern-logo' />
+          </a>
+        </div>
+        <ul>
+          {links.map((link, index) => (
+            <li
+              key={index}
+              className={`${activeTab === link.label ? 'wd-active' : ''} ${
+                activeTab === link.label && doubleClicked ? 'wd-double-clicked' : ''
+              }`}
+              onClick={() => handleTabClick(link.label)}
+              onDoubleClick={handleDoubleClick}
+            >
+              {link.label === 'Courses' ? (
+                <div className="courses-tab">
                   <img src={link.image} alt={link.label} className={link.className} />
                   <br />
                   <span className="tab-label">{link.label}</span>
                 </div>
-              </Link>
-            )}
-          </li>
-        ))}
-      </ul>
-      {showBreadcrumb && <BreadcrumbComponent showBreadcrumb={showBreadcrumb} />}
+              ) : link.label === 'Account' ? (
+                isLoggedIn ? (
+                  <Link to="/Kanbas/Account/Profile">
+                    <div>
+                      <img src={link.image} alt={link.label} className={link.className} />
+                      <br />
+                      <span className="tab-label">{link.label}</span>
+                    </div>
+                  </Link>
+                ) : (
+                  <Link to="/Kanbas/Account/Signin">
+                    <div>
+                      <img src={link.image} alt={link.label} className={link.className} />
+                      <br />
+                      <span className="tab-label">{link.label}</span>
+                    </div>
+                  </Link>
+                )
+              ) : (
+                <Link to={`/Kanbas/${link.label}`}>
+                  <div>
+                    <img src={link.image} alt={link.label} className={link.className} />
+                    <br />
+                    <span className="tab-label">{link.label}</span>
+                  </div>
+                </Link>
+              )}
+            </li>
+          ))}
+        </ul>
+        {showBreadcrumb && <BreadcrumbComponent showBreadcrumb={showBreadcrumb} />}
+      </div>
     </div>
-
-    </div>
-
   );
 };
 
