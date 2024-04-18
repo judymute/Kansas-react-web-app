@@ -20,7 +20,7 @@ export interface User {
 }
 
 export const signin = async (credentials: { username: string; password: string }) => {
-  const response = await request.post(`${USERS_API}/signin`, credentials, { withCredentials: true });
+  const response = await request.post(`${USERS_API}/signin`, credentials);
   localStorage.setItem('user', JSON.stringify(response.data));
   return response.data;
 };
