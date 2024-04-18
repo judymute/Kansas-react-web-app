@@ -16,11 +16,15 @@ const API_BASE = process.env.REACT_APP_API_BASE;
 function Courses() {
   const { courseId } = useParams();
 
+  const request = axios.create({
+    withCredentials: true,
+  })
+
   const COURSES_API = `${API_BASE}/api/courses`;
   const [course, setCourse] = useState<any>({ _id: "" });
   const findCourseById = async (courseId?: string) => {
     try {
-      const response = await axios.get(`${COURSES_API}/${courseId}`);
+      const response = await request.get(`${COURSES_API}/${courseId}`);
       setCourse(response.data);
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 404) {
