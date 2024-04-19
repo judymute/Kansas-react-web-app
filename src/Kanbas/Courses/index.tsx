@@ -2,23 +2,29 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { courses } from "../../Kanbas/Database";
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
-import { HiMiniBars3 } from "react-icons/hi2";
+import { GrMenu } from "react-icons/gr";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import CourseNavigation from "./Navigation";
 import Modules from "./Modules";
 import Home from "./Home";
 import Assignments from "./Assignments";
 import "./index.css"
-import { FaAngleRight } from "react-icons/fa";
+import breadcrumbArrowLight from "./breadcrumb-arrow-light.svg";
+
 
 const API_BASE = process.env.REACT_APP_API_BASE;
 function Courses() {
   const { courseId } = useParams();
 
+  const request = axios.create({
+    withCredentials: true,
+  })
+
   const COURSES_API = `${API_BASE}/api/courses`;
   const [course, setCourse] = useState<any>({ _id: "" });
   const findCourseById = async (courseId?: string) => {
     try {
-      const response = await axios.get(`${COURSES_API}/${courseId}`);
+      const response = await request.get(`${COURSES_API}/${courseId}`);
       setCourse(response.data);
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 404) {
@@ -40,9 +46,11 @@ function Courses() {
   const courseName = term[term.length - 2];
   const currentLocation = term[term.length - 1];
   return (
-    <div>
+    <div className="course-container">
       <div className="course-name-container">
-        <h3 className="course-name"><HiMiniBars3 className="breadcrumb-icon"/> {courseName} <FaAngleRight className="angle-icon"/> 
+        <h3 className="course-name"><GrMenu className="breadcrumb-icon"/> {course.number}.{courseName} 
+         <img src={breadcrumbArrowLight} alt="Arrow" className="angle-icon" />
+         {/* <MdOutlineKeyboardArrowRight className="angle-icon"/>  */}
         <span className="current-nav-location">{currentLocation}</span> </h3>
       </div>
 

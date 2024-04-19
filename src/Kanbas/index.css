@@ -1,23 +1,25 @@
+/* Styles for the card image */
 .card-img-top {
-  object-fit: cover;
-  width: 100%;      /* This ensures the image spans the full width of its parent */
-  height: 150px;    /* Set a fixed height */
+  object-fit: cover; /* Scales the image to cover the entire container while maintaining aspect ratio */
+  width: 100%; /* This ensures the image spans the full width of its parent */
+  height: 150px; /* Set a fixed height */
   overflow: hidden; /* This will hide the parts of the image that do not fit */
 }
 
-
+/* Styles for the card title */
 .card-title {
-  text-decoration: none; 
-  color: navy; 
-  font-weight: bold;
+  text-decoration: none; /* Remove underline */
+  color: navy; /* Set the color to navy */
+  font-weight: bold; /* Make the text bold */
 }
 
+/* Styles for the card link */
 .card-link {
-  text-decoration: none; 
+  text-decoration: none; /* Remove underline */
 }
 
+/* Styles when hovering over the card link */
 .card-link:hover .card-title,
 .card-link:hover .card-text {
-  text-decoration: underline; 
+  text-decoration: underline; /* Add underline on hover */
 }
-

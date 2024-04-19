@@ -1,4 +1,13 @@
 
+
+.vertical-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+
 .vertical-button-container .button-link {
   display: block;
   margin-bottom: 10px;
@@ -6,15 +15,14 @@
   background-color: #f5f5f5;
   color: rgb(45, 59, 69);
   text-align: left;
-  padding: 0.5rem 1rem; 
+  padding: 0.5rem 1rem;
   border: 1px solid #ccc;
-  width: 240px; /* Set a fixed width */
-  box-sizing: border-box; 
+  width: 240px;
+  box-sizing: border-box;
   border-radius: 3px;
   font-size: 16px;
   cursor: pointer;
   font-family: system-ui !important;
-  flex-direction: column;
 }
 
 .vertical-button-container .button-link:hover {
@@ -23,12 +31,12 @@
 
 .right-side {
   display: flex;
-  justify-content: flex-end;
-  text-align: start;
+  flex-direction: column;
+  align-items: flex-end;
   padding-right: 10px;
-  padding-left: 10px;;
-  flex-grow: 1;
+  padding-left: 10px;
 }
+
 
 .link {
   color: #D41B2C;

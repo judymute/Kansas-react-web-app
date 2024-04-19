@@ -1,26 +1,82 @@
-import React from "react"; // add useState hook
-import { Link } from "react-router-dom";
-import { courses } from "../Database";
-import { useState } from "react";
-import * as db from "../Database";
+import React from "react"; // Import React library
+import { Link } from "react-router-dom"; // Import Link component from react-router-dom
+import { useState, useEffect, useRef } from "react";
+import * as db from "../Database"; // Import everything 
+import "./index.css";
+import "./course-color.css";
+import { IoEllipsisVertical } from "react-icons/io5";
+import { GoCircle } from "react-icons/go";
+import CourseColor from "./course-color";
 
-function Dashboard(
-  { courses, course, setCourse, addNewCourse,
-    deleteCourse, updateCourse, publishedCoursesCount }: {
-      courses: any[]; course: any; setCourse: (course: any) => void;
-      addNewCourse: () => void; deleteCourse: (course: any) => void;
-      updateCourse: () => void;
-      publishedCoursesCount: number;
-    }) {
 
-  // console.log(courses);
+function Dashboard({ courses, course, setCourse, addNewCourse,
+  deleteCourse, updateCourse, publishedCoursesCount, selectedColor,
+  setSelectedColor }: {
+    courses: any[]; // Courses data array
+    course: any; // Current course object
+    setCourse: (course: any) => void; // Function to update the current course
+    addNewCourse: () => void; // Function to add a new course
+    deleteCourse: (course: any) => void; // Function to delete a course
+    updateCourse: (selectedColor: string) => Promise<void>; // Function to update a course
+    publishedCoursesCount: number; // Count of published courses
+    selectedColor: string; // Selected color state
+    setSelectedColor: (color: string) => void; // Function to update selected color
+  }) {
+
+  const [showCircleIcon, setShowCircleIcon] = useState(false);
+  const [showColorPicker, setShowColorPicker] = useState(false);
+  const courseColorRef = useRef<HTMLDivElement>(null);
+  const toggleColorPicker = () => {
+    setShowColorPicker((prevState) => !prevState);
+  };
+  const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
+
+  const handleEllipsisClick = (courseId: string) => {
+    setSelectedCourseId(courseId);
+    setShowColorPicker(courseId === selectedCourseId ? !showColorPicker : true);
+    setShowCircleIcon(true);
+    setTimeout(() => {
+      setShowCircleIcon(false);
+    }, 300);
+  };
+  const handleUpdateCourse = () => {
+    updateCourse(selectedColor);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const node = courseColorRef.current;
+
+      if (
+        selectedCourseId &&
+        node &&
+        !node.contains(event.target as Node)
+      ) {
+        setSelectedCourseId(null);
+        setShowColorPicker(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [selectedCourseId]);
+
   return (
-    <div className="p-4">
-      <h1>Dashboard</h1>
-      <hr />
+    <div className="p-4 dashboard-container">
 
 
+      {/* Form for adding/updating a course */}
       <div className="row">
+        <div className="dashboard-header-container">
+          <div className="dashboard-header">
+            <span id="header">Dashboard</span>
+            <div className="spacer"></div>
+            <IoEllipsisVertical id="ellipsis-icon" />
+          </div>
+        </div>
         <h2 className="mb-3">Add/Update a Course</h2>
         <div className="col">
           <input value={course.name} className="form-control mb-3"
@@ -32,6 +88,7 @@ function Dashboard(
         </div>
       </div>
 
+      {/* Input fields for start and end dates */}
       <div className="row mb-3">
         <div className="col">
           <label htmlFor="startDateInput" className="form-label">
@@ -61,67 +118,89 @@ function Dashboard(
         </div>
       </div>
 
+      {/* Buttons for adding and updating courses */}
       <div className="row mb-3">
         <div className="col">
-          {/* add button to invoke addNewCourse. Note no argument */}
+          {/* Button to invoke addNewCourse function */}
           <button onClick={addNewCourse} type="button" className="btn btn-success me-2">
             Add
           </button>
-          <button onClick={updateCourse} type="button" className="btn btn-primary">
+          {/* Button to invoke updateCourse function */}
+          <button onClick={handleUpdateCourse} type="button" className="btn btn-primary">
             Update
           </button>
         </div>
-
       </div>
 
+      <div className="courses-container">
+        {/* Section for displaying published courses */}
+        <h2 className="published-courses-count">
+          Published Courses ({publishedCoursesCount})</h2>
+        <div className="row">
+          <div className="row row-cols-1 row-cols-md-5 g-4" id="custom-course-margin">
+            {/* Mapping over courses array and rendering a card for each course */}
+            {courses.map((course) => (
+              <div key={course._id} className="col "
+                style={{ width: 262, height: 265.992, paddingLeft: 0, paddingRight: 0, marginRight: 35 }}>
 
-      <h2>Published Courses ({publishedCoursesCount})</h2> <hr />
-
-
-
-      <div className="row">
-        <div className="row row-cols-1 row-cols-md-5 g-4">
-          {courses.map((course) => (
-            <div key={course._id} className="col" style={{ width: 300, height: 270, marginBottom: 27 }}>
-
-              <div className="card">
-              <Link to={`/Kanbas/Courses/${course._id}/Home`}>
-                  <img src={
-                `/images/${course.image}`} className="card-img-top"
-                  style={{ height: 165 }} />
+                <div className="card">
+                  {selectedCourseId === course._id && (
+                    <div className="color-picker-overlay">
+                      <CourseColor
+                        ref={courseColorRef}
+                        setShowColorPicker={setShowColorPicker}
+                        selectedCourseId={selectedCourseId}
+                        setSelectedCourseId={setSelectedCourseId}
+                        course={course}
+                        selectedColor={selectedColor}
+                        setSelectedColor={setSelectedColor}
+                        updateCourse={updateCourse} 
+                      />
+                    </div>
+                  )}
+                  {/* Link to the course details page */}
+                  <Link to={`/Kanbas/Courses/${course._id}/Home`}>
+                  <div className="card-img-container">
+          <div className="card-img-overlay" style={{ backgroundColor: course.color }}></div>
+          <img src={`/images/${course.image}`} className="card-img-top" />
+        </div>
                   </Link>
-                
-     
-                <div className="card-body">
-   
-                  <Link className="card-title" to={`/Kanbas/Courses/${course._id}/Home`}
-                    style={{ textDecoration: "none", color: "navy", fontWeight: "bold" }}>       
-                    {course.number} {course.name}
-                    <br />
+                  <div className="ellipsis-icon-card-container">
+                    <GoCircle className={`circle-icon ${showCircleIcon ? 'show-circle-icon' : ''}`} />
+                    <IoEllipsisVertical className="ellipsis-icon-card" onClick={() => handleEllipsisClick(course._id)} />
+                  </div>
 
-                  </Link>
-                  <p className="card-text">{course.number}.{course._id}</p>
+                  <div className="card-body card-link">
+                    {/* Link to the course details page */}
+                    <Link className="card-title" to={`/Kanbas/Courses/${course._id}/Home`}
+                      style={{ textDecoration: "none", color: course.color, fontWeight: "bold" }}>
+                      {course.number} {course.name}
 
-                  <button onClick={(event) => {
-                    event.preventDefault();
-                    setCourse(course);
-                  }} type="button" className="btn btn-warning me-2">
-                    Edit
-                  </button>
-                  <button onClick={(event) => {
-                    event.preventDefault();
-                    deleteCourse(course._id);
-                  }} type="button" className="btn btn-danger me-2">
-                    Delete
-                  </button>
-                  {/* <br />
-                  <Link to={`/Kanbas/Courses/${course._id}/Home`} className="btn btn-primary">
-                    Go </Link> */}
+                    </Link>
+                    <p className="card-text">{course.number}.{course._id}</p>
+
+                    {/* Button to edit the course */}
+                    <button onClick={(event) => {
+                      event.preventDefault();
+                      setCourse(course);
+                    }} type="button" className="btn btn-warning me-2">
+                      Edit
+                    </button>
+                    {/* Button to delete the course */}
+                    <button onClick={(event) => {
+                      event.preventDefault();
+                      deleteCourse(course._id);
+                    }} type="button" className="btn btn-danger me-2">
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))} </div>
+            ))}
+          </div>
+        </div>
       </div>
+
     </div>
   );
 }

@@ -12,15 +12,13 @@ function WorkingWithArrays() {
     completed: false,
   });
   const [todos, setTodos] = useState<any[]>([]);
-  const fetchTodos = async () => {
-    const response = await axios.get(API);
-    setTodos(response.data);
-  };
-  const removeTodo = async (todo: any) => {
-    const response = await axios
-      .get(`${API}/${todo.id}/delete`);
-    setTodos(response.data);
-  };
+  
+
+  // const removeTodo = async (todo: any) => {
+  //   const response = await axios
+  //     .get(`${API}/${todo.id}/delete`);
+  //   setTodos(response.data);
+  // };
   const fetchTodoById = async (id: number) => {
     const response = await axios.get(`${API}/${id}`);
     setTodo(response.data);
@@ -40,26 +38,27 @@ function WorkingWithArrays() {
     setTodos([...todos, response.data]);
   };
   const deleteTodo = async (todo: any) => {
-    const response = await axios.delete(`${API}/${todo.id}`);
+    // const response = await axios.delete(`${API}/${todo.id}`);
     setTodos(todos.filter((t) => t.id !== todo.id));
   };
 
   const updateTodo = async () => {
-    const response = await axios.put(`${API}/${todo.id}`, todo);
+    // const response = await axios.put(`${API}/${todo.id}`, todo);
     setTodos(todos.map((t) => (t.id === todo.id ? todo : t)));
   };
 
-
-
-
-
+  const API = `${API_BASE}/a5/todos`;
 
   useEffect(() => {
+    const fetchTodos = async () => {
+      const response = await axios.get(API);
+      setTodos(response.data);
+    };
     fetchTodos();
   }, []);
 
 
-  const API = `${API_BASE}/a5/todos`;
+
 
   // Function to update todo description on the server
   const updateDescription = () => {

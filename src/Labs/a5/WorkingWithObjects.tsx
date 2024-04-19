@@ -29,7 +29,7 @@ function WorkingWithObjects() {
   };
   useEffect(() => {
     fetchAssignment();
-  }, []);
+  }, [API_BASE, fetchAssignment]);
 
 
   // Add additional state for the module

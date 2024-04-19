@@ -5,12 +5,13 @@ import "./index.css";
 
 function Home() {
   return (
-    <div>
-      <div className="not-right-side d-flex">
-        <ModuleList />
-        <Status />
-
-      </div>
+    <div className="home-container">
+      <div className="module-list-container">
+          <ModuleList />
+        </div>
+        <div className="status-container">
+          <Status />
+        </div>
     </div>
   );
 }
