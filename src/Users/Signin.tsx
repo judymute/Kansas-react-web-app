@@ -35,7 +35,7 @@ export default function Signin() {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-4">
       <h1>Signin</h1>
       {error && <div className="alert alert-danger">{error}</div>}
       <form>

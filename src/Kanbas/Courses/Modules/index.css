@@ -122,9 +122,13 @@ select.btn.module-button {
 
 .icon {
   /* Styling for the icons */
-  margin-left: 8px; /* Adds spacing between icons, adjust as needed */
+  margin-left: 8px; 
 }
 
+.check-circle-icon {
+  font-size: 18px; 
+  margin-right: 20px;
+}
 
 .list-group-item {
   display: flex;
@@ -184,6 +188,15 @@ select.btn.module-button {
   background-position: right 8px center;
   width: 146.938px;
   /* position: relative;  */
+}
+
+.dropdown-flat option {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-flat .check-circle-icon {
+  margin-right: 5px;
 }
 
 /* Module button */
@@ -251,6 +264,7 @@ select.btn.module-button {
 .modules-container {
   padding-left: 0;
 }
+
 .ellipsis-icon{
   padding: 0px;;
   align-items: center;

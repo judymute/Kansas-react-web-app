@@ -19,8 +19,8 @@ const tasks: Task[] = [
 function Status() {
   return (
     <>
-      <div className="right-side col d-lg-block d-none">
-        <div className="row">
+      <div className="right-side col">
+
           <div className="vertical-button-container right-side">
             <Link to="#" className="btn button-link">Import Existing Content</Link>
             <Link to="#" className="btn button-link">Import From Commons</Link>
@@ -30,7 +30,7 @@ function Status() {
             <Link to="#" className="btn button-link">New Analytics</Link>
             <Link to="#" className="btn button-link">View Course Notifications</Link>
           </div>
-        </div>
+     
 
         <div className="row">
           <div className="todo-list">
