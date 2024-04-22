@@ -1,0 +1,190 @@
+.body {
+  font-family: 'Lato';
+  color: #2d3b45 !important;
+}
+.quiz-edit-container {
+  padding: 20px;
+}
+
+.quiz-edit-container input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.quiz-edit-container h2 {
+  margin-top: 20px;
+}
+
+.quiz-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.quiz-info {
+  display: flex;
+  gap: 20px;
+}
+
+.quiz-tabs {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.quiz-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 20px;
+  margin-top: 50px;
+}
+
+.quiz-settings label {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  font-weight: normal;
+  margin-bottom: 10px;
+}
+
+
+.quiz-settings select {
+  width: 220px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%23333' d='M6 9L1.5 4.5 2.91 3.09 6 6.17l3.09-3.08L10.5 4.5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 30px;
+}
+
+.quiz-settings select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.quiz-settings select option {
+  font-size: 14px;
+  background-color: #fff;
+  color: #333;
+}
+
+.tab {
+  border: #ccc 1px solid;
+  padding: 8px 14px;
+  border-bottom: none;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.quiz-tabs {
+  border-bottom: #ccc 1px solid;
+}
+
+.quiz-settings input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.quiz-settings input[type="number"] {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100px;
+}
+
+.setting-item-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.setting-item {
+  display: flex;
+  align-items: center;
+}
+
+.setting-item label {
+  margin-right: 10px;
+  font-weight: normal;
+  width: 150px;
+  text-align: right;
+}
+
+.setting-item select {
+  width: 220px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%23333' d='M6 9L1.5 4.5 2.91 3.09 6 6.17l3.09-3.08L10.5 4.5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 30px;
+}
+
+.setting-item select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.setting-item select option {
+  font-size: 14px;
+  background-color: #fff;
+  color: #333;
+}
+
+.attempt-settings {
+  border: #ccc 1px solid;
+  border-radius: 4px;
+  padding: 10px 10px 0;
+  margin-bottom: 15px;
+  max-width: 478px
+}
+
+.option-header {
+  font-weight: bold !important;
+}
+
+.time-limit-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.time-limit-input {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.time-limit-input input[type="number"] {
+  width: 60px;
+  margin-right: 5px;
+}
+
+.time-limit-input label {
+  font-weight: normal;
+}
