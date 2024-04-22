@@ -2,6 +2,9 @@
   "name": "kanbas-react-web-app",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "18.20.2"
+  },
   "dependencies": {
     "18": "^0.0.0",
     "@reduxjs/toolkit": "^2.2.1",
