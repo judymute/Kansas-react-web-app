@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import "./index.css";
 import { FaCalendarAlt } from 'react-icons/fa'; 
@@ -9,12 +8,6 @@ type Task = {
   course: string;
   description: string;
 };
-
-// Mock data. Will use json in future
-const tasks: Task[] = [
-  { id: 1, course: "CS4550 01 SP24", description: "Web Development SEC 02 - Feb 13 at 3:25pm" },
-  { id: 2, course: "CS4550 02 SP24", description: "Web Development SEC 02 - Feb 14 at 6:00pm" },
-];
 
 function Status() {
   return (

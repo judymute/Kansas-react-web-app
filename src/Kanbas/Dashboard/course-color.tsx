@@ -11,7 +11,7 @@ interface CourseColorProps {
   course?: any; 
   selectedColor: string;
   setSelectedColor: (color: string) => void;
-  updateCourse: (selectedColor: string) => void; // Add this line
+  updateCourse: (selectedColor: string) => void; 
 }
 const colors = [
   "#BD3C14", "#FF2717", "#E71F63", "#8F3E97", "#65499D",
@@ -35,13 +35,6 @@ const CourseColor = forwardRef<HTMLDivElement, CourseColorProps>((props, ref) =>
     setSelectedColor(color);
   };
   
-  const handleColorInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputColor = e.target.value;
-    if (inputColor.startsWith('#') && inputColor.length === 7) {
-      setSelectedColor(inputColor);
-    }
-  };
-
 
   const handleApplyClick = async () => {
     try {

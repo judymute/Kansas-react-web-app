@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import "./index.css";
-import { FaCheckCircle, FaPlusCircle } from "react-icons/fa";
+import { FaCheckCircle } from "react-icons/fa";
 import { RxTriangleDown, RxTriangleRight } from "react-icons/rx";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,7 +16,6 @@ import {
 import * as client from "./client";
 import { KanbasState } from "../../store";
 import { Module } from "./reducer";
-import BreadcrumbArrowLight from "../breadcrumb-arrow-light.svg";
 import { BsPlusLg } from "react-icons/bs";
 
 function ModuleList() {
@@ -62,7 +61,6 @@ function ModuleList() {
 
 
   const [isCollapsed, setIsCollapsed] = useState(true);
-  const [selectedModule, setSelectedModule] = useState(modulesList[0]);
   const handleModuleClick = (module: any) => {
     setExpandedModules((prevExpandedModules) => {
       const isExpanded = prevExpandedModules.has(module._id);
@@ -101,7 +99,6 @@ function ModuleList() {
           </button>
         </div>
         <br />
-
 
         <div className="col">
           <ul className="list-group wd-modules">

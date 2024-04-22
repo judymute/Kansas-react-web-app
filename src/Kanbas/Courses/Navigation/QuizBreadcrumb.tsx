@@ -1,7 +1,4 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import './QuizBreadcrumb.css';
-import { ImCross } from 'react-icons/im';
 import courseBreadcrumb from "./course-breadcrumb.png";
 
 interface QuizBreadcrumbprops {
