@@ -12,6 +12,7 @@ const QuizDetails = () => {
   const [allowedAttempts, setAllowedAttempts] = useState('');
   const [shuffleAnswers, setShuffleAnswers] = useState(false);
   const [timeLimit, setTimeLimit] = useState('');
+  const [onlyAfterLastAttempt, setOnlyAfterLastAttempt] = useState(false);
 
   return (
     <div>
@@ -34,7 +35,7 @@ const QuizDetails = () => {
       <br />
       <div className="quiz-settings">
         <div className="setting-item-container">
-          { /* Setting Items */ }
+          { /* Setting Items */}
           <div className="setting-item">
             <label htmlFor="quizType">Quiz Type:</label>
             <select
@@ -63,7 +64,7 @@ const QuizDetails = () => {
           </div>
         </div>
         <div>
-          { /* More Settings and Options */ }
+          { /* More Settings and Options */}
           <div className="option-header">Options</div>
           <br />
           <label>
@@ -107,7 +108,8 @@ const QuizDetails = () => {
               </label>
               {allowMultipleAttempts && (
                 <div>
-                  <label htmlFor="quizScoreToKeep">Quiz Score to Keep:
+                  <label htmlFor="quizScoreToKeep">
+                    Quiz Score to Keep:
                     <select
                       id="quizScoreToKeep"
                       value={quizScoreToKeep}
@@ -118,49 +120,78 @@ const QuizDetails = () => {
                       <option value="Average">Average</option>
                     </select>
                   </label>
-                  <label htmlFor="allowedAttempts">Allowed Attempts:
+                  <label>
                     <input
-                      type="number"
-                      id="allowedAttempts"
-                      value={allowedAttempts}
-                      onChange={(e) => setAllowedAttempts(e.target.value)}
+                      type="checkbox"
+                      checked={allowedAttempts !== ''}
+                      onChange={(e) => setAllowedAttempts(e.target.checked ? '1' : '')}
                     />
+                    Allowed Attempts:
+                    {allowedAttempts !== '' && (
+                      <input
+                        type="number"
+                        id="allowedAttempts"
+                        value={allowedAttempts}
+                        onChange={(e) => setAllowedAttempts(e.target.value)}
+                      />
+                    )}
                   </label>
+
                 </div>
               )}
             </div>
-            <label>
-              <input
-                type="checkbox"
-                checked={showCorrectAnswers !== 'Hide Correct Answers at'}
-                onChange={(e) => setShowCorrectAnswers(e.target.checked ? 'Let Students See The Correct Answers' : 'Hide Correct Answers at')}
-              />
-              Let Students See Their Quiz Responses (Incorrect Questions Will Be Marked in Student Feedback)
-            </label>
-            {showCorrectAnswers === 'Let Students See The Correct Answers' && (
-              <div>
-                <label>
-                  <input type="radio" checked readOnly />
-                  Let Students See The Correct Answers
-                </label>
-                <label>
-                  Show Correct Answers at
-                  <input type="datetime-local" />
-                </label>
-                <label>
-                  Hide Correct Answers at
-                  <input type="datetime-local" />
-                </label>
-              </div>
-            )}
-            <label>
-              <input
-                type="checkbox"
-                checked={showOneQuestionAtATime}
-                onChange={(e) => setShowOneQuestionAtATime(e.target.checked)}
-              />
-              Show one question at a time
-            </label>
+            <div className='responses-settings'>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={showCorrectAnswers !== 'Hide Correct Answers at'}
+                  onChange={(e) => setShowCorrectAnswers(e.target.checked ? 'Let Students See The Correct Answers' : 'Hide Correct Answers at')}
+                />
+                Let Students See Their Quiz Responses (Incorrect Questions Will Be Marked in Student Feedback)
+              </label>
+              {showCorrectAnswers === 'Let Students See The Correct Answers' && (
+                <div>
+                  {allowedAttempts !== '' && (
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={onlyAfterLastAttempt}
+                        onChange={(e) => setOnlyAfterLastAttempt(e.target.checked)}
+                      />
+                      Only After Their Last Attempt
+                    </label>
+                  )}
+                  <label>
+                    <input type="checkbox" />
+                    Only Once After Each Attempt
+                  </label>
+                  <label>
+                    <input type="checkbox" />
+                    Let Students See The Correct Answers
+                  </label>
+
+                  <label>
+                    Show Correct Answers at
+                    <input type="datetime-local" />
+                  </label>
+                  <label>
+                    Hide Correct Answers at
+                    <input type="datetime-local" />
+                  </label>
+                </div>
+              )}
+              <label>
+                <input
+                  type="checkbox"
+                  checked={showOneQuestionAtATime}
+                  onChange={(e) => setShowOneQuestionAtATime(e.target.checked)}
+                />
+                Show one question at a time
+              </label>
+
+            </div>
+
+
           </div>
         </div>
       </div>

@@ -156,7 +156,8 @@
   color: #333;
 }
 
-.attempt-settings {
+.attempt-settings, 
+.responses-settings {
   border: #ccc 1px solid;
   border-radius: 4px;
   padding: 10px 10px 0;
