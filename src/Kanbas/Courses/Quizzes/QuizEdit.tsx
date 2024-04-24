@@ -9,17 +9,26 @@ interface QuizEditProps {
   setQuizName?: (name: string) => void;
 }
 
+
 export function QuizEdit({ quizName = 'Unnamed Quiz', setQuizName = () => { } }: QuizEditProps = {}) {
+
   const { courseId, quizId } = useParams<{ courseId: string, quizId: string }>();
   console.log("QuizEdit component: quizId =", quizId);
 
   const [localQuizName, setLocalQuizName] = useState(quizName);
   console.log("QuizEdit component: Initial quizName =", quizName);
 
+
   const handleQuizNameChange = (name: string) => {
     setLocalQuizName(name);
     setQuizName?.(name);
+
     console.log("QuizEdit component: Quiz name changed to", name);
+  };
+
+  const handleSave = () => {
+    console.log("Saving quiz...");
+
   };
 
   const handleLinkClick = useCallback((tabName: string) => {
@@ -45,6 +54,19 @@ export function QuizEdit({ quizName = 'Unnamed Quiz', setQuizName = () => { } }:
           value={localQuizName}
           onChange={(e) => handleQuizNameChange(e.target.value)}
         />
+      </div>
+
+      <div className="quiz-details">
+        <div className="quiz-info">
+          <div>Points: 0</div>
+          <div>Not Published</div>
+        </div>
+        <button
+          className="save-button"
+          onClick={handleSave}
+        >
+          Save
+        </button>
       </div>
       <Routes>
         <Route path="/" element={<Navigate replace to="details" />} />

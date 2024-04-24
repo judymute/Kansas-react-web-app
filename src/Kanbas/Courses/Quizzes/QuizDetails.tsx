@@ -5,14 +5,34 @@ import { Editor } from '@tinymce/tinymce-react';
 const QuizDetails = () => {
   const [quizType, setQuizType] = useState('Graded Quiz');
   const [assignmentGroup, setAssignmentGroup] = useState('Quizzes');
-  const [showCorrectAnswers, setShowCorrectAnswers] = useState('Let Students See The Correct Answers');
   const [showOneQuestionAtATime, setShowOneQuestionAtATime] = useState(false);
   const [allowMultipleAttempts, setAllowMultipleAttempts] = useState(true);
   const [quizScoreToKeep, setQuizScoreToKeep] = useState('Highest');
   const [allowedAttempts, setAllowedAttempts] = useState('');
   const [shuffleAnswers, setShuffleAnswers] = useState(false);
   const [timeLimit, setTimeLimit] = useState('');
-  const [onlyAfterLastAttempt, setOnlyAfterLastAttempt] = useState(false);
+
+  const [onlyOnceAfterEachAttempt, setOnlyOnceAfterEachAttempt] = useState(false);
+
+  // separate states for each show answers/responses
+  const [showCorrectAnswers, setShowCorrectAnswers] = useState(false);
+  const [showQuizResponses, setShowQuizResponses] = useState(false);
+
+  // separate states for each only after each attempt checkbox:
+  const [onlyAfterLastAttemptAnswers, setOnlyAfterLastAttemptAnswers] = useState(false);
+  const [onlyAfterLastAttemptResponses, setOnlyAfterLastAttemptResponses] = useState(false);
+
+  const [requireAccessCode, setRequireAccessCode] = useState(false);
+  const [accessCode, setAccessCode] = useState('');
+  const [filterIPAddresses, setFilterIPAddresses] = useState(false);
+  const [ipAddresses, setIPAddresses] = useState('');
+
+
+  const [assignTo, setAssignTo] = useState('Everyone');
+  const [assignToSpecific, setAssignToSpecific] = useState('');
+  const [dueDate, setDueDate] = useState('');
+  const [availableFrom, setAvailableFrom] = useState('');
+  const [availableUntil, setAvailableUntil] = useState('');
 
   return (
     <div>
@@ -64,7 +84,6 @@ const QuizDetails = () => {
           </div>
         </div>
         <div>
-          { /* More Settings and Options */}
           <div className="option-header">Options</div>
           <br />
           <label>
@@ -144,56 +163,193 @@ const QuizDetails = () => {
               <label>
                 <input
                   type="checkbox"
-                  checked={showCorrectAnswers !== 'Hide Correct Answers at'}
-                  onChange={(e) => setShowCorrectAnswers(e.target.checked ? 'Let Students See The Correct Answers' : 'Hide Correct Answers at')}
+                  checked={showQuizResponses}
+                  onChange={(e) => setShowQuizResponses(e.target.checked)}
                 />
                 Let Students See Their Quiz Responses (Incorrect Questions Will Be Marked in Student Feedback)
               </label>
-              {showCorrectAnswers === 'Let Students See The Correct Answers' && (
-                <div>
-                  {allowedAttempts !== '' && (
-                    <label>
-                      <input
-                        type="checkbox"
-                        checked={onlyAfterLastAttempt}
-                        onChange={(e) => setOnlyAfterLastAttempt(e.target.checked)}
-                      />
-                      Only After Their Last Attempt
-                    </label>
-                  )}
-                  <label>
-                    <input type="checkbox" />
-                    Only Once After Each Attempt
-                  </label>
-                  <label>
-                    <input type="checkbox" />
-                    Let Students See The Correct Answers
-                  </label>
-
-                  <label>
-                    Show Correct Answers at
-                    <input type="datetime-local" />
-                  </label>
-                  <label>
-                    Hide Correct Answers at
-                    <input type="datetime-local" />
-                  </label>
-                </div>
+              {showQuizResponses && allowedAttempts !== '' && (
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={onlyAfterLastAttemptResponses}
+                    onChange={(e) => setOnlyAfterLastAttemptResponses(e.target.checked)}
+                  />
+                  Only After Their Last Attempt
+                </label>
               )}
               <label>
                 <input
                   type="checkbox"
-                  checked={showOneQuestionAtATime}
-                  onChange={(e) => setShowOneQuestionAtATime(e.target.checked)}
+                  checked={onlyOnceAfterEachAttempt}
+                  onChange={(e) => setOnlyOnceAfterEachAttempt(e.target.checked)}
                 />
-                Show one question at a time
+                Only Once After Each Attempt
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={showCorrectAnswers}
+                  onChange={(e) => setShowCorrectAnswers(e.target.checked)}
+                />
+                Let Students See The Correct Answers
               </label>
 
+              {showCorrectAnswers && (
+                <>
+                  {allowedAttempts !== '' && (
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={onlyAfterLastAttemptAnswers}
+                        onChange={(e) => setOnlyAfterLastAttemptAnswers(e.target.checked)}
+                      />
+                      Only After Their Last Attempt
+                    </label>
+                  )}
+                  <label className='date-input'>
+                    Show Correct Answers at
+                    <input
+                      type="datetime-local"
+                      disabled={onlyOnceAfterEachAttempt}
+                    />
+                  </label>
+                  <label className='date-input'>
+                    Hide Correct Answers at
+                    <input
+                      type="datetime-local"
+                      disabled={onlyOnceAfterEachAttempt}
+                    />
+                  </label>
+                </>
+              )}
             </div>
 
-
+          </div>
+          <div>
+            <label className='responses-settings' style={{ paddingBottom: '10px' }}>
+              <input
+                type="checkbox"
+                checked={showOneQuestionAtATime}
+                onChange={(e) => setShowOneQuestionAtATime(e.target.checked)}
+              />
+              Show one question at a time
+            </label>
           </div>
         </div>
+
+        <div className="option-header">Quiz Restrictions</div>
+        <br />
+        <div className='restriction-settings'>
+          <label>
+            <input
+              type="checkbox"
+              checked={requireAccessCode}
+              onChange={(e) => setRequireAccessCode(e.target.checked)}
+            />
+            Require an access code
+            {requireAccessCode && (
+              <div>
+                <input
+                  type="text"
+                  id="accessCode"
+                  value={accessCode}
+                  onChange={(e) => setAccessCode(e.target.value)}
+                  placeholder="ex: Password85"
+                />
+              </div>
+            )}
+          </label>
+
+        </div>
+
+
+        <div className="restriction-settings">
+          <label>
+            <input
+              type="checkbox"
+              checked={filterIPAddresses}
+              onChange={(e) => setFilterIPAddresses(e.target.checked)}
+            />
+            Filter IP Addresses
+
+            {filterIPAddresses && (
+              <div>
+                <input
+                  type="text"
+                  id="ipAddresses"
+                  value={ipAddresses}
+                  onChange={(e) => setIPAddresses(e.target.value)}
+                  placeholder="ex: 192.168.217.1"
+                />
+              </div>
+            )}
+          </label>
+
+        </div>
+
+        <div className="assign-settings">
+          <div className="option-header">Assign</div>
+          <br />
+          <div className="assign-to">
+            <label>
+              <input
+                type="radio"
+                value="Everyone"
+                checked={assignTo === 'Everyone'}
+                onChange={(e) => setAssignTo(e.target.value)}
+              />
+              Everyone
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="Specific"
+                checked={assignTo === 'Specific'}
+                onChange={(e) => setAssignTo(e.target.value)}
+              />
+              Specific
+              {assignTo === 'Specific' && (
+                <div>
+                  <input
+                    type="text"
+                    id="assignToSpecific"
+                    value={assignToSpecific}
+                    onChange={(e) => setAssignToSpecific(e.target.value)}
+                    placeholder="ex: Mastery Paths, Second Attempt, etc..."
+                  />
+                </div>
+              )}
+            </label>
+          </div>
+          <div className="assign-dates">
+            <label className="date-input">
+              Due
+              <input
+                type="datetime-local"
+                value={dueDate}
+                onChange={(e) => setDueDate(e.target.value)}
+              />
+            </label>
+            <label className="date-input">
+              Available from
+              <input
+                type="datetime-local"
+                value={availableFrom}
+                onChange={(e) => setAvailableFrom(e.target.value)}
+              />
+            </label>
+            <label className="date-input">
+              Until
+              <input
+                type="datetime-local"
+                value={availableUntil}
+                onChange={(e) => setAvailableUntil(e.target.value)}
+              />
+            </label>
+          </div>
+        </div>
+
       </div>
     </div>
   );
