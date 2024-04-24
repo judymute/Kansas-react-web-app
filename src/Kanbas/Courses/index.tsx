@@ -11,6 +11,7 @@ import './index.css';
 import breadcrumbArrowLight from './breadcrumb-arrow-light.svg';
 import Quizzes from './Quizzes';
 import QuizEditPage from './Quizzes/QuizEditPage';
+import Questions from './Quizzes/Questions';
 axios.defaults.withCredentials = true
 
 const API_BASE = process.env.REACT_APP_API_BASE;
@@ -65,7 +66,7 @@ function Courses() {
         </h3>
       </div>
       <div className="d-flex">
-        <CourseNavigation/>
+        <CourseNavigation />
         <div className="overflow-y-scroll" style={{ left: '320px', top: '50px' }}>
           <Routes>
             <Route path="/" element={<Navigate to="Home" />} />
@@ -75,7 +76,8 @@ function Courses() {
             <Route path="Assignments" element={<Assignments />} />
             <Route path="Assignments/:assignmentId" element={<h1>Assignment Editor</h1>} />
             <Route path="Quizzes" element={<Quizzes />} />
-            <Route path="Quizzes/:quizId/edit/*" element={<QuizEditPage quizName={quizName} setQuizName={setQuizName}  />} />
+            <Route path="Quizzes/:quizId/edit/*" element={<QuizEditPage quizName={quizName} setQuizName={setQuizName} />} />
+            {/* <Route path="Quizzes/:quizId/edit/questions/*" element={<Questions />} /> */}
             <Route path="Grades" element={<h1>Grades</h1>} />
           </Routes>
         </div>

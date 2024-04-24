@@ -49,7 +49,7 @@ export function QuizEdit({ quizName = 'Unnamed Quiz', setQuizName = () => { } }:
       <Routes>
         <Route path="/" element={<Navigate replace to="details" />} />
         <Route path="details" element={<QuizDetails />} />
-        <Route path="questions" element={<Questions />} />
+        <Route path="questions/*" element={<Questions />} />
       </Routes>
     </div>
   );
