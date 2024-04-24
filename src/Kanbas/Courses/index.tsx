@@ -11,6 +11,7 @@ import './index.css';
 import breadcrumbArrowLight from './breadcrumb-arrow-light.svg';
 import Quizzes from './Quizzes';
 import QuizEditPage from './Quizzes/QuizEditPage';
+axios.defaults.withCredentials = true
 
 const API_BASE = process.env.REACT_APP_API_BASE;
 

@@ -2,6 +2,7 @@ import axios from "axios";
 import {Module} from "./reducer";
 // const COURSES_API = "https://kanbas-node-server-app-wpbi.onrender.com/api/courses";
 // const MODULES_API = "https://kanbas-node-server-app-wpbi.onrender.com/api/modules";
+axios.defaults.withCredentials = true
 const API_BASE = process.env.REACT_APP_API_BASE;
 const COURSES_API = `${API_BASE}/api/courses`;
 const MODULES_API = `${API_BASE}/api/modules`;

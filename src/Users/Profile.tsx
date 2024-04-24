@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap CSS is imported
 
+axios.defaults.withCredentials = true
+
 export default function Profile() {
   const [successMessage, setSuccessMessage] = useState("");
   const [profile, setProfile] = useState({

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import * as client from "./client";
 import axios from "axios"; 
 import 'bootstrap/dist/css/bootstrap.min.css'; 
+axios.defaults.withCredentials = true
 
 export default function Signup() {
   const [error, setError] = useState("");
