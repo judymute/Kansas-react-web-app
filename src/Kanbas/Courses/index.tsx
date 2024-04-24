@@ -75,7 +75,7 @@ function Courses() {
             <Route path="Assignments" element={<Assignments />} />
             <Route path="Assignments/:assignmentId" element={<h1>Assignment Editor</h1>} />
             <Route path="Quizzes" element={<Quizzes />} />
-            <Route path="Quizzes/:quizId/edit" element={<QuizEditPage quizName={quizName} setQuizName={setQuizName}  />} />
+            <Route path="Quizzes/:quizId/edit/*" element={<QuizEditPage quizName={quizName} setQuizName={setQuizName}  />} />
             <Route path="Grades" element={<h1>Grades</h1>} />
           </Routes>
         </div>

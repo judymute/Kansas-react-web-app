@@ -29,13 +29,7 @@ function Quizzes() {
       </div>
       <div className="course-quizzes">
         <h3>Course Quizzes</h3>
-        <Routes>
-          <Route path="/" element={<p>No quizzes available</p>} />
-        </Routes>
       </div>
-      <Routes>
-        <Route path="/:quizId/edit" element={<QuizEdit />} />
-      </Routes>
     </div>
   );
 }
