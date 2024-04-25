@@ -36,6 +36,15 @@ function Questions() {
 
   // creating a question
   const [questions, setQuestions] = useState<client.Question[]>([]);
+  const [showNewQuestionForm, setShowNewQuestionForm] = useState(false);
+  const toggleNewQuestionForm = () => {
+    setShowNewQuestionForm(!showNewQuestionForm);
+
+    // Create a new question when "+ New Question" button is clicked
+    if (!showNewQuestionForm) {
+      createQuestion();
+    }
+  };
   const [question, setQuestion] = useState<client.Question>({
     _id: "", name: "", points: "", quiz: "",
     type: "MC", answers: [{
@@ -106,10 +115,17 @@ function Questions() {
       } catch (err) {
         console.error('Error updating question:', err);
       }
+    } else if (currentQ) {
+      try {
+        const newQuestion = await client.createQuestion(currentQ);
+        console.log('Created new question:', newQuestion);
+        setQuestions([newQuestion, ...questions]);
+      } catch (err) {
+        console.error('Error creating question:', err);
+      }
     } else {
       console.error('Invalid question object:', currentQ);
-      // Handle the case when currentQ doesn't have a valid _id
-      // You can show an error message or create a new question instead
+      // Handle the case when currentQ is null or invalid
     }
   };
 
@@ -118,45 +134,47 @@ function Questions() {
   return (
     <div>
       <div className='debug'>
-        <div className="question">
-          <div className="header" style={{ backgroundColor: 'transparent' }}>
-            <input
-              type="text"
-              style={{ width: 150 }}
-              value={currentQ?.name || ''}
-              onChange={(e) => {
-                const newName = e.target.value;
-                console.log('Question name changed to:', newName);
-                setCurrentQ(prevCurrentQ => ({
-                  ...prevCurrentQ,
-                  name: newName
-                }));
-              }}
-            />
-            <select value={selectedOption} onChange={handleChange}>
-              <option value="MC">Multiple Choice</option>
-              <option value="TF">True or False</option>
-              <option value="BLANK">Fill in the Blank</option>
-            </select>
-            <h6>points:</h6>
-            <input
-              type="string"
-              style={{ width: 150 }}
-              value={currentQ?.points || ''}
-              onChange={(e) => {
-                const newPoints = e.target.value;
-                console.log('Question points changed to:', newPoints);
-                setCurrentQ(prevCurrentQ => ({
-                  ...prevCurrentQ,
-                  points: newPoints
-                }));
-              }}
-            />
+        <button onClick={toggleNewQuestionForm}>+ New Question</button>
+        {showNewQuestionForm && (
+          <div className="new-question-form">
+            <div className="header" style={{ backgroundColor: 'transparent' }}>
+              <input
+                type="text"
+                style={{ width: 150 }}
+                value={currentQ?.name || ''}
+                onChange={(e) => {
+                  const newName = e.target.value;
+                  console.log('Question name changed to:', newName);
+                  setCurrentQ(prevCurrentQ => ({
+                    ...prevCurrentQ,
+                    name: newName
+                  }));
+                }}
+              />
+              <select value={selectedOption} onChange={handleChange}>
+                <option value="MC">Multiple Choice</option>
+                <option value="TF">True or False</option>
+                <option value="BLANK">Fill in the Blank</option>
+              </select>
+              <h6>points:</h6>
+              <input
+                type="string"
+                style={{ width: 150 }}
+                value={currentQ?.points || ''}
+                onChange={(e) => {
+                  const newPoints = e.target.value;
+                  console.log('Question points changed to:', newPoints);
+                  setCurrentQ(prevCurrentQ => ({
+                    ...prevCurrentQ,
+                    points: newPoints
+                  }));
+                }}
+              />
+            </div>
+            {renderComponent()}
           </div>
-          {renderComponent()}
-        </div>
+        )}
         <button onClick={save}>Save Question</button>
-        <button onClick={createQuestion}>Add Question</button>
       </div>
 
       <Routes>
