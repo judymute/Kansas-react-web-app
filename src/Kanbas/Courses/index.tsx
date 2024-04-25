@@ -11,12 +11,13 @@ import './index.css';
 import breadcrumbArrowLight from './breadcrumb-arrow-light.svg';
 import Quizzes from './Quizzes';
 import QuizEditPage from './Quizzes/QuizEditPage';
-import Questions from './Quizzes/Questions';
-axios.defaults.withCredentials = true
+import { Quiz } from './Quizzes/type';
 
+axios.defaults.withCredentials = true
 const API_BASE = process.env.REACT_APP_API_BASE;
 
 function Courses() {
+
   const { courseId } = useParams();
   console.log("Courses component: courseId =", courseId);
   const request = axios.create({ withCredentials: true });
@@ -37,14 +38,54 @@ function Courses() {
     }
   };
 
+  const [quizzes, setQuizzes] = useState<Quiz[]>([]);
+
+  const addQuiz = async (quiz: Quiz) => {
+    try {
+      const response = await axios.post(`${API_BASE}/quizzes`, { ...quiz, courseId });
+      if (response.status === 200) {
+        // Fetch the updated list of quizzes from the server
+        fetchQuizzes();
+      }
+    } catch (error) {
+      console.error('Error when adding quiz', error);
+    }
+  };
+  const fetchQuizzes = async () => {
+    try {
+      const response = await axios.get(`${API_BASE}/quizzes?courseId=${courseId}`);
+      setQuizzes(response.data);
+    } catch (error) {
+      console.error('Error loading quizzes from server', error);
+    }
+  };
+
   useEffect(() => {
-    findCourseById(courseId);
+    const fetchQuizzes = async () => {
+      try {
+        const response = await axios.get(`${API_BASE}/quizzes?courseId=${courseId}`);
+        console.log('Fetched quizzes:', response.data);
+        setQuizzes(response.data);
+      } catch (error) {
+        console.error('Error loading quizzes from server', error);
+      }
+    };
+  
+    fetchQuizzes();
   }, [courseId]);
 
+  
   const url = window.location.href;
   const term = url.split('/');
   const courseName = term[term.length - 2];
   const currentLocation = term[term.length - 1];
+
+  interface Quiz {
+    id: string;
+    name: string;
+    assignmentGroup: string;
+  }
+
 
   return (
     <div className="course-container">
@@ -75,8 +116,8 @@ function Courses() {
             <Route path="Piazza" element={<h1>Piazza</h1>} />
             <Route path="Assignments" element={<Assignments />} />
             <Route path="Assignments/:assignmentId" element={<h1>Assignment Editor</h1>} />
-            <Route path="Quizzes" element={<Quizzes />} />
-            <Route path="Quizzes/:quizId/edit/*" element={<QuizEditPage quizName={quizName} setQuizName={setQuizName} />} />
+            <Route path="Quizzes/*" element={<Quizzes quizzes={quizzes} addQuiz={addQuiz} />} />
+            <Route path="Quizzes/:quizId/edit/*" element={<QuizEditPage quizName={quizName} setQuizName={setQuizName} addQuiz={addQuiz} />} />
             {/* <Route path="Quizzes/:quizId/edit/questions/*" element={<Questions />} /> */}
             <Route path="Grades" element={<h1>Grades</h1>} />
           </Routes>
