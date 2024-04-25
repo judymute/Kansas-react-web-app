@@ -1,40 +1,62 @@
 import axios from "axios";
-export const BASE_API = process.env.REACT_APP_API_URL;
-export const QUESTIONS_API = `${BASE_API}/api/questions`;
+export const BASE_API = process.env.REACT_APP_API_BASE;
 
-export interface Question { _id: string; name: string; points: string; quiz: string; type: string; 
-    answers: [{
-        _id: string,
-        value: string,
-        correct: boolean,
-    }]};
 
-    export const updateQuestion = async (question: any) => {
-        const response = await axios.put(`${QUESTIONS_API}/${question._id}`, question);
-        console.log('update a question:' + response);
-        return response.data;
-      };
-    
+
+export interface Question {
+  _id: string;
+  name: string;
+  points: string;
+  quiz: string;
+  type: string;
+  answers: [{
+    _id: string,
+    value: string,
+    correct: boolean,
+  }];
+}
+export const updateQuestion = async (question: any) => {
+  try {
+    console.log('Updating question:', question); // Log the question object before making the API call
+    const response = await axios.put(`${BASE_API}/api/questions/${question._id}`, question);
+    console.log('Updated question:', response.data);
+    return response.data;
+  } catch (err) {
+    console.error('Error updating question:', err);
+    throw err;
+  }
+};
     export const current = async () => {
-        const response = await axios.post(`${QUESTIONS_API}/current`);
-        console.log('current question:' + response);
-        return response.data;
-      };
-
+      try {
+        const response = await axios.post(`${BASE_API}/api/questions/current`);
+        console.log('Current question:', response.data);
+        return response.data as Question;
+      } catch (err) {
+        console.error('Error fetching current question:', err);
+        throw err;
+      }
+    };
     export const createQuestion = async (question: any) => {
-        const response = await axios.post(`${QUESTIONS_API}`, question);
-        console.log('create a question:' + response);
+      try {
+        const response = await axios.post(`${BASE_API}/api/questions`, question);
+        console.log('Created question:', response.data);
         return response.data;
-      };
-
+      } catch (err) {
+        console.error('Error creating question:', err);
+        throw err;
+      }
+    };
+    
     export const findAllQuestions = async () => {
-        const response = await axios.get(`${QUESTIONS_API}`);
-        console.log('all questions:' + response);
+      try {
+        const response = await axios.get(`${BASE_API}/api/questions`);
+        console.log('All questions:', response.data);
         return response.data;
-      };
-      
-      
-      
+      } catch (err) {
+        console.error('Error fetching all questions:', err);
+        throw err;
+      }
+    };
 
 
 

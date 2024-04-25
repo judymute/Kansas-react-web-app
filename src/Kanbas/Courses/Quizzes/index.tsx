@@ -13,15 +13,6 @@ interface QuizzesProps {
 function Quizzes({ quizzes, addQuiz }: QuizzesProps) {
   console.log("Received quizzes in Quizzes component:", quizzes);
 
-  const saveQuizzesToDatabase = async (quizzes: any) => {
-    try {
-      const response = await axios.post("/quizzes/save", quizzes);
-      console.log("Quizzes saved to the database:", response.data);
-    } catch (error) {
-      console.error("Error saving quizzes to the database:", error);
-    }
-  };
-
   const navigate = useNavigate();
   const { courseId } = useParams<{ courseId: string }>();
 
