@@ -9,7 +9,10 @@ interface QuizEditProps {
   setQuizName?: (name: string) => void;
 }
 
-export function QuizEdit({ quizName = 'Unnamed Quiz', setQuizName = () => { } }: QuizEditProps = {}) {
+export function QuizEdit({ quizName = 'Unnamed Quiz', setQuizName = () => { } }: QuizEditProps = {}
+) {
+
+
   const { courseId, quizId } = useParams<{ courseId: string, quizId: string }>();
   console.log("QuizEdit component: quizId =", quizId);
 
