@@ -1,8 +1,6 @@
 import axios from "axios";
 export const BASE_API = process.env.REACT_APP_API_BASE;
 
-
-
 export interface Question {
   _id: string;
   name: string;
