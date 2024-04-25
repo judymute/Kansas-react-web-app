@@ -1,5 +1,5 @@
 import axios from "axios";
-// axios.defaults.withCredentials = true
+axios.defaults.withCredentials = true
 
 const request = axios.create({
   withCredentials: true,

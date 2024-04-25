@@ -1,7 +1,5 @@
-import React from "react"; // Import React library
 import { Link } from "react-router-dom"; // Import Link component from react-router-dom
 import { useState, useEffect, useRef } from "react";
-import * as db from "../Database"; // Import everything 
 import "./index.css";
 import "./course-color.css";
 import { IoEllipsisVertical } from "react-icons/io5";

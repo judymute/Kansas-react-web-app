@@ -1,0 +1,60 @@
+.quiz-breadcrumb-container {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 500px;
+  background-color: white;
+  padding-top: 24px;
+  padding-left: 36px;
+  padding-right: 36px;
+  height: 100vh;
+  box-shadow: -4px 0 6px -4px rgba(0, 0, 0, 0.4);
+  transition: right 0.5s ease-in-out;
+  z-index: 1100;
+  overflow-y: auto; 
+}
+
+.quiz-breadcrumb-container.slide-in {
+  right: 0;
+}
+
+.quiz-breadcrumb-container.slide-out {
+  right: -500px;
+}
+
+.breadcrumb-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 20px;
+}
+
+.quizzes-header {
+  font-size: 22px;
+  font-weight: bold;
+  color: #2d3b45;
+}
+
+.course-breadcrumb-icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+
+.quiz-breadcrumb-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.quiz-breadcrumb-container::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+.quiz-breadcrumb-container::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.quiz-breadcrumb-container::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}

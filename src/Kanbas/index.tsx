@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate, Link } from "react-router-dom";
-import Nav from "../Nav";
 import KanbasNavigation from "./Navigation";
 import Dashboard from "./Dashboard";
 import Courses from "./Courses";
@@ -8,6 +7,7 @@ import store from "./store"
 import { Provider } from "react-redux";
 import axios from "axios";
 import Account from "./Account";
+
 
 // Get the API base URL from the environment variable
 const API_BASE = process.env.REACT_APP_API_BASE;
@@ -51,7 +51,7 @@ function Kanbas() {
       `${COURSES_API}/${courseId}`
     );
     // Remove the deleted course from the courses state
-    setCourses(courses.filter( (c) => c._id !== courseId));
+    setCourses(courses.filter((c) => c._id !== courseId));
     // Update the published courses count
     setPublishedCoursesCount(courses.length - 1);
   };
@@ -95,21 +95,22 @@ function Kanbas() {
         <div style={{ flexGrow: 1 }}>
           <Routes>
             <Route path="/" element={<Navigate to="Dashboard" />} />
-            <Route path="/Account/*" element={<Account/>} />
+            <Route path="/Account/*" element={<Account />} />
             <Route path="Dashboard" element={
-  <Dashboard
-    courses={courses}
-    course={course}
-    setCourse={setCourse}
-    addNewCourse={addNewCourse}
-    deleteCourse={deleteCourse}
-    updateCourse={(selectedColor: string) => updateCourse(selectedColor)}
-    publishedCoursesCount={publishedCoursesCount}
-    selectedColor={selectedColor}
-    setSelectedColor={setSelectedColor}
-  />
-} />
+              <Dashboard
+                courses={courses}
+                course={course}
+                setCourse={setCourse}
+                addNewCourse={addNewCourse}
+                deleteCourse={deleteCourse}
+                updateCourse={(selectedColor: string) => updateCourse(selectedColor)}
+                publishedCoursesCount={publishedCoursesCount}
+                selectedColor={selectedColor}
+                setSelectedColor={setSelectedColor}
+              />
+            } />
             <Route path="Courses/:courseId/*" element={<Courses />} />
+         
           </Routes>
         </div>
       </div>

@@ -1,4 +1,3 @@
-import KanbasNavigation from "../../Navigation";
 import ModuleList from "./List";
 import "./index.css";
 
