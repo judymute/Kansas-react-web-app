@@ -1,16 +1,22 @@
 import axios from "axios";
+import { v4 as uuidv4 } from 'uuid';
 
 axios.defaults.withCredentials = true
 const API_BASE = process.env.REACT_APP_API_BASE;
 
 export interface Question {
-  _id: string;
+  _id: string; 
   name: string;
   points: string;
   quiz: string;
   type: string;
-  answers: [{ _id: string, value: string, correct: boolean }];
+  answers: Array<{
+    _id: string;
+    value: string;
+    correct: boolean;
+  }>;
 }
+
 
 export const updateQuestion = async (question: any) => {
   try {

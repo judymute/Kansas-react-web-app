@@ -1,109 +1,66 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Link, Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
-import MultipleChoice from './MultipleChoice';
-import TrueAndFalse from './TrueAndFalse';
-import FillBlank from './FillBlank';
-import "./Questions.css";
-import * as client from "./client";
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import AddedQuestion from './addedQuestion';
+import * as client from "./client";
+import { v4 as uuidv4 } from 'uuid';
 
 function Questions() {
   const { courseId, quizId } = useParams<{ courseId: string, quizId: string }>();
-  console.log('Questions component rendered with quizId:', quizId);
-
-  const [currentQ, setCurrentQ] = useState({
-    _id: "1121312",
-    name: "Q Name",
-    points: "1",
-    quiz: quizId,
-    type: "MC"
-  });
-  console.log('Initial currentQ state:', currentQ);
-
-  const fetchCurrent = async () => {
-    try {
-      const Q = await client.current();
-      console.log('Fetched current question:', Q);
-      setCurrentQ(Q);
-    } catch (err) {
-      console.error('Error fetching current question:', err);
-    }
-  };
+  const [questions, setQuestions] = useState<client.Question[]>([]); // Array to store question components
 
   useEffect(() => {
-    console.log('Fetching current question...');
-    fetchCurrent();
-  }, []);
+    const fetchQuestions = async () => {
+      try {
+        const fetchedQuestions = await client.findAllQuestions();
+        console.log('Fetched questions:', fetchedQuestions);
+        setQuestions(fetchedQuestions);
+      } catch (err) {
+        console.error('Error fetching questions:', err);
+      }
+    };
 
-  // creating a question
-  const [questions, setQuestions] = useState<client.Question[]>([]);
-  const [showNewQuestionForm, setShowNewQuestionForm] = useState(false);
-  const toggleNewQuestionForm = () => {
-    setShowNewQuestionForm(!showNewQuestionForm);
-
-    // Create a new question when "+ New Question" button is clicked
-    if (!showNewQuestionForm) {
-      createQuestion();
-    }
-  };
-  const [question, setQuestion] = useState<client.Question>({
-    _id: "", name: "", points: "", quiz: "",
-    type: "MC", answers: [{
-      _id: "",
-      value: "",
-      correct: false,
-    }]
-  });
-
-  const fetchQuestions = async () => {
-    try {
-      const questions = await client.findAllQuestions();
-      console.log('Fetched questions:', questions);
-      setQuestions(questions);
-    } catch (err) {
-      console.error('Error fetching questions:', err);
-    }
-  };
-
-  useEffect(() => {
     console.log('Fetching questions...');
     fetchQuestions();
   }, []);
+  const addNewQuestion = async () => {
+    // Creating a new question template with unique IDs
+    const newQuestionTemplate = {
+      _id: uuidv4(),
+      name: "New Question",
+      points: "1",
+      quiz: quizId,
+      type: "MC",
+      answers: [{
+        _id: uuidv4(),
+        value: "",
+        correct: false
+      }]
+    };
 
-  const createQuestion = async () => {
     try {
-      const newQuestion = await client.createQuestion(currentQ);
+      const newQuestion = await client.createQuestion(newQuestionTemplate);
+      setQuestions(prevQuestions => [...prevQuestions, newQuestion]);
       console.log('Created new question:', newQuestion);
-      setQuestions([newQuestion, ...questions]);
     } catch (err) {
       console.error('Error creating question:', err);
     }
   };
 
-  const [showComponent, setShowComponent] = useState(false);
-
-  const handleToggle = () => {
-    setShowComponent(prevShowComponent => !prevShowComponent); // Toggle the state
-  };
-
   return (
     <div>
-      <div className='debug'>
-        <div className="question">
-          <div className="header" style={{ backgroundColor: 'transparent' }}>
+      <button onClick={addNewQuestion}>Add New Question</button>
+      <div className="question-list">
+        {questions.map(question => (
+          <div key={question._id}>
+            <AddedQuestion questionData={question} />
+            <hr/>
           </div>
-        </div>
-        <button onClick={() => {createQuestion(); handleToggle();}}>Add Question</button>
-        {showComponent && <ComponentToRender />}
+     
+        ))}
       </div>
     </div>
   );
-}
-
-function ComponentToRender() {
-  return <div>
-    <AddedQuestion/>
-    </div>;
+  
 }
 
 export default Questions;

@@ -4,11 +4,17 @@ import MultipleChoice from './MultipleChoice';
 import TrueAndFalse from './TrueAndFalse';
 import FillBlank from './FillBlank';
 import "./Questions.css";
-import * as client from "./client";
+import * as client from './client';
 
-function AddedQuestion() {
+
+interface AddedQuestionProps {
+  questionData: client.Question;
+}
+
+const AddedQuestion: React.FC<AddedQuestionProps> = ({ questionData }) => {
   const { courseId, quizId } = useParams<{ courseId: string, quizId: string }>();
-  console.log('Questions component rendered with quizId:', quizId);
+
+  console.log('AddedQuestion component rendered with quizId:', quizId, 'and question:', questionData);
 
   const [currentQ, setCurrentQ] = useState({
     _id: "1121312",
@@ -36,14 +42,18 @@ function AddedQuestion() {
 
   // creating a question
   const [questions, setQuestions] = useState<client.Question[]>([]);
-  const [question, setQuestion] = useState<client.Question>({
-    _id: "", name: "", points: "", quiz: "",
-    type: "MC", answers: [{
-      _id: "",
+  const [newQuestion, setNewQuestion] = useState<client.Question>({
+    _id: "", // this should ideally be generated or fetched if necessary
+    name: "",
+    points: "1", // Make sure this is a string if your type expects a string; otherwise, adjust the type or value accordingly
+    quiz: quizId || "",
+    type: "MC",
+    answers: [{
+      _id: "", // Same here, generate or handle these IDs correctly
       value: "",
       correct: false,
     }]
-  });
+});
 
   const fetchQuestions = async () => {
     try {
@@ -59,7 +69,6 @@ function AddedQuestion() {
     console.log('Fetching questions...');
     fetchQuestions();
   }, []);
-
   const [selectedOption, setSelectedOption] = useState('multipleChoice');
   const navigate = useNavigate();
 
