@@ -2,19 +2,22 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { QuizEdit } from './QuizEdit';
+import { Quiz } from './type';
 
 interface QuizEditPageProps {
-  quizName: string;
-  setQuizName: (name: string) => void;
+  quizName?: string;
+  setQuizName?: (name: string) => void;
+  addQuiz: (quiz: Quiz) => void;
 }
 
-function QuizEditPage({ quizName, setQuizName }: QuizEditPageProps) {
+
+function QuizEditPage({ quizName = 'Unnamed Quiz', setQuizName = () => {}, addQuiz }: QuizEditPageProps) {
   const { courseId, quizId } = useParams<{ courseId: string; quizId: string }>();
-  console.log("QuizEditPage component: courseId =", courseId, ", quizId =", quizId);
+  console.log("QuizEditPage: courseId =", courseId, ", quizId =", quizId);
 
   return (
     <div>
-      <QuizEdit quizName={quizName} setQuizName={setQuizName} />
+   <QuizEdit quizName={quizName} setQuizName={setQuizName} addQuiz={addQuiz} />
     </div>
   );
 }
