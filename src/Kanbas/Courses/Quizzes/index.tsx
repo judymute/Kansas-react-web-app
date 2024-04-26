@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Routes, Route, useParams, Link } from "react-router-dom";
 import "./index.css";
-import QuizEditPage from "./QuizEditPage";
 import QuizEdit from "./QuizEdit";
-import { Quiz } from "./type";
 import axios from "axios";
 import * as client from "./client";
 import { v4 as uuidv4 } from 'uuid';
 import QuizInfo from "./QuizInfo";
 import QuizPreview from "./QuizPreview";
-import { FaCheckCircle, FaEllipsisV, FaPlusCircle, FaCaretRight } from "react-icons/fa";
+import { FaCheckCircle, FaEllipsisV, FaPlusCircle, FaCaretRight, FaRocket } from "react-icons/fa";
+import { FcCancel } from "react-icons/fc";
+
 
 function Quizzes() {
 
@@ -72,15 +72,20 @@ function Quizzes() {
     }
   };
 
-  const toggleButton = async () => {
-    setIsToggled(!isToggled);
-    const updatedquiz = {
+  const toggleButton = async (quiz: client.Quiz) => {
+    const updatedQuiz = {
       ...quiz,
-      published: isToggled};
-    const newQ = await client.updateQuiz(updatedquiz);
-    setQuiz(newQ);
+      published: !quiz.published
+    };
+    try {
+      await client.updateQuiz(updatedQuiz);
+      const updatedQuizData = await client.findQuizById(quiz._id);
+      setQuizzes(prevQuizzes => prevQuizzes.map(q => q._id === updatedQuizData._id ? updatedQuizData : q));
+    } catch (err) {
+      console.error('Error updating quiz:', err);
+    }
   };
-
+  
   const groupQuizzesByAssignmentGroup = (quizzes: client.Quiz[]) => {
     return quizzes.reduce((groups, quiz) => {
       const assignmentGroup = quiz.assignmentGroup;
@@ -92,7 +97,7 @@ function Quizzes() {
     }, {} as Record<string, client.Quiz[]>);
   };
 
-  
+
   const quizzesByAssignmentGroup = groupQuizzesByAssignmentGroup(quizzes);
 
   return (
@@ -102,32 +107,38 @@ function Quizzes() {
       </div>
       <button className="add-quiz-button" onClick={addNewQuiz}>+ Quiz</button>
       <div className="quizzes-list">
-
         {Object.entries(quizzesByAssignmentGroup).map(([assignmentGroup, quizzes]) => (
           <div key={assignmentGroup} className="assignment-group">
             <h3 className="assignment-group-header">{assignmentGroup}</h3>
             {quizzes?.map(quiz => (
               <div key={quiz._id} className="quiz-item">
-                <div className="quiz-info">
-                  <span className="quiz-name"> <Link to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}`}>{quiz.name}</Link></span>
-                  <span className="quiz-status">
+                <div className="quiz-name">
+                  <span className="quiz-icon"><FaRocket /></span>
+                  <Link to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}`}>{quiz.name}</Link>
+                  <span className="quiz-cancel" onClick={() => toggleButton(quiz)}>
+                    {quiz.published ? <FaCheckCircle style={{ color: 'green' }} /> : <FcCancel />}
+                  </span>
+                </div>
+
+                <div className="quiz-details-container">
+                  <div className="quiz-status">
                     {new Date() > new Date(quiz.untilDate) ? 'Closed' :
                       new Date() >= new Date(quiz.availableFrom) && new Date() <= new Date(quiz.untilDate) ? 'Available' :
                         `Not available until ${new Date(quiz.availableFrom).toLocaleString()}`}
-                  </span>
-                </div>
-                <div>
-                <button
-                    className={`toggle-button ${isToggled ? 'green' : ''}`}
-                    onClick={toggleButton}
+                  </div>
+                  <div className="quizzes-details">
+                    <span className="quiz-due-date">Due {new Date(quiz.dueDate).toLocaleString()}</span>
+                    <span className="quiz-points">{quiz.points} pts</span>
+                    <span className="quiz-questions">{quiz.questions.length} Questions</span>
+                  </div>
+                  <div className="quiz-actions">
+                  <button
+                    className={`toggle-button ${quiz.published ? 'green' : ''}`}
+                    onClick={() => toggleButton(quiz)}
                   >
-                    {isToggled ? 'Published' : 'Not Published'}
+                    {quiz.published ? 'Published' : 'Not Published'}
                   </button>
                 </div>
-                <div className="quizzes-details">
-                  <span className="quiz-due-date">Due {new Date(quiz.dueDate).toLocaleString()}</span>
-                  <span className="quiz-points">{quiz.points} pts</span>
-                  <span className="quiz-questions">{quiz.questions.length} Questions</span>
                 </div>
               </div>
             ))}
@@ -136,9 +147,9 @@ function Quizzes() {
       </div>
 
       <Routes>
-          <Route path="/:quizId" element={<QuizInfo quizData={quiz!} />} />
-          <Route path="/:quizId/preview" element={<QuizPreview quizData={quiz!} />} />
-          <Route path="/:quizId/edit/*" element={<QuizEdit quizData={quiz!} />} />
+        <Route path="/:quizId" element={<QuizInfo quizData={quiz!} />} />
+        <Route path="/:quizId/preview" element={<QuizPreview quizData={quiz!} />} />
+        <Route path="/:quizId/edit/*" element={<QuizEdit quizData={quiz!} />} />
       </Routes>
     </div>
   );

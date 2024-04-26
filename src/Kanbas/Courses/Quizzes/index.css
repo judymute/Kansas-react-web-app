@@ -47,11 +47,11 @@ quizzes-list {
 
 .quiz-item {
   border-bottom: 1px solid #ccc;
-  padding: 10px 0;
+  padding: 20px;
   margin-left: 12px;
   margin-right: 12px;
-
 }
+
 
 .quiz-info {
   display: flex;
@@ -59,9 +59,22 @@ quizzes-list {
   align-items: center;
 }
 
+.quiz-name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.quiz-details {
+  display: flex;
+  flex-direction: column;
+}
+
+
 .quiz-name a {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 18px;
   text-decoration: none;
   color: inherit;
 }
@@ -77,13 +90,11 @@ quizzes-list {
   color: #888;
   font-size: 14px;
   margin-bottom: 10px;
-
 }
 
 
 .quizzes-details span {
   margin-right: 10px;
-  
 }
 
 .quizzes-details span:last-child {
@@ -99,4 +110,23 @@ quizzes-list {
   font-size: 16px;
   cursor: pointer;
   margin-bottom: 20px;
+}
+
+
+.quiz-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.quiz-icon {
+  margin-right: 10px;
+  color: #b52828;
+  font-size: 20px;
+}
+
+.quiz-cancel {
+  margin-left: 10px;
+  cursor: pointer;
+  color: #ccc;
+  font-size: 30px;
 }
