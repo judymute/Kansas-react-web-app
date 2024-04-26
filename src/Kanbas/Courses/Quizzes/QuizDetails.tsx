@@ -105,7 +105,7 @@ const  QuizDetails: React.FC<QuizDetailsProps> = ({quizData, onSave }) => {
           </div>
         </div>
         <div>
-          { /* More Settings and Options */}
+   
           <div className="option-header">Options</div>
           <br />
           <label>
