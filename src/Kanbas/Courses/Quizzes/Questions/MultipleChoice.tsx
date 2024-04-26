@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
 import * as client from "./client";
+import * as quizClient from "../client";
 import { BsTrash3Fill, BsPlusCircleFill } from "react-icons/bs";
 
 
-function MultipleChoice() {
+interface MCProps {
+  questionData: client.Question;
+  quizData: quizClient.Quiz
+}
 
+const MultipleChoice: React.FC<MCProps> = ({ questionData, quizData }) => {
+  
+  const { courseId, quizId } = useParams<{ courseId: string, quizId: string }>();
+  const [quiz, setQuiz] = useState<quizClient.Quiz>(quizData);
+  const [question, setQuestion] = useState<client.Question>(questionData);
 
   const [selectedOption, setSelectedOption] = useState('');
   const [textInput1, setTextInput1] = useState('');
@@ -47,7 +56,6 @@ function MultipleChoice() {
       <h4>Answers:</h4>
       <br />
 
-      {/* Text input boxes */}
       <h6>correct answer:</h6>
       <input
         type="text"
@@ -60,9 +68,5 @@ function MultipleChoice() {
     </div>
   );
 };
-
-/// on single text box to add option
-/// radio button to signal which option is correct
-// trash and edit button next to each option
 
 export default MultipleChoice;

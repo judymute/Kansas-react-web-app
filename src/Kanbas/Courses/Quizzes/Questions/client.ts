@@ -10,6 +10,7 @@ export interface Question {
   points: string;
   quiz: string;
   type: string;
+  value: string;
   answers: Array<{
     _id: string;
     value: string;
@@ -63,3 +64,17 @@ export const findAllQuestions = async () => {
     throw err;
   }
 };
+
+// path may not be correct
+export const findQuestionsByQuiz = async (quiz: string) => {
+    const response = await
+      axios.get(`${API_BASE}/api/questions?quiz=${quiz}`);
+    return response.data;
+  };
+
+  export const findQuestionById = async (id: string) => {
+    const response = await axios.get(`${API_BASE}/api/questions/${id}`);
+    return response.data;
+  };
+  
+  

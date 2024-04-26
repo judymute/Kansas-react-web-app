@@ -12,6 +12,8 @@ import breadcrumbArrowLight from './breadcrumb-arrow-light.svg';
 import Quizzes from './Quizzes';
 import QuizEditPage from './Quizzes/QuizEditPage';
 import { Quiz } from './Quizzes/type';
+import * as client from "./Quizzes/client";
+import QuizEdit from './Quizzes/QuizEdit';
 
 axios.defaults.withCredentials = true
 const API_BASE = process.env.REACT_APP_API_BASE;
@@ -45,40 +47,28 @@ function Courses() {
 
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
 
-  const addQuiz = async (quiz: Quiz) => {
-    try {
-      const response = await axios.post(`${API_BASE}/quizzes`, { ...quiz, _id: quiz.id, courseId });
-      if (response.status === 200) {
-        // Fetch the updated list of quizzes from the server
-        fetchQuizzes();
-      }
-    } catch (error) {
-      console.error('Error when adding quiz', error);
-    }
-  };
-
-
-  const fetchQuizzes = async () => {
-    try {
-      const response = await axios.get(`${API_BASE}/quizzes?courseId=${courseId}`);
-      setQuizzes(response.data);
-    } catch (error) {
-      console.error('Error loading quizzes from server', error);
-    }
-  };
+  // const addQuiz = async (quiz: Quiz) => {
+  //   try {
+  //     const response = await axios.post(`${API_BASE}/quizzes`, { ...quiz, courseId });
+  //     if (response.status === 200) {
+  //       // Fetch the updated list of quizzes from the server
+  //       fetchQuizzes();
+  //     }
+  //   } catch (error) {
+  //     console.error('Error when adding quiz', error);
+  //   }
+  // };
+  // const fetchQuizzes = async () => {
+  //   try {
+  //     const response = await axios.get(`${API_BASE}/quizzes?courseId=${courseId}`);
+  //     setQuizzes(response.data);
+  //   } catch (error) {
+  //     console.error('Error loading quizzes from server', error);
+  //   }
+  // };
 
   useEffect(() => {
-    const fetchQuizzes = async () => {
-      try {
-        const response = await axios.get(`${API_BASE}/quizzes?courseId=${courseId}`);
-        console.log('Fetched quizzes:', response.data);
-        setQuizzes(response.data);
-      } catch (error) {
-        console.error('Error loading quizzes from server', error);
-      }
-    };
-  
-    fetchQuizzes();
+    findCourseById(courseId);
   }, [courseId]);
 
   
@@ -123,8 +113,8 @@ function Courses() {
             <Route path="Piazza" element={<h1>Piazza</h1>} />
             <Route path="Assignments" element={<Assignments />} />
             <Route path="Assignments/:assignmentId" element={<h1>Assignment Editor</h1>} />
-            <Route path="Quizzes/*" element={<Quizzes quizzes={quizzes} addQuiz={addQuiz} courseId={courseId} />} />
-            <Route path="Quizzes/:quizId/edit/*" element={<QuizEditPage quizName={quizName} setQuizName={setQuizName} addQuiz={addQuiz} />} />
+            <Route path="Quizzes/*" element={<Quizzes/>} />
+            {/* <Route path="Quizzes/:quizId/edit/*" element={<QuizEdit quizData={quiz!} />} /> */}
             {/* <Route path="Quizzes/:quizId/edit/questions/*" element={<Questions />} /> */}
             <Route path="Grades" element={<h1>Grades</h1>} />
           </Routes>
