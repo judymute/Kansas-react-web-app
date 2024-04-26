@@ -125,6 +125,10 @@ const MultipleChoice: React.FC<MCProps> = ({ questionData, quizData }) => {
         type="text"
         value={answers[1]?.value}
         onChange={(e) => {
+          const updateAnswer1 = [...question.answers];
+          updateAnswer1[1].value = e.target.value;
+          setQuestion({...question, answers: updateAnswer1})
+          console.log('Correct answer changed to:', answers[1].value);
         }}
       />
       <br />
@@ -133,6 +137,10 @@ const MultipleChoice: React.FC<MCProps> = ({ questionData, quizData }) => {
         type="text"
         value={answers[2]?.value}
         onChange={(e) => {
+          const updateAnswer2 = [...question.answers];
+          updateAnswer2[2].value = e.target.value;
+          setQuestion({...question, answers: updateAnswer2})
+          console.log('Correct answer changed to:', answers[2].value);
         }}
       />
       <br />
@@ -141,6 +149,10 @@ const MultipleChoice: React.FC<MCProps> = ({ questionData, quizData }) => {
         type="text"
         value={answers[3]?.value}
         onChange={(e) => {
+          const updateAnswer3 = [...question.answers];
+          updateAnswer3[3].value = e.target.value;
+          setQuestion({...question, answers: updateAnswer3})
+          console.log('Correct answer changed to:', answers[3].value);
         }}
       />
       <br />

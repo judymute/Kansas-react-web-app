@@ -16,49 +16,119 @@ const TrueAndFalse: React.FC<TFProps> = ({ questionData, quizData }) => {
   const { courseId, quizId } = useParams<{ courseId: string, quizId: string }>();
   const [quiz, setQuiz] = useState<quizClient.Quiz>(quizData);
   const [question, setQuestion] = useState<client.Question>(questionData);
+  const [questions, setQuestions] = useState<client.Question[]>(quizData?.questions);
   const [answers, setAnswers] = useState<{ _id: string; value: string; correct: boolean; }[]>(questionData.answers);
+  const [render, setRender] = useState("TF");
   
-  const updateCorrectAnswer = (answerId : string, 
-    //answer : [] see comment when function is called
-    ) => {
-    const newAnswers = question.answers.slice();
+  const plsSave = async () => {
+    setQuestion({ ...question, type: render })
+    console.log('Saving question test:', question?.name, question?.value, question?.type);
 
-        const index = newAnswers.findIndex(a => a._id === answerId);
-        if (index !== -1) {
-          // newAnswers[index] = answer;
-        }
-        setAnswers(newAnswers);
-
-  }
-
-  // want to clear the answers array entirely, replace with one single answer that is either true or false and make 
-  // it the new question.answers array
+  
+    // Update the question on the server
+    const updatedQuestion = await client.updateQuestion(question);
+    console.log('Updated question test:', updatedQuestion?.name);
+  
+    // Update the local question state with the updated question data
+    setQuestion(updatedQuestion);
+  
+    // Fetch the latest quiz data from the server
+    // if doesn't work, use quizData
+    const latestQuiz = await quizClient.findQuizById(quiz._id);
+    console.log('Latest quiz test:', latestQuiz);
+  
+    // Update the quiz with the latest question data
+    const updatedQuestions = latestQuiz.questions.map((q : client.Question) => q._id === updatedQuestion._id ? updatedQuestion : q);
+    const updatedQuiz = { ...latestQuiz, questions: [...updatedQuestions, updatedQuestion] };
+    await quizClient.updateQuiz(updatedQuiz);
+    console.log('Updated quiz test:', updatedQuiz);
+  
+    // Update the local state with the updated quiz data
+    setQuiz(updatedQuiz);
+  };
 
   return (
-    <div>
-      <h6>Enter your question and whether it is true or false</h6>
-      <h4>Question:</h4>
-      <Editor
-        apiKey="fs2c55cug8z5w3kuhlmwxmi3m1l70aalp26lnptmbi0qeo79"
-        init={{
-          plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
-          toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-          tinycomments_mode: 'embedded',
-          tinycomments_author: 'Author name',
-          mergetags_list: [
-            { value: 'First.Name', title: 'First Name' },
-            { value: 'Email', title: 'Email' },
-          ],
-          ai_request: (request: any, respondWith: any) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
-        }}
-        initialValue="Welcome to TinyMCE!"
-      />
-      <h4>answers:</h4>
-      <br />
-      {/* put a checkbox here, if it is checked the answer will be true */}
 
+    <div>
+    <div className='debug'>
+      <div className="question">
+        <div className="header" style={{ backgroundColor: 'transparent' }}>
+          <input
+            type="text"
+            style={{ width: 150 }}
+            value={question?.name}
+            onChange={(e) => {
+              setQuestion({ ...question, name: e.target.value })
+              // console.log('Question name changed to:', question.name);
+            }}
+          />
+          <h6>points:</h6>
+          <input
+            type="string"
+            style={{ width: 150 }}
+            value={question?.points}
+            onChange={(e) => {
+              setQuestion({ ...question, points: e.target.value })
+              // console.log('Question points changed to:', question.points);
+            }}
+          />
+        </div>
+        <div>
+
+      <h6>Enter your question and multiple answers. then select the correct answer.</h6>
+      <h4>Question:</h4>
+      <input
+        type="text"
+        value={question?.value}
+        onChange={(e) => {
+          setQuestion({ ...question, value: e.target.value})
+          console.log('Question changed to:', question.value);
+        }}
+      />
+      <h4>Answers:</h4>
+      <br />
+      <h6>correct answer:</h6>
+      <input
+        type="text"
+        value={answers[0]?.value}
+        onChange={(e) => {
+          const updateAnswer0 = [...question.answers];
+          updateAnswer0[0].value = e.target.value;
+          setQuestion({...question, answers: updateAnswer0})
+          console.log('Correct answer changed to:', answers[0].value);
+
+        }}
+      />
+      <br />
+      <h6>possible answer:</h6>
+      <input
+        type="text"
+        value={answers[1]?.value}
+        onChange={(e) => {
+        }}
+      />
+      <br />
+      <h6>possible answer:</h6>
+      <input
+        type="text"
+        value={answers[2]?.value}
+        onChange={(e) => {
+        }}
+      />
+      <br />
+      <h6>possible answer:</h6>
+      <input
+        type="text"
+        value={answers[3]?.value}
+        onChange={(e) => {
+        }}
+      />
       <br />
     </div>
+      </div>
+      <button onClick={plsSave}>Save Question</button>
+    </div>
+  </div>
   );
 };
 
