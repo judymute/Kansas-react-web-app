@@ -20,6 +20,11 @@ function Courses() {
 
   const { courseId } = useParams();
   console.log("Courses component: courseId =", courseId);
+  
+  if (!courseId) {
+    // Handle the case when courseId is not available
+    return <div>Course ID not found.</div>;
+  }
   const request = axios.create({ withCredentials: true });
   const COURSES_API = `${API_BASE}/api/courses`;
   const [course, setCourse] = useState<any>({ _id: '' });
@@ -42,7 +47,7 @@ function Courses() {
 
   const addQuiz = async (quiz: Quiz) => {
     try {
-      const response = await axios.post(`${API_BASE}/quizzes`, { ...quiz, courseId });
+      const response = await axios.post(`${API_BASE}/quizzes`, { ...quiz, _id: quiz.id, courseId });
       if (response.status === 200) {
         // Fetch the updated list of quizzes from the server
         fetchQuizzes();
@@ -51,6 +56,8 @@ function Courses() {
       console.error('Error when adding quiz', error);
     }
   };
+
+
   const fetchQuizzes = async () => {
     try {
       const response = await axios.get(`${API_BASE}/quizzes?courseId=${courseId}`);
@@ -116,7 +123,7 @@ function Courses() {
             <Route path="Piazza" element={<h1>Piazza</h1>} />
             <Route path="Assignments" element={<Assignments />} />
             <Route path="Assignments/:assignmentId" element={<h1>Assignment Editor</h1>} />
-            <Route path="Quizzes/*" element={<Quizzes quizzes={quizzes} addQuiz={addQuiz} />} />
+            <Route path="Quizzes/*" element={<Quizzes quizzes={quizzes} addQuiz={addQuiz} courseId={courseId} />} />
             <Route path="Quizzes/:quizId/edit/*" element={<QuizEditPage quizName={quizName} setQuizName={setQuizName} addQuiz={addQuiz} />} />
             {/* <Route path="Quizzes/:quizId/edit/questions/*" element={<Questions />} /> */}
             <Route path="Grades" element={<h1>Grades</h1>} />

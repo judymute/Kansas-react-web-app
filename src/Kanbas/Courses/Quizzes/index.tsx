@@ -4,6 +4,7 @@ import "./index.css";
 import QuizEditPage from "./QuizEditPage";
 import { Quiz } from "./type";
 import axios from "axios";
+import { v4 as uuidv4 } from 'uuid';
 
 interface QuizzesProps {
   quizzes: Quiz[];
@@ -15,16 +16,35 @@ function Quizzes({ quizzes, addQuiz }: QuizzesProps) {
 
   const navigate = useNavigate();
   const { courseId } = useParams<{ courseId: string }>();
+  if (!courseId) {
+    // Handle the case when courseId is not available
+    return <div>Course ID not found.</div>;
+  }
+
 
   const [searchTerm, setSearchTerm] = useState("");
-
-  const handleAddQuiz = () => {
+  const handleAddQuiz = async () => {
     const quizId = generateQuizId();
-    navigate(`/Kanbas/Courses/${courseId}/Quizzes/${quizId}/edit`);
+    const newQuiz: Quiz = {
+      id: quizId,
+      name: 'Unnamed Quiz',
+      assignmentGroup: 'Quizzes',
+      courseId: courseId,
+    };
+
+    try {
+      await addQuiz(newQuiz);
+      navigate(`/Kanbas/Courses/${courseId}/Quizzes/${quizId}/edit`);
+    } catch (error) {
+      console.error('Error creating quiz:', error);
+      // Handle the error, show an error message, or take appropriate action
+    }
   };
 
+
+
   const generateQuizId = () => {
-    return Math.random().toString(36).substr(2, 9);
+    return uuidv4();
   };
 
   const groupQuizzesByAssignmentGroup = () => {

@@ -12,7 +12,7 @@ interface QuizEditProps {
   addQuiz: (quiz: Quiz) => void;
 }
 
-export function QuizEdit({ quizName = 'Unnamed Quiz', setQuizName = () => {}, addQuiz }: QuizEditProps) {
+function QuizEdit({ quizName = 'Unnamed Quiz', setQuizName = () => {}, addQuiz }: QuizEditProps) {
 
 
   const { courseId, quizId } = useParams<{ courseId: string, quizId: string }>();
@@ -29,19 +29,26 @@ export function QuizEdit({ quizName = 'Unnamed Quiz', setQuizName = () => {}, ad
 
     console.log("QuizEdit component: Quiz name changed to", name);
   };
-  const handleSave = () => {
-    console.log("Saving quiz...");
-    const newQuiz: Quiz = {
-      id: quizId || '',
-      name: localQuizName,
-      assignmentGroup: 'Quizzes', // Provide the appropriate assignment group value
-    };
-    console.log("New Quiz being added:", newQuiz);
-    addQuiz(newQuiz);
-    console.log("Navigating back to Quizzes list");
-    navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
-  };
   
+  const handleSave = async () => {
+    console.log("Saving quiz...");
+    const updatedQuiz: Quiz = {
+      id: quizId,
+      name: localQuizName,
+      assignmentGroup: 'Quizzes',
+      courseId: courseId,
+    };
+    console.log("Updated Quiz being saved:", updatedQuiz);
+    try {
+      await saveQuiz(updatedQuiz);
+      console.log("Quiz saved successfully");
+      navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
+    } catch (error) {
+      console.error('Error saving quiz:', error);
+      // Handle the error, show an error message, or take appropriate action
+    }
+  };
+
   const handleLinkClick = useCallback((tabName: string) => {
     console.log(`Attempting to navigate to ${tabName}`);
   }, []);
@@ -93,3 +100,5 @@ export function QuizEdit({ quizName = 'Unnamed Quiz', setQuizName = () => {}, ad
     </div>
   );
 }
+
+export default QuizEdit;
