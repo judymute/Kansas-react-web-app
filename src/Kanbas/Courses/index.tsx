@@ -22,11 +22,6 @@ function Courses() {
 
   const { courseId } = useParams();
   console.log("Courses component: courseId =", courseId);
-  
-  if (!courseId) {
-    // Handle the case when courseId is not available
-    return <div>Course ID not found.</div>;
-  }
   const request = axios.create({ withCredentials: true });
   const COURSES_API = `${API_BASE}/api/courses`;
   const [course, setCourse] = useState<any>({ _id: '' });
