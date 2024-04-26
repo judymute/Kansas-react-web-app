@@ -107,8 +107,8 @@ function Courses() {
             <Route path="Assignments" element={<Assignments />} />
             <Route path="Assignments/:assignmentId" element={<h1>Assignment Editor</h1>} />
             <Route path="Quizzes/*" element={<Quizzes />} />
-            <Route path="Quizzes/:quizId" element={<QuizInfo quizData={null} />} />
-            {/* <Route path="Quizzes/:quizId/edit/*" element={<QuizEdit quizData={quiz!} />} /> */}
+            <Route path="Quizzes/:quizId/*" element={<QuizInfo quizData={null} />} />
+            {/* <Route path="Quizzes/:quizId/edit/*" element={<QuizEdit quizData={null!} />} />  */}
             {/* <Route path="Quizzes/:quizId/edit/questions/*" element={<Questions />} /> */}
             <Route path="Grades" element={<h1>Grades</h1>} />
           </Routes>
