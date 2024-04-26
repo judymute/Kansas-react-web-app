@@ -2,14 +2,21 @@ import React, { useState } from 'react';
 import "./QuizEdit.css";
 import { Editor } from '@tinymce/tinymce-react';
 import * as client from "./client";
+import { useParams } from 'react-router';
 
 // need this prop interface so it can be pass this preference to the Quizzes component and aid QuizInfo component rendering
 interface QuizDetailsProps {
   onSave: (quizPreferences: Partial<client.Quiz>) => void;
+  quizData: client.Quiz;
 }
 
 
-const  QuizDetails: React.FC<QuizDetailsProps> = ({ onSave }) => {
+const  QuizDetails: React.FC<QuizDetailsProps> = ({quizData, onSave }) => {
+  const { courseId, quizId } = useParams<{ courseId: string, quizId: string }>();
+
+  
+  const [quiz, setQuiz] = useState<client.Quiz>(quizData);
+
   const [quizType, setQuizType] = useState('Graded Quiz');
   const [assignmentGroup, setAssignmentGroup] = useState('Quizzes');
   const [showCorrectAnswers, setShowCorrectAnswers] = useState('Let Students See The Correct Answers');
@@ -28,8 +35,6 @@ const  QuizDetails: React.FC<QuizDetailsProps> = ({ onSave }) => {
       shuffleAnswers,
       timeLimit,
       allowMultipleAttempts,
-      quizScoreToKeep,
-      allowedAttempts,
       showCorrectAnswers,
       showOneQuestionAtATime,
       // other preferences
@@ -37,13 +42,22 @@ const  QuizDetails: React.FC<QuizDetailsProps> = ({ onSave }) => {
     onSave(quizPreferences);
   };
 
-
+  const save = async () => {
+    console.log('updating quiz:', quiz);
+    await client.updateQuiz(quiz);
+    setQuiz(quiz)
+  };
 
 
   return (
     <div>
+      <button onClick={save}>Save Quiz</button>
+      <input
+          type="text"
+          value={quiz?.name}
+          onChange={(e) => setQuiz({ ...quiz, name: e.target.value })}
+      />
       <h6>Quiz Instructions:</h6>
-      <button onClick={handleSave}>Save</button>
       <Editor
         apiKey="fs2c55cug8z5w3kuhlmwxmi3m1l70aalp26lnptmbi0qeo79"
         init={{
@@ -57,7 +71,7 @@ const  QuizDetails: React.FC<QuizDetailsProps> = ({ onSave }) => {
           ],
           ai_request: (request: any, respondWith: any) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
         }}
-        initialValue="Welcome to TinyMCE!"
+        initialValue= {"please enter new quiz details here for " + quiz?.name}
       />
       <br />
       <div className="quiz-settings">
@@ -67,8 +81,8 @@ const  QuizDetails: React.FC<QuizDetailsProps> = ({ onSave }) => {
             <label htmlFor="quizType">Quiz Type:</label>
             <select
               id="quizType"
-              value={quizType}
-              onChange={(e) => setQuizType(e.target.value)}
+              value={quiz?.quizType}
+              onChange={(e) => setQuiz({ ...quiz, quizType: e.target.value })}
             >
               <option value="Graded Quiz">Graded Quiz</option>
               <option value="Practice Quiz">Practice Quiz</option>
@@ -80,8 +94,8 @@ const  QuizDetails: React.FC<QuizDetailsProps> = ({ onSave }) => {
             <label htmlFor="assignmentGroup">Assignment Group:</label>
             <select
               id="assignmentGroup"
-              value={assignmentGroup}
-              onChange={(e) => setAssignmentGroup(e.target.value)}
+              value={quiz?.assignmentGroup}
+              onChange={(e) => setQuiz({ ...quiz, assignmentGroup: e.target.value })}
             >
               <option value="Quizzes">Quizzes</option>
               <option value="Exams">Exams</option>
@@ -97,75 +111,32 @@ const  QuizDetails: React.FC<QuizDetailsProps> = ({ onSave }) => {
           <label>
             <input
               type="checkbox"
-              checked={shuffleAnswers}
-              onChange={(e) => setShuffleAnswers(e.target.checked)}
+              checked={quiz?.shuffleAnswers}
+              onChange={(e) => setQuiz({ ...quiz, shuffleAnswers: e.target.checked })}
             />
             Shuffle Answers
           </label>
           <div className="time-limit-container">
             <label>
-              <input
-                type="checkbox"
-                checked={timeLimit !== ''}
-                onChange={(e) => setTimeLimit(e.target.checked ? '1' : '')}
-              />
+            <input
+                  type="string"
+                  id="timeLimit"
+                  value={quiz?.timeLimit}
+                  onChange={(e) => setQuiz({ ...quiz, timeLimit: e.target.value})}
+                />
               Time Limit
             </label>
-            {timeLimit !== '' && (
-              <span className="time-limit-input">
-                <input
-                  type="number"
-                  id="timeLimit"
-                  value={timeLimit}
-                  onChange={(e) => setTimeLimit(e.target.value)}
-                />
-                <label htmlFor="timeLimit">Minutes</label>
-              </span>
-            )}
           </div>
           <div className='quiz-settings'>
             <div className='attempt-settings'>
               <label>
                 <input
                   type="checkbox"
-                  checked={allowMultipleAttempts}
-                  onChange={(e) => setAllowMultipleAttempts(e.target.checked)}
+                  checked={quiz?.allowMultipleAttempts}
+                  onChange={(e) => setQuiz({ ...quiz, allowMultipleAttempts: e.target.checked})}
                 />
                 Allow Multiple Attempts
               </label>
-              {allowMultipleAttempts && (
-                <div>
-                  <label htmlFor="quizScoreToKeep">
-                    Quiz Score to Keep:
-                    <select
-                      id="quizScoreToKeep"
-                      value={quizScoreToKeep}
-                      onChange={(e) => setQuizScoreToKeep(e.target.value)}
-                    >
-                      <option value="Highest">Highest</option>
-                      <option value="Latest">Latest</option>
-                      <option value="Average">Average</option>
-                    </select>
-                  </label>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={allowedAttempts !== ''}
-                      onChange={(e) => setAllowedAttempts(e.target.checked ? '1' : '')}
-                    />
-                    Allowed Attempts:
-                    {allowedAttempts !== '' && (
-                      <input
-                        type="number"
-                        id="allowedAttempts"
-                        value={allowedAttempts}
-                        onChange={(e) => setAllowedAttempts(e.target.value)}
-                      />
-                    )}
-                  </label>
-
-                </div>
-              )}
             </div>
             <div className='responses-settings'>
               <label>

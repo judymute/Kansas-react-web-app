@@ -36,32 +36,26 @@ const MultipleChoice: React.FC<MCProps> = ({ questionData, quizData }) => {
     <div>
       <h6>Enter your question and multiple answers. then select the correct answer.</h6>
       <h4>Question:</h4>
-      <Editor
-        apiKey="fs2c55cug8z5w3kuhlmwxmi3m1l70aalp26lnptmbi0qeo79"
-        init={{
-          plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
-          toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-          tinycomments_mode: 'embedded',
-          tinycomments_author: 'Author name',
-          mergetags_list: [
-            { value: 'First.Name', title: 'First Name' },
-            { value: 'Email', title: 'Email' },
-          ],
-          ai_request: (request: any, respondWith: any) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+      <input
+        type="text"
+        name="textInput1"
+        value={question.value}
+        onChange={(e) => {
+          setQuestion({ ...question, value: e.target.value})
+          console.log('Question changed to:', question.value);
         }}
-        initialValue="Welcome to TinyMCE!"
       />
+      
       <h4>Answers:</h4>
       <br />
-
       <h6>correct answer:</h6>
       <input
         type="text"
         name="textInput1"
-        value={answers[0].value}
+        value={answers[0]?.value}
         placeholder='option1'
         onChange={(e) => {
-          updateCorrectAnswer(answers[0]._id, 
+          updateCorrectAnswer(answers[0]?._id, 
             //answers[0] don't know how to pass the entire answer in?
             );
           console.log('Correct answer changed to:', answers[0].value);
@@ -71,10 +65,10 @@ const MultipleChoice: React.FC<MCProps> = ({ questionData, quizData }) => {
       <h6>possible answer:</h6>
       <input
         type="text"
-        value={answers[1].value}
+        value={answers[1]?.value}
         placeholder='option 2'
         onChange={(e) => {
-          updateCorrectAnswer(answers[1]._id, 
+          updateCorrectAnswer(answers[1]?._id, 
             //answers[0] don't know how to pass the entire answer in?
             );
           console.log('Possible answer 1 changed to:', answers[1].value);
@@ -84,10 +78,10 @@ const MultipleChoice: React.FC<MCProps> = ({ questionData, quizData }) => {
       <h6>possible answer:</h6>
       <input
         type="text"
-        value={answers[2].value}
+        value={answers[2]?.value}
         placeholder='option 2'
         onChange={(e) => {
-          updateCorrectAnswer(answers[2]._id, 
+          updateCorrectAnswer(answers[2]?._id, 
             //answers[0] don't know how to pass the entire answer in?
             );
           console.log('Possible answer 1 changed to:', answers[2].value);
@@ -97,10 +91,10 @@ const MultipleChoice: React.FC<MCProps> = ({ questionData, quizData }) => {
       <h6>possible answer:</h6>
       <input
         type="text"
-        value={answers[3].value}
+        value={answers[3]?.value}
         placeholder='option 2'
         onChange={(e) => {
-          updateCorrectAnswer(answers[3]._id, 
+          updateCorrectAnswer(answers[3]?._id, 
             //answers[0] don't know how to pass the entire answer in?
             );
           console.log('Possible answer 1 changed to:', answers[3].value);

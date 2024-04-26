@@ -17,13 +17,12 @@ export interface Quiz {
   shuffleAnswers: boolean;
   timeLimit: string;
   allowMultipleAttempts: boolean;
-  quizScoreToKeep: string;
-  allowedAttempts: string;
   showCorrectAnswers: string;
   showOneQuestionAtATime: boolean;
-  dueDate: string;
-  availableFrom: string;
-  untilDate: string;
+  dueDate: Date;
+  availableFrom: Date;
+  untilDate: Date;
+  published: boolean;
 }
 
 

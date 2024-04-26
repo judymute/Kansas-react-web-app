@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Link, Route, Routes, useParams } from "react-router-dom";
 import * as client from "./client";
 import QuizEdit from "./QuizEdit";
-import QuizPreview from "./QuizPreview";
 
-interface QuizInfoProps {
+interface QuizPrevProps {
   quizData: client.Quiz | null;
 }
 
-const QuizInfo: React.FC<QuizInfoProps> = ({ quizData }) => {
+const QuizPreview: React.FC<QuizPrevProps> = ({ quizData }) => {
   const { courseId, quizId } = useParams<{ courseId: string, quizId: string }>();
   const [quiz, setQuiz] = useState<client.Quiz | null>(null);
 
@@ -36,9 +35,6 @@ const QuizInfo: React.FC<QuizInfoProps> = ({ quizData }) => {
       <Link to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}/edit`}>
         <button>Edit</button>
       </Link>
-      <Link to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}/preview`}>
-        <button>Preview</button>
-      </Link>
       {quiz && (
         <div>
           <p>Name: {quiz.name}</p>
@@ -50,7 +46,6 @@ const QuizInfo: React.FC<QuizInfoProps> = ({ quizData }) => {
           <p>Multiple Attempts: {quiz.allowMultipleAttempts ? 'Yes' : 'No'}</p>
           <p>Show Correct Answers: {quiz.showCorrectAnswers ? 'Yes' : 'No'}</p>
           <p>One Question at a Time: {quiz.showOneQuestionAtATime ? 'Yes' : 'No'}</p>
-          {/* <p>Published: {quiz.published ? 'Yes' : 'No'}</p> */}
           {/* <p>Due: {quiz.dueDate.toString()}</p>
           <p>Available from: {quiz.availableFrom.toString()}</p>
           <p>Until: {quiz.untilDate.toString()}</p>  */}
@@ -58,10 +53,9 @@ const QuizInfo: React.FC<QuizInfoProps> = ({ quizData }) => {
       )}
       <Routes>
         <Route path="/edit/*" element={<QuizEdit quizData={quiz!} />} />
-        <Route path="/preview/*" element={<QuizPreview quizData={quiz!} />} />
       </Routes>
     </div>
   );
 }
 
-export default QuizInfo;
+export default QuizPreview;
