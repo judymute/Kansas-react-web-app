@@ -19,12 +19,23 @@ const TrueAndFalse: React.FC<TFProps> = ({ questionData, quizData }) => {
   const [questions, setQuestions] = useState<client.Question[]>(quizData?.questions);
   const [answers, setAnswers] = useState<{ _id: string; value: string; correct: boolean; }[]>(questionData.answers);
   const [render, setRender] = useState("TF");
-  
+
   const plsSave = async () => {
-    setQuestion({ ...question, type: render })
+
+    setQuestion({ ...question, type: render });
+
+    const updatedAnswers = [...question.answers];
+
+    const indicesToRemove = [1, 2, 3]; // Indices of the answers you want to remove
+    indicesToRemove.sort((a, b) => b - a); // Sort indices in descending order to avoid affecting subsequent indices
+    indicesToRemove.forEach(index => {
+      updatedAnswers.splice(index, 1);
+    });
+
+    setQuestion({ ...question, answers: updatedAnswers});
+
     console.log('Saving question test:', question?.name, question?.value, question?.type);
 
-  
     // Update the question on the server
     const updatedQuestion = await client.updateQuestion(question);
     console.log('Updated question test:', updatedQuestion?.name);
@@ -75,7 +86,7 @@ const TrueAndFalse: React.FC<TFProps> = ({ questionData, quizData }) => {
         </div>
         <div>
 
-      <h6>Enter your question and multiple answers. then select the correct answer.</h6>
+      <h6>Enter the question and answer below. Check the checkbox if the answer is true. Leave it blank if the answer is false.</h6>
       <h4>Question:</h4>
       <input
         type="text"
@@ -85,9 +96,8 @@ const TrueAndFalse: React.FC<TFProps> = ({ questionData, quizData }) => {
           console.log('Question changed to:', question.value);
         }}
       />
-      <h4>Answers:</h4>
       <br />
-      <h6>correct answer:</h6>
+      <h6>answer:</h6>
       <input
         type="text"
         value={answers[0]?.value}
@@ -95,35 +105,21 @@ const TrueAndFalse: React.FC<TFProps> = ({ questionData, quizData }) => {
           const updateAnswer0 = [...question.answers];
           updateAnswer0[0].value = e.target.value;
           setQuestion({...question, answers: updateAnswer0})
-          console.log('Correct answer changed to:', answers[0].value);
-
+          console.log('Aswer changed to:', answers[0].value);
         }}
       />
       <br />
-      <h6>possible answer:</h6>
       <input
-        type="text"
-        value={answers[1]?.value}
-        onChange={(e) => {
-        }}
-      />
-      <br />
-      <h6>possible answer:</h6>
-      <input
-        type="text"
-        value={answers[2]?.value}
-        onChange={(e) => {
-        }}
-      />
-      <br />
-      <h6>possible answer:</h6>
-      <input
-        type="text"
-        value={answers[3]?.value}
-        onChange={(e) => {
-        }}
-      />
-      <br />
+                  type="checkbox"
+                  checked={answers[0]?.correct}
+                  onChange={(e) => {
+                    const updateTF = [...question.answers];
+                    updateTF[0].correct = e.target.checked;
+                    setQuestion({...question, answers: updateTF})
+                    console.log('Aswer changed to:', answers[0].correct);
+                  }}
+                />
+      
     </div>
       </div>
       <button onClick={plsSave}>Save Question</button>
