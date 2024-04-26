@@ -44,9 +44,25 @@ const Questions: React.FC<AddedQuizProps> = ({ quizData }) =>  {
       value: "What is this question asking?",
       answers: [{
         _id: uuidv4(),
-        value: "this is not the correct answer",
+        value: "this the correct answer",
+        correct: true
+      },
+      {
+        _id: uuidv4(),
+        value: "this possible answer 2",
         correct: false
-      }]
+      },
+      {
+        _id: uuidv4(),
+        value: "this possible answer 3",
+        correct: false
+      },
+      {
+        _id: uuidv4(),
+        value: "this possible answer 4",
+        correct: false
+      }
+     ]
     };
 
     try {
@@ -56,7 +72,7 @@ const Questions: React.FC<AddedQuizProps> = ({ quizData }) =>  {
       const updatedQuiz = {...quiz, questions: questions};
       await quizClient.updateQuiz(updatedQuiz);
       setQuiz(updatedQuiz)
-      console.log('Updated the quiz to have new question:', quiz);
+      console.log('Updated the quiz to have new question:', quiz.questions);
     } catch (err) {
       console.error('Error creating question:', err);
     }
