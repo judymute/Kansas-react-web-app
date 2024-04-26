@@ -21,14 +21,14 @@ const AddedQuestion: React.FC<AddedQuestionProps> = ({ questionData, quizData })
 
   console.log('AddedQuestion component rendered with quizId:', quizId, 'and question:', questionData);
 
-  const [currentQ, setCurrentQ] = useState({
-    _id: "1121312",
-    name: "Q Name",
-    points: "1",
-    quiz: quizId,
-    type: "MC"
-  });
-  console.log('Initial currentQ state:', currentQ);
+//   const [currentQ, setCurrentQ] = useState({
+//     _id: "1121312",
+//     name: "Q Name",
+//     points: "1",
+//     quiz: quizId,
+//     type: "MC"
+//   });
+//   console.log('Initial currentQ state:', currentQ);
 
 //   const fetchCurrent = async () => {
 //     try {
@@ -94,9 +94,9 @@ const AddedQuestion: React.FC<AddedQuestionProps> = ({ questionData, quizData })
       case 'MC':
         return <MultipleChoice questionData={question} quizData={quiz!} />;
       case 'TF':
-        return <TrueAndFalse />;
+        return <TrueAndFalse questionData={question} quizData={quiz!} />;
       case 'BLANK':
-        return <FillBlank />;
+        return <FillBlank questionData={question} quizData={quiz!}  />;
       default:
         return <MultipleChoice questionData={question} quizData={quiz!}/>;
     }
@@ -113,10 +113,13 @@ const AddedQuestion: React.FC<AddedQuestionProps> = ({ questionData, quizData })
 
     //const foundQ = questions.find(q => q._id === question._id);
 
-    // const index = questions.findIndex(q => q._id === question._id);
+    // const newQuestions = questions.slice();
+
+    // const index = newQuestions.findIndex(q => q._id === question._id);
     //     if (index !== -1) {
-    //     questions[index] = question;
+    //     newQuestions[index] = question;
     //     }
+    // setQuestions(newQuestions);
 
     // const updatedQuiz = {...quiz, questions: questions};
     // await quizClient.updateQuiz(updatedQuiz);
@@ -172,8 +175,8 @@ const AddedQuestion: React.FC<AddedQuestionProps> = ({ questionData, quizData })
 
       <Routes>
         <Route path="multipleChoice" element={<MultipleChoice questionData={question!} quizData={quiz!}/>} />
-        <Route path="trueFalse" element={<TrueAndFalse />} />
-        <Route path="fillBlank" element={<FillBlank />} />
+        <Route path="trueFalse" element={<TrueAndFalse questionData={question!} quizData={quiz!}/>} />
+        <Route path="fillBlank" element={<FillBlank questionData={question!} quizData={quiz!}/>} />
       </Routes>
     </div>
   );

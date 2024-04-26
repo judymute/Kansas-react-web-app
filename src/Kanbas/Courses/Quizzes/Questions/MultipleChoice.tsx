@@ -16,24 +16,22 @@ const MultipleChoice: React.FC<MCProps> = ({ questionData, quizData }) => {
   const { courseId, quizId } = useParams<{ courseId: string, quizId: string }>();
   const [quiz, setQuiz] = useState<quizClient.Quiz>(quizData);
   const [question, setQuestion] = useState<client.Question>(questionData);
-
-  const [selectedOption, setSelectedOption] = useState('');
-  const [textInput1, setTextInput1] = useState('');
-  const [textInput2, setTextInput2] = useState('');
-
-  const handleRadioChange = (e: { target: { value: React.SetStateAction<string>; }; } ) => {
-    setSelectedOption(e.target.value);
-  };
-
-  const handleTextInputChange = (e: { target: { name: any; value: any; }; }) => {
-    const { name, value } = e.target;
-    if (name === 'textInput1') {
-      setTextInput1(value);
-    } else if (name === 'textInput2') {
-      setTextInput2(value);
-    }
-  };
+  const [answers, setAnswers] = useState<{ _id: string; value: string; correct: boolean; }[]>(questionData.answers);
   
+  const updateCorrectAnswer = (answerId : string, 
+    //answer : [] see comment when function is called
+    ) => {
+    const newAnswers = question.answers.slice();
+
+        const index = newAnswers.findIndex(a => a._id === answerId);
+        if (index !== -1) {
+          // newAnswers[index] = answer;
+        }
+        setAnswers(newAnswers);
+
+
+  }
+
   return (
     <div>
       <h6>Enter your question and multiple answers. then select the correct answer.</h6>
@@ -60,9 +58,53 @@ const MultipleChoice: React.FC<MCProps> = ({ questionData, quizData }) => {
       <input
         type="text"
         name="textInput1"
-        value={textInput1}
+        value={answers[0].value}
         placeholder='option1'
-        onChange={handleTextInputChange}
+        onChange={(e) => {
+          updateCorrectAnswer(answers[0]._id, 
+            //answers[0] don't know how to pass the entire answer in?
+            );
+          console.log('Correct answer changed to:', answers[0].value);
+        }}
+      />
+      <br />
+      <h6>possible answer:</h6>
+      <input
+        type="text"
+        value={answers[1].value}
+        placeholder='option 2'
+        onChange={(e) => {
+          updateCorrectAnswer(answers[1]._id, 
+            //answers[0] don't know how to pass the entire answer in?
+            );
+          console.log('Possible answer 1 changed to:', answers[1].value);
+        }}
+      />
+      <br />
+      <h6>possible answer:</h6>
+      <input
+        type="text"
+        value={answers[2].value}
+        placeholder='option 2'
+        onChange={(e) => {
+          updateCorrectAnswer(answers[2]._id, 
+            //answers[0] don't know how to pass the entire answer in?
+            );
+          console.log('Possible answer 1 changed to:', answers[2].value);
+        }}
+      />
+      <br />
+      <h6>possible answer:</h6>
+      <input
+        type="text"
+        value={answers[3].value}
+        placeholder='option 2'
+        onChange={(e) => {
+          updateCorrectAnswer(answers[3]._id, 
+            //answers[0] don't know how to pass the entire answer in?
+            );
+          console.log('Possible answer 1 changed to:', answers[3].value);
+        }}
       />
       <br />
     </div>
