@@ -14,7 +14,7 @@ import { FcCancel } from "react-icons/fc";
 function Quizzes() {
 
   const navigate = useNavigate();
-  const { courseId } = useParams<{ courseId: string }>();
+  const { courseId, quizId } = useParams<{ courseId: string, quizId: string }>();
   const [quiz, setQuiz] = useState<client.Quiz>();
   const [quizzes, setQuizzes] = useState<client.Quiz[]>([]); // quizzes will be used when we want to render a list of all quizzes
 
@@ -147,9 +147,9 @@ function Quizzes() {
       </div>
 
       <Routes>
-        <Route path="/:quizId" element={<QuizInfo quizData={quiz!} />} />
-        <Route path="/:quizId/preview" element={<QuizPreview quizData={quiz!} />} />
-        <Route path="/:quizId/edit/*" element={<QuizEdit quizData={quiz!} />} />
+        <Route path="/:quizId" element={<QuizInfo quizData={quizzes.find(q => q._id === quizId)!} />} />
+        <Route path="/:quizId/preview" element={<QuizPreview quizData={quizzes.find(q => q._id === quizId)!} />} />
+        <Route path="/:quizId/edit/*" element={<QuizEdit quizData={quizzes.find(q => q._id === quizId)!} />} />
       </Routes>
     </div>
   );

@@ -3,6 +3,7 @@ import "./QuizEdit.css";
 import { Editor } from '@tinymce/tinymce-react';
 import * as client from "./client";
 import { useParams } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 // need this prop interface so it can be pass this preference to the Quizzes component and aid QuizInfo component rendering
 interface QuizDetailsProps {
@@ -11,10 +12,12 @@ interface QuizDetailsProps {
 }
 
 
-const  QuizDetails: React.FC<QuizDetailsProps> = ({quizData, onSave }) => {
-  const { courseId, quizId } = useParams<{ courseId: string, quizId: string }>();
 
-  
+const QuizDetails: React.FC<QuizDetailsProps> = ({ quizData, onSave }) => {
+  const { courseId, quizId } = useParams<{ courseId: string, quizId: string }>();
+  const navigate = useNavigate();
+
+
   const [quiz, setQuiz] = useState<client.Quiz>(quizData);
 
   const [quizType, setQuizType] = useState('Graded Quiz');
@@ -27,6 +30,18 @@ const  QuizDetails: React.FC<QuizDetailsProps> = ({quizData, onSave }) => {
   const [shuffleAnswers, setShuffleAnswers] = useState(false);
   const [timeLimit, setTimeLimit] = useState('');
   const [onlyAfterLastAttempt, setOnlyAfterLastAttempt] = useState(false);
+
+
+  const handleCancel = () => {
+    navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
+  };
+
+  const handleSaveAndPublish = async () => {
+    await save();
+    await client.updateQuiz({ ...quiz, published: true });
+    onSave({ ...quiz, published: true });
+    navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
+  };
 
   const handleSave = () => {
     const quizPreferences: Partial<client.Quiz> = {
@@ -51,11 +66,13 @@ const  QuizDetails: React.FC<QuizDetailsProps> = ({quizData, onSave }) => {
 
   return (
     <div>
+      <button onClick={handleCancel}>Cancel</button>
+      <button onClick={handleSaveAndPublish}>Save & Publish</button>
       <button onClick={save}>Save Quiz</button>
       <input
-          type="text"
-          value={quiz?.name}
-          onChange={(e) => setQuiz({ ...quiz, name: e.target.value })}
+        type="text"
+        value={quiz?.name}
+        onChange={(e) => setQuiz({ ...quiz, name: e.target.value })}
       />
       <h6>Quiz Instructions:</h6>
       <Editor
@@ -71,7 +88,7 @@ const  QuizDetails: React.FC<QuizDetailsProps> = ({quizData, onSave }) => {
           ],
           ai_request: (request: any, respondWith: any) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
         }}
-        initialValue= {"please enter new quiz details here for " + quiz?.name}
+        initialValue={"please enter new quiz details here for " + quiz?.name}
       />
       <br />
       <div className="quiz-settings">
@@ -105,7 +122,7 @@ const  QuizDetails: React.FC<QuizDetailsProps> = ({quizData, onSave }) => {
           </div>
         </div>
         <div>
-   
+
           <div className="option-header">Options</div>
           <br />
           <label>
@@ -118,12 +135,12 @@ const  QuizDetails: React.FC<QuizDetailsProps> = ({quizData, onSave }) => {
           </label>
           <div className="time-limit-container">
             <label>
-            <input
-                  type="string"
-                  id="timeLimit"
-                  value={quiz?.timeLimit}
-                  onChange={(e) => setQuiz({ ...quiz, timeLimit: e.target.value})}
-                />
+              <input
+                type="string"
+                id="timeLimit"
+                value={quiz?.timeLimit}
+                onChange={(e) => setQuiz({ ...quiz, timeLimit: e.target.value })}
+              />
               Time Limit
             </label>
           </div>
@@ -133,7 +150,7 @@ const  QuizDetails: React.FC<QuizDetailsProps> = ({quizData, onSave }) => {
                 <input
                   type="checkbox"
                   checked={quiz?.allowMultipleAttempts}
-                  onChange={(e) => setQuiz({ ...quiz, allowMultipleAttempts: e.target.checked})}
+                  onChange={(e) => setQuiz({ ...quiz, allowMultipleAttempts: e.target.checked })}
                 />
                 Allow Multiple Attempts
               </label>
