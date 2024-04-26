@@ -70,6 +70,3 @@ const QuizEdit: React.FC<AddedQuizProps> = ({ quizData }) =>  {
 
 export default QuizEdit;
 
-export default QuizEdit;
-
-export default QuizEdit;
