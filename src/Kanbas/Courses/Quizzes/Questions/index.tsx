@@ -2,16 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import AddedQuestion from './addedQuestion';
 import * as client from "./client";
+import * as quizClient from "../client";
 import { v4 as uuidv4 } from 'uuid';
 
-function Questions() {
+
+interface AddedQuizProps {
+  quizData: quizClient.Quiz;
+}
+
+const Questions: React.FC<AddedQuizProps> = ({ quizData }) =>  {
   const { courseId, quizId } = useParams<{ courseId: string, quizId: string }>();
-  const [questions, setQuestions] = useState<client.Question[]>([]); // Array to store question components
+  const [quiz, setQuiz] = useState<quizClient.Quiz>(quizData);
+  const [questions, setQuestions] = useState<client.Question[]>(quizData?.questions); // Array to store question components, currently empty
+
 
   useEffect(() => {
-    const fetchQuestions = async () => {
+    // need to fetch all questions that have this specific quizID
+    const fetchQuestions = async (quiz: string) => {
       try {
-        const fetchedQuestions = await client.findAllQuestions();
+        const fetchedQuestions = await client.findQuestionsByQuiz(quiz);
         console.log('Fetched questions:', fetchedQuestions);
         setQuestions(fetchedQuestions);
       } catch (err) {
@@ -20,27 +29,34 @@ function Questions() {
     };
 
     console.log('Fetching questions...');
-    fetchQuestions();
-  }, []);
+    fetchQuestions(quiz?._id); // uses the id of the current quiz
+  }, []); 
+
   const addNewQuestion = async () => {
     // Creating a new question template with unique IDs
+    // this is not being updated!
     const newQuestionTemplate = {
       _id: uuidv4(),
       name: "New Question",
       points: "1",
       quiz: quizId,
       type: "MC",
+      value: "What is this question asking?",
       answers: [{
         _id: uuidv4(),
-        value: "",
+        value: "this is not the correct answer",
         correct: false
       }]
     };
 
     try {
       const newQuestion = await client.createQuestion(newQuestionTemplate);
-      setQuestions(prevQuestions => [...prevQuestions, newQuestion]);
+      setQuestions(questions => [...questions, newQuestion]); // if questions aren't updating on quiz end, may need to fix set quiz
       console.log('Created new question:', newQuestion);
+      const updatedQuiz = {...quiz, questions: questions};
+      await quizClient.updateQuiz(updatedQuiz);
+      setQuiz(updatedQuiz)
+      console.log('Updated the quiz to have new question:', quiz);
     } catch (err) {
       console.error('Error creating question:', err);
     }
@@ -50,9 +66,9 @@ function Questions() {
     <div>
       <button onClick={addNewQuestion}>Add New Question</button>
       <div className="question-list">
-        {questions.map(question => (
+        {questions?.map(question => (
           <div key={question._id}>
-            <AddedQuestion questionData={question} />
+            <AddedQuestion questionData={question!} quizData={quiz!}/>
             <hr/>
           </div>
      
