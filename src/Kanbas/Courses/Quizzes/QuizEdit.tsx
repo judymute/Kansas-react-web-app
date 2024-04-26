@@ -5,57 +5,35 @@ import './QuizEdit.css';
 import Questions from './Questions';
 import QuizDetails from './QuizDetails';
 import { Quiz } from './type';
+import * as client from "./client";
 
-interface QuizEditProps {
-  quizName?: string;
-  setQuizName?: (name: string) => void;
-  addQuiz: (quiz: Quiz) => void;
+interface AddedQuizProps {
+  quizData: client.Quiz;
 }
 
-export function QuizEdit({ quizName = 'Unnamed Quiz', setQuizName = () => {}, addQuiz }: QuizEditProps) {
-
-
+const QuizEdit: React.FC<AddedQuizProps> = ({ quizData }) =>  {
   const { courseId, quizId } = useParams<{ courseId: string, quizId: string }>();
   console.log("QuizEdit component: quizId =", quizId);
+  
+  
+  const [quiz, setQuiz] = useState<client.Quiz>(quizData);
 
-  const [localQuizName, setLocalQuizName] = useState(quizName);
-  console.log("QuizEdit component: Initial quizName =", quizName);
+  const save = async () => {
+    console.log('updating quiz:', quiz);
+    await client.updateQuiz(quiz);
+  };
+
   const navigate = useNavigate();
-
-
-  const handleQuizNameChange = (name: string) => {
-    setLocalQuizName(name);
-    setQuizName?.(name);
-
-    console.log("QuizEdit component: Quiz name changed to", name);
-  };
-  const handleSave = () => {
-    console.log("Saving quiz...");
-    const newQuiz: Quiz = {
-      id: quizId || '',
-      name: localQuizName,
-      assignmentGroup: 'Quizzes', // Provide the appropriate assignment group value
-    };
-    console.log("New Quiz being added:", newQuiz);
-    addQuiz(newQuiz);
-    console.log("Navigating back to Quizzes list");
-    navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
-  };
   
   const handleLinkClick = useCallback((tabName: string) => {
     console.log(`Attempting to navigate to ${tabName}`);
   }, []);
-
-  useEffect(() => {
-    console.log('QuizEdit: quizName prop:', quizName);
-    console.log('QuizEdit: localQuizName state:', localQuizName);
-  }, [quizName, localQuizName]);
   
   return (
     <div className="quiz-edit-container">
       <div className="quiz-details">
         <div className="quiz-info">
-          <div>Points: 0</div>
+          <div>Points: </div>
           <div>Not Published</div>
         </div>
       </div>
@@ -67,19 +45,15 @@ export function QuizEdit({ quizName = 'Unnamed Quiz', setQuizName = () => {}, ad
         <input
           type="text"
           placeholder="Unnamed Quiz"
-          value={localQuizName}
-          onChange={(e) => handleQuizNameChange(e.target.value)}
+          value={quiz?.name}
+          onChange={(e) => setQuiz({ ...quiz, name: e.target.value })}
         />
       </div>
 
       <div className="quiz-details">
-        <div className="quiz-info">
-          <div>Points: 0</div>
-          <div>Not Published</div>
-        </div>
         <button
           className="save-button"
-          onClick={handleSave}
+          onClick={save}
         >
           Save
         </button>
@@ -87,9 +61,11 @@ export function QuizEdit({ quizName = 'Unnamed Quiz', setQuizName = () => {}, ad
       <Routes>
         <Route path="/" element={<Navigate replace to="details" />} />
         <Route path="details" element={<QuizDetails />} />
-        <Route path="questions/*" element={<Questions />} />
+        <Route path="questions/*" element={<Questions quizData={quiz!}/>} /> //we will want to pass a quiz
         
       </Routes>
     </div>
   );
 }
+
+export default QuizEdit;
