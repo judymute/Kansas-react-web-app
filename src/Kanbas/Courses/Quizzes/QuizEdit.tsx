@@ -27,6 +27,8 @@ const QuizEdit: React.FC<AddedQuizProps> = ({ quizData }) =>  {
   const save = async () => {
     console.log('updating quiz:', quiz);
     await client.updateQuiz(quiz);
+    setQuiz(quiz);
+
   };
 
   const navigate = useNavigate();
@@ -47,7 +49,7 @@ const QuizEdit: React.FC<AddedQuizProps> = ({ quizData }) =>  {
         <Link to="details" className='tab' onClick={() => handleLinkClick('Details')}>Details</Link>
         <Link to="questions" className='tab' onClick={() => handleLinkClick('Questions')}>Questions</Link>
       </div>
-      <div>
+      {/* <div>
         <input
           type="text"
           placeholder="Unnamed Quiz"
@@ -63,16 +65,14 @@ const QuizEdit: React.FC<AddedQuizProps> = ({ quizData }) =>  {
         >
           Save
         </button>
-      </div>
+      </div> */}
       <Routes>
         <Route path="/" element={<Navigate replace to="details" />} />
-        <Route path="details" element={<QuizDetails onSave={handleSaveQuizPreferences} />} />
+        <Route path="details" element={<QuizDetails quizData={quiz!} onSave={handleSaveQuizPreferences} />} />
         <Route path="questions/*" element={<Questions quizData={quiz!}/>} /> //we will want to pass a quiz
         
       </Routes>
     </div>
   );
 }
-
 export default QuizEdit;
-

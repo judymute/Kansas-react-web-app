@@ -8,6 +8,8 @@ import axios from "axios";
 import * as client from "./client";
 import { v4 as uuidv4 } from 'uuid';
 import QuizInfo from "./QuizInfo";
+import QuizPreview from "./QuizPreview";
+import { FaCheckCircle, FaEllipsisV, FaPlusCircle, FaCaretRight } from "react-icons/fa";
 
 function Quizzes() {
 
@@ -15,6 +17,8 @@ function Quizzes() {
   const { courseId } = useParams<{ courseId: string }>();
   const [quiz, setQuiz] = useState<client.Quiz>();
   const [quizzes, setQuizzes] = useState<client.Quiz[]>([]); // quizzes will be used when we want to render a list of all quizzes
+
+  const [isToggled, setIsToggled] = useState(false);
 
   // search stuff
   const [searchTerm, setSearchTerm] = useState("");
@@ -47,6 +51,14 @@ function Quizzes() {
       assignmentGroup: "Quizzes",
       courseId: courseId,
       questions: [],
+      quizType: "Graded Quiz",
+      shuffleAnswers: true,
+      timeLimit: "20 minutes",
+      allowMultipleAttempts: false,
+      showCorrectAnswers: false,
+      showOneQuestionAtATime: true,
+      published: false
+
     };
     try {
       const newQuiz = await client.createQuiz(newQuizTemplate);
@@ -58,6 +70,15 @@ function Quizzes() {
     } catch (err) {
       console.error('Error creating quiz:', err);
     }
+  };
+
+  const toggleButton = async () => {
+    setIsToggled(!isToggled);
+    const updatedquiz = {
+      ...quiz,
+      published: isToggled};
+    const newQ = await client.updateQuiz(updatedquiz);
+    setQuiz(newQ);
   };
 
   const groupQuizzesByAssignmentGroup = (quizzes: client.Quiz[]) => {
@@ -94,6 +115,14 @@ function Quizzes() {
                         `Not available until ${new Date(quiz.availableFrom).toLocaleString()}`}
                   </span>
                 </div>
+                <div>
+                <button
+                    className={`toggle-button ${isToggled ? 'green' : ''}`}
+                    onClick={toggleButton}
+                  >
+                    {isToggled ? 'Published' : 'Not Published'}
+                  </button>
+                </div>
                 <div className="quizzes-details">
                   <span className="quiz-due-date">Due {new Date(quiz.dueDate).toLocaleString()}</span>
                   <span className="quiz-points">{quiz.points} pts</span>
@@ -106,8 +135,9 @@ function Quizzes() {
       </div>
 
       <Routes>
-        <Route path="/:quizId" element={<QuizInfo quizData={null} />} />
-        <Route path="/:quizId/edit/*" element={<QuizEdit quizData={quiz!} />} />
+          <Route path="/:quizId" element={<QuizInfo quizData={quiz!} />} />
+          <Route path="/:quizId/preview" element={<QuizPreview quizData={quiz!} />} />
+          <Route path="/:quizId/edit/*" element={<QuizEdit quizData={quiz!} />} />
       </Routes>
     </div>
   );
