@@ -15,6 +15,12 @@ const QuizEdit: React.FC<AddedQuizProps> = ({ quizData }) =>  {
   const { courseId, quizId } = useParams<{ courseId: string, quizId: string }>();
   console.log("QuizEdit component: quizId =", quizId);
   
+  const [quizPreferences, setQuizPreferences] = useState<Partial<client.Quiz>>({});
+
+  const handleSaveQuizPreferences = (preferences: Partial<client.Quiz>) => {
+    setQuizPreferences(preferences);
+  };
+
   
   const [quiz, setQuiz] = useState<client.Quiz>(quizData);
 
@@ -60,7 +66,7 @@ const QuizEdit: React.FC<AddedQuizProps> = ({ quizData }) =>  {
       </div>
       <Routes>
         <Route path="/" element={<Navigate replace to="details" />} />
-        <Route path="details" element={<QuizDetails />} />
+        <Route path="details" element={<QuizDetails onSave={handleSaveQuizPreferences} />} />
         <Route path="questions/*" element={<Questions quizData={quiz!}/>} /> //we will want to pass a quiz
         
       </Routes>

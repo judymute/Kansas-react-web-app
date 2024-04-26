@@ -5,6 +5,7 @@ import * as client from './Questions/client';
 axios.defaults.withCredentials = true
 const API_BASE = process.env.REACT_APP_API_BASE;
 
+// updated interface
 export interface Quiz {
   _id: string; 
   name: string;
@@ -12,6 +13,17 @@ export interface Quiz {
   assignmentGroup: string;
   courseId: string;
   questions: client.Question[];
+  quizType: string;
+  shuffleAnswers: boolean;
+  timeLimit: string;
+  allowMultipleAttempts: boolean;
+  quizScoreToKeep: string;
+  allowedAttempts: string;
+  showCorrectAnswers: string;
+  showOneQuestionAtATime: boolean;
+  dueDate: string;
+  availableFrom: string;
+  untilDate: string;
 }
 
 

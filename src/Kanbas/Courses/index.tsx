@@ -10,10 +10,8 @@ import Assignments from './Assignments';
 import './index.css';
 import breadcrumbArrowLight from './breadcrumb-arrow-light.svg';
 import Quizzes from './Quizzes';
-import QuizEditPage from './Quizzes/QuizEditPage';
-import { Quiz } from './Quizzes/type';
 import * as client from "./Quizzes/client";
-import QuizEdit from './Quizzes/QuizEdit';
+import QuizInfo from './Quizzes/QuizInfo';
 
 axios.defaults.withCredentials = true
 const API_BASE = process.env.REACT_APP_API_BASE;
@@ -66,7 +64,7 @@ function Courses() {
     findCourseById(courseId);
   }, [courseId]);
 
-  
+
   const url = window.location.href;
   const term = url.split('/');
   const courseName = term[term.length - 2];
@@ -108,7 +106,8 @@ function Courses() {
             <Route path="Piazza" element={<h1>Piazza</h1>} />
             <Route path="Assignments" element={<Assignments />} />
             <Route path="Assignments/:assignmentId" element={<h1>Assignment Editor</h1>} />
-            <Route path="Quizzes/*" element={<Quizzes/>} />
+            <Route path="Quizzes/*" element={<Quizzes />} />
+            <Route path="Quizzes/:quizId" element={<QuizInfo quizData={null} />} />
             {/* <Route path="Quizzes/:quizId/edit/*" element={<QuizEdit quizData={quiz!} />} /> */}
             {/* <Route path="Quizzes/:quizId/edit/questions/*" element={<Questions />} /> */}
             <Route path="Grades" element={<h1>Grades</h1>} />

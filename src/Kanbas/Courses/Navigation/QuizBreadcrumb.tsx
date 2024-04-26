@@ -21,11 +21,9 @@ const QuizBreadcrumb = ({ showBreadcrumb, courseId , onClose}: QuizBreadcrumbpro
           Use quizzes to challenge student understanding and assess comprehension of course material. The New Quizzes assessment engine allows you to create up to 13 types of question types and content. If New Quizzes isn't enabled for your institution, Classic Quizzes are still available to help you achieve your objectives.
         </p>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget aliquam lacinia, nisl nisl aliquam nisl, nec aliquam nisl nisl sit amet nisl. Nullam auctor, nisl eget aliquam lacinia, nisl nisl aliquam nisl, nec aliquam nisl nisl sit amet nisl.
+          Click the "+ Quiz" button to create a new quiz. 
         </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget aliquam lacinia, nisl nisl aliquam nisl, nec aliquam nisl nisl sit amet nisl. Nullam auctor, nisl eget aliquam lacinia, nisl nisl aliquam nisl, nec aliquam nisl nisl sit amet nisl.
-        </p>
+
       </div>
       <br />
       <hr />

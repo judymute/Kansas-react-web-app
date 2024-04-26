@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import "./QuizEdit.css";
 import { Editor } from '@tinymce/tinymce-react';
+import * as client from "./client";
 
-const QuizDetails = () => {
+// need this prop interface so it can be pass this preference to the Quizzes component and aid QuizInfo component rendering
+interface QuizDetailsProps {
+  onSave: (quizPreferences: Partial<client.Quiz>) => void;
+}
+
+
+const  QuizDetails: React.FC<QuizDetailsProps> = ({ onSave }) => {
   const [quizType, setQuizType] = useState('Graded Quiz');
   const [assignmentGroup, setAssignmentGroup] = useState('Quizzes');
   const [showCorrectAnswers, setShowCorrectAnswers] = useState('Let Students See The Correct Answers');
@@ -14,9 +21,29 @@ const QuizDetails = () => {
   const [timeLimit, setTimeLimit] = useState('');
   const [onlyAfterLastAttempt, setOnlyAfterLastAttempt] = useState(false);
 
+  const handleSave = () => {
+    const quizPreferences: Partial<client.Quiz> = {
+      quizType,
+      assignmentGroup,
+      shuffleAnswers,
+      timeLimit,
+      allowMultipleAttempts,
+      quizScoreToKeep,
+      allowedAttempts,
+      showCorrectAnswers,
+      showOneQuestionAtATime,
+      // other preferences
+    };
+    onSave(quizPreferences);
+  };
+
+
+
+
   return (
     <div>
       <h6>Quiz Instructions:</h6>
+      <button onClick={handleSave}>Save</button>
       <Editor
         apiKey="fs2c55cug8z5w3kuhlmwxmi3m1l70aalp26lnptmbi0qeo79"
         init={{
