@@ -71,6 +71,7 @@ function Quizzes() {
     }, {} as Record<string, client.Quiz[]>);
   };
 
+  
   const quizzesByAssignmentGroup = groupQuizzesByAssignmentGroup(quizzes);
 
   return (
