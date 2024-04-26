@@ -85,7 +85,16 @@ function Quizzes() {
       console.error('Error updating quiz:', err);
     }
   };
-  
+
+  const deleteQuiz = async (quizId: string) => {
+    try {
+      await client.deleteQuiz(quizId);
+      setQuizzes(prevQuizzes => prevQuizzes.filter(q => q._id !== quizId));
+    } catch (err) {
+      console.error('Error deleting quiz:', err);
+    }
+  };
+
   const groupQuizzesByAssignmentGroup = (quizzes: client.Quiz[]) => {
     return quizzes.reduce((groups, quiz) => {
       const assignmentGroup = quiz.assignmentGroup;
@@ -132,13 +141,19 @@ function Quizzes() {
                     <span className="quiz-questions">{quiz.questions.length} Questions</span>
                   </div>
                   <div className="quiz-actions">
-                  <button
-                    className={`toggle-button ${quiz.published ? 'green' : ''}`}
-                    onClick={() => toggleButton(quiz)}
-                  >
-                    {quiz.published ? 'Published' : 'Not Published'}
-                  </button>
-                </div>
+                    <button
+                      className={`toggle-button ${quiz.published ? 'green' : ''}`}
+                      onClick={() => toggleButton(quiz)}
+                    >
+                      {quiz.published ? 'Published' : 'Not Published'}
+                    </button>
+                    <button
+                      className="delete-button"
+                      onClick={() => deleteQuiz(quiz._id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -146,10 +161,11 @@ function Quizzes() {
         ))}
       </div>
 
+     
       <Routes>
-        <Route path="/:quizId" element={<QuizInfo quizData={quizzes.find(q => q._id === quizId)!} />} />
-        <Route path="/:quizId/preview" element={<QuizPreview quizData={quizzes.find(q => q._id === quizId)!} />} />
-        <Route path="/:quizId/edit/*" element={<QuizEdit quizData={quizzes.find(q => q._id === quizId)!} />} />
+      <Route path="/:quizId" element={<QuizInfo quizData={quizzes.find(q => q._id === quizId)!} />} />
+        <Route path="/:quizId/preview" element={<QuizPreview quizData={quiz!} />} />
+        <Route path="/:quizId/edit/*" element={<QuizEdit quizData={quiz!} />} />
       </Routes>
     </div>
   );

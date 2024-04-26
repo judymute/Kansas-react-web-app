@@ -130,3 +130,12 @@ quizzes-list {
   color: #ccc;
   font-size: 30px;
 }
+
+.delete-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-left: 10px;
+  cursor: pointer;
+}

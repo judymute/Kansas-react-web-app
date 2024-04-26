@@ -38,6 +38,17 @@ export const updateQuiz = async (quiz: any) => {
   }
 };
 
+export const deleteQuiz = async (id: string) => {
+  try {
+    const response = await axios.delete(`${API_BASE}/api/quizzes/${id}`);
+    console.log('Deleted quiz:', response.data);
+    return response.data;
+  } catch (err) {
+    console.error('Error deleting quiz:', err);
+    throw err;
+  }
+};
+
 export const current = async () => {
   try {
     const response = await axios.post(`${API_BASE}/api/quizzes/current`);
