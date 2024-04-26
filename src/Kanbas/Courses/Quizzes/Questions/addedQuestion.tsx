@@ -6,6 +6,7 @@ import FillBlank from './FillBlank';
 import "./Questions.css";
 import * as client from './client';
 import * as quizClient from "../client";
+import Questions from '.';
 
 
 interface AddedQuestionProps {
@@ -30,63 +31,6 @@ const AddedQuestion: React.FC<AddedQuestionProps> = ({ questionData, quizData })
 //   });
 //   console.log('Initial currentQ state:', currentQ);
 
-//   const fetchCurrent = async () => {
-//     try {
-//       const Q = await client.current();
-//       console.log('Fetched current question:', Q);
-//       setCurrentQ(Q);
-//     } catch (err) {
-//       console.error('Error fetching current question:', err);
-//     }
-//   };
-
-//   useEffect(() => {
-//     console.log('Fetching current question...');
-//     fetchCurrent();
-//   }, []);
-
-
-//   const [newQuestion, setNewQuestion] = useState<client.Question>({
-//     _id: "", // this should ideally be generated or fetched if necessary
-//     name: "",
-//     points: "1", // Make sure this is a string if your type expects a string; otherwise, adjust the type or value accordingly
-//     quiz: quizId || "",
-//     type: "MC", // does this actually work?
-//     value: "this is a blank question",
-//     answers: [{
-//       _id: "", // Same here, generate or handle these IDs correctly
-//       value: "",
-//       correct: false,
-//     }]
-// });
-
-//   const fetchQuestions = async () => {
-//     try {
-//       const questions = await client.findAllQuestions();
-//       console.log('Fetched questions:', questions);
-//       setQuestions(questions);
-//     } catch (err) {
-//       console.error('Error fetching questions:', err);
-//     }
-//   };
-
-//   useEffect(() => {
-//     console.log('Fetching questions...');
-//     fetchQuestions();
-//   }, []);
-
-//   const navigate = useNavigate();
-
-
-//   const handleChange = (event: any) => {
-//     const selectedValue = event.target.value;
-//     console.log('Selected option changed to:', selectedValue);
-//     setSelectedOption(selectedValue);
-//     setCurrentQ(prevCurrentQ => ({
-//       ...prevCurrentQ,
-//       type: selectedValue
-//     }));
-//   };
 
   const renderComponent = () => {
     console.log('Rendering question component based on selectedOption:', question.type);
@@ -98,37 +42,34 @@ const AddedQuestion: React.FC<AddedQuestionProps> = ({ questionData, quizData })
       case 'BLANK':
         return <FillBlank questionData={question} quizData={quiz!}  />;
       default:
-        return <MultipleChoice questionData={question} quizData={quiz!}/>;
+        return <MultipleChoice questionData={question} quizData={quiz!} />;
     }
   };
 
   const save = async () => {
     console.log('Saving question:', question);
-    await client.updateQuestion(question);
 
-    console.log('Saving quiz questions:', quiz.questions);
-
-    // which question in the quizzes array of questions matches this question_id?
-    // whatever question does, that one needs to be updated within the quiz
-
-    //const foundQ = questions.find(q => q._id === question._id);
-
-    // const newQuestions = questions.slice();
-
-    // const index = newQuestions.findIndex(q => q._id === question._id);
-    //     if (index !== -1) {
-    //     newQuestions[index] = question;
-    //     }
-    // setQuestions(newQuestions);
-
-    // const updatedQuiz = {...quiz, questions: questions};
-    // await quizClient.updateQuiz(updatedQuiz);
-    // setQuiz(updatedQuiz)
-
-
-    // is this save updated the quiz as well since the question exists in the quiz?
+  
+    // Update the question on the server
+    const updatedQuestion = await client.updateQuestion(question);
+    console.log('Updated question:', updatedQuestion);
+  
+    // Update the local question state with the updated question data
+    setQuestion(updatedQuestion);
+  
+    // Fetch the latest quiz data from the server
+    const latestQuiz = await quizClient.findQuizById(quiz._id);
+    console.log('Latest quiz:', latestQuiz);
+  
+    // Update the quiz with the latest question data
+    const updatedQuestions = latestQuiz.questions.map((q : client.Question) => q._id === updatedQuestion._id ? updatedQuestion : q);
+    const updatedQuiz = { ...latestQuiz, questions: [...updatedQuestions, updatedQuestion] };
+    await quizClient.updateQuiz(updatedQuiz);
+    console.log('Updated quiz:', updatedQuiz);
+  
+    // Update the local state with the updated quiz data
+    setQuiz(updatedQuiz);
   };
-
 
   console.log('Rendering Questions component');
 
@@ -144,13 +85,13 @@ const AddedQuestion: React.FC<AddedQuestionProps> = ({ questionData, quizData })
               style={{ width: 150 }}
               value={question?.name}
               onChange={(e) => {
-                setQuestion({...question, name: e.target.value})
+                setQuestion({ ...question, name: e.target.value })
                 console.log('Question name changed to:', question.name);
               }}
             />
-            <select value={question?.type} 
-            onChange={(e) => {
-                setQuestion({...question, type: e.target.value})
+            <select value={question?.type}
+              onChange={(e) => {
+                setQuestion({ ...question, type: e.target.value })
                 console.log('Question type changed to:', question.type);
               }}>
               <option value="MC">Multiple Choice</option>
@@ -163,7 +104,7 @@ const AddedQuestion: React.FC<AddedQuestionProps> = ({ questionData, quizData })
               style={{ width: 150 }}
               value={question?.points}
               onChange={(e) => {
-                setQuestion({...question, points: e.target.value})
+                setQuestion({ ...question, points: e.target.value })
                 console.log('Question points changed to:', question.points);
               }}
             />
@@ -177,6 +118,7 @@ const AddedQuestion: React.FC<AddedQuestionProps> = ({ questionData, quizData })
         <Route path="multipleChoice" element={<MultipleChoice questionData={question!} quizData={quiz!}/>} />
         <Route path="trueFalse" element={<TrueAndFalse questionData={question!} quizData={quiz!}/>} />
         <Route path="fillBlank" element={<FillBlank questionData={question!} quizData={quiz!}/>} />
+
       </Routes>
     </div>
   );

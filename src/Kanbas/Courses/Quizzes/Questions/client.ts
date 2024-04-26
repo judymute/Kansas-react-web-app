@@ -5,7 +5,7 @@ axios.defaults.withCredentials = true
 const API_BASE = process.env.REACT_APP_API_BASE;
 
 export interface Question {
-  _id: string; 
+  _id: string;
   name: string;
   points: string;
   quiz: string;
@@ -67,14 +67,13 @@ export const findAllQuestions = async () => {
 
 // path may not be correct
 export const findQuestionsByQuiz = async (quiz: string) => {
-    const response = await
-      axios.get(`${API_BASE}/api/questions?quiz=${quiz}`);
-    return response.data;
-  };
+  const response = await
+    axios.get(`${API_BASE}/api/questions?quiz=${quiz}`);
+  return response.data;
+};
 
-  export const findQuestionById = async (id: string) => {
-    const response = await axios.get(`${API_BASE}/api/questions/${id}`);
-    return response.data;
-  };
-  
-  
+export const findQuestionById = async (id: string) => {
+  const response = await axios.get(`${API_BASE}/api/questions/${id}`);
+  return response.data;
+};
+
