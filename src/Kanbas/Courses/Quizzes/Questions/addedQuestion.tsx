@@ -19,7 +19,7 @@ const AddedQuestion: React.FC<AddedQuestionProps> = ({ questionData, quizData })
   const [quiz, setQuiz] = useState<quizClient.Quiz>(quizData);
   const [question, setQuestion] = useState<client.Question>(questionData);
   const [questions, setQuestions] = useState<client.Question[]>(quizData?.questions);
-  const [render, setRender] = useState("MC");
+  const [render, setRender] = useState(questionData?.type);
 
 //   const [currentQ, setCurrentQ] = useState({
 //     _id: "1121312",
