@@ -19,6 +19,7 @@ const AddedQuestion: React.FC<AddedQuestionProps> = ({ questionData, quizData })
   const [quiz, setQuiz] = useState<quizClient.Quiz>(quizData);
   const [question, setQuestion] = useState<client.Question>(questionData);
   const [questions, setQuestions] = useState<client.Question[]>(quizData?.questions);
+  const [render, setRender] = useState("MC");
 
 //   const [currentQ, setCurrentQ] = useState({
 //     _id: "1121312",
@@ -31,15 +32,13 @@ const AddedQuestion: React.FC<AddedQuestionProps> = ({ questionData, quizData })
 
 
   const renderComponent = () => {
-    switch (question.type) {
+    switch (render) {
       case 'MC':
         return <MultipleChoice questionData={question} quizData={quiz!} />;
       case 'TF':
         return <TrueAndFalse questionData={question} quizData={quiz!} />;
       case 'BLANK':
         return <FillBlank questionData={question} quizData={quiz!}  />;
-      default:
-        return <MultipleChoice questionData={question} quizData={quiz!} />;
     }
   };
 
@@ -72,42 +71,19 @@ const AddedQuestion: React.FC<AddedQuestionProps> = ({ questionData, quizData })
   // each question is being mapped to AddedQuestion one at a time
   return (
     <div>
-      <div className='debug'>
         <div className="question">
-          <div className="header" style={{ backgroundColor: 'transparent' }}>
-            <input
-              type="text"
-              style={{ width: 150 }}
-              value={question?.name}
+            <select value={render}
               onChange={(e) => {
-                setQuestion({ ...question, name: e.target.value })
-                // console.log('Question name changed to:', question.name);
-              }}
-            />
-            <select value={question?.type}
-              onChange={(e) => {
-                setQuestion({ ...question, type: e.target.value })
+                setRender(e.target.value)
+                // setQuestion({ ...question, type: e.target.value })
                 // console.log('Question type changed to:', question.type);
               }}>
               <option value="MC">Multiple Choice</option>
               <option value="TF">True or False</option>
               <option value="BLANK">Fill in the Blank</option>
             </select>
-            <h6>points:</h6>
-            <input
-              type="string"
-              style={{ width: 150 }}
-              value={question?.points}
-              onChange={(e) => {
-                setQuestion({ ...question, points: e.target.value })
-                // console.log('Question points changed to:', question.points);
-              }}
-            />
           </div>
           {renderComponent()}
-        </div>
-        <button onClick={plsSave}>Save Question</button>
-      </div>
     </div>
   );
 }
